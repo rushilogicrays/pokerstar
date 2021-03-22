@@ -1,54 +1,113 @@
 .App {
-    text-align: center;
-  }
+  text-align: center;
+}
   
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+  
+@media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    height: 40vmin;
-    pointer-events: none;
+    animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.data-fatch {
+  display: grid;
+  grid-template-columns: 18% 20% 20% 20% 20%;
+  max-width: 80%;
+  margin: 0 auto;
+}
+.data-fatch p {
+  border: solid 1px #ddd;
+  margin: 0;
+  padding: 15px;
+  text-align: center;
+}
+.data-fatch p button {
+  margin: 0 10px;
+}
+
+/* Login form */
+
+.form-field h1 {
+  margin-bottom: 30px;
+  line-height: 30px;
+  font-size: 30px;
+}
+.login-form {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form-field {
+  background-color: #ddd;
+  padding: 30px;
+  max-width: 320px;
+  width: 100%;
+  border-radius: 5px;
+}
+.action-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
   
-  @media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-      animation: App-logo-spin infinite 20s linear;
-    }
-  }
-  
-  .App-header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-  
-  .App-link {
-    color: #61dafb;
-  }
-  
-  @keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
-  .data-fatch {
-    display: grid;
-    grid-template-columns: 18% 20% 20% 20% 20%;
-    max-width: 80%;
-    margin: 0 auto;
-  }
-  .data-fatch p {
-    border: solid 1px #ddd;
-    margin: 0;
-    padding: 15px;
-    text-align: center;
-  }
-  .data-fatch p button {
-    margin: 0 10px;
-  }
+/* header */
+
+.header-logo {
+  text-align: center;
+  max-width: 300px;
+  margin: 20px auto;
+}
+.header-logo img {
+  width: 100%;
+}
+.header-navigation-btn {
+  display: flex;
+  justify-content: space-between;
+}
+.header-navigation-btn #header-btn {
+  background-color: orange;
+  min-width: 150px;
+  border: none;
+  border-radius: 0;
+  font-size: 16px;
+  color: #000;
+  text-transform: uppercase;
+  font-weight: 500;
+  height: 40px;
+  line-height: 1.5;
+}
+.header-navigation-btn #header-btn:focus,
+.header-navigation-btn #header-btn:hover{
+ background-color: #ffa500b8;
+ outline: none;
+ box-shadow: none;
+}
