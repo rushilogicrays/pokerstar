@@ -6,6 +6,7 @@ import ChangePassword from "./screens/changePassword";
 import Header from "./components/header";
 import TournamentsDetails from './screens/tournamentsDetails';
 import TournamentsOverview from "./screens/tournamentsOverview";
+import Transaction from './screens/transaction';
 
 const App = () => {
   return(
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/pandingtournaments" exact component={PandingTournaments} />
         <Route path="/tournaments_details" exact component={TournamentsDetails} />
         <Route path="/tournaments_overview" exact component={TournamentsOverview} />
+        <Route path="/transaction" exact component={Transaction} />
       </Switch>
   </BrowserRouter>
   )
