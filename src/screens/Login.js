@@ -21,7 +21,7 @@ const Login = () => {
                         </Form.Group>
 
                         <div className="action-btn">
-                            <Link to="/changePassword">Forgot Password</Link>
+                            <Link to="/change_password">Forgot Password</Link>
                             <Button variant="primary" type="submit">Submit</Button>
                         </div>
                     </Form>

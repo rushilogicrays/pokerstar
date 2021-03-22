@@ -81,6 +81,10 @@
   
 /* header */
 
+.header-main .header {
+  width: 100%;
+  margin-bottom: 30px;
+}
 .header-logo {
   text-align: center;
   max-width: 300px;
@@ -93,21 +97,44 @@
   display: flex;
   justify-content: space-between;
 }
-.header-navigation-btn #header-btn {
+#orange-btn {
   background-color: orange;
   min-width: 150px;
   border: none;
   border-radius: 0;
   font-size: 16px;
   color: #000;
-  text-transform: uppercase;
   font-weight: 500;
   height: 40px;
   line-height: 1.5;
 }
-.header-navigation-btn #header-btn:focus,
-.header-navigation-btn #header-btn:hover{
- background-color: #ffa500b8;
- outline: none;
- box-shadow: none;
+#orange-btn:focus,
+#orange-btn:hover{
+ background-color: #ffa500b8 !important;
+ outline: none !important;
+ box-shadow: none !important;
+}
+
+/* Tournaments details */
+
+.details-left-btn #orange-btn {
+  width: 100%;
+  margin-bottom: 15px;
+}
+#yello-btn {
+  background-color: #ffc107;
+  min-width: 150px;
+  border: none;
+  border-radius: 0;
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+  height: 40px;
+  line-height: 1.5;
+}
+#yello-btn:focus,
+#yello-btn:hover{
+ background-color: #ffc1079e !important;
+ outline: none !important;
+ box-shadow: none !important;
 }

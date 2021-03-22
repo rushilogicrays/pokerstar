@@ -9,16 +9,18 @@ const Header = () => {
     return (
         <div className="header-main">
             <div className="container">
-                <div className="header">
-                    <div className="header-logo">
-                        <img src={Logo}/>
-                    </div>
-                    <div className="header-navigation-btn">
-                        <Button id="header-btn">Tournaments</Button>
-                        <Button id="header-btn">Account</Button>
-                        <Button id="header-btn">Reporting</Button>
-                        <Button id="header-btn">My Admin</Button>
-                        <Button id="header-btn">Logout</Button>
+                <div className="row">
+                    <div className="header">
+                        <div className="header-logo">
+                            <img src={Logo} />
+                        </div>
+                        <div className="header-navigation-btn">
+                            <Button id="orange-btn">Tournaments</Button>
+                            <Button id="orange-btn">Account</Button>
+                            <Button id="orange-btn">Reporting</Button>
+                            <Button id="orange-btn">My Admin</Button>
+                            <Button id="orange-btn">Logout</Button>
+                        </div>
                     </div>
                 </div>
             </div>
