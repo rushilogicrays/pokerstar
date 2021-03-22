@@ -98,9 +98,9 @@
   justify-content: space-between;
 }
 #orange-btn {
-  background-color: orange;
+  background-color: #ff8b41;
   min-width: 150px;
-  border: none;
+  border: solid 2px #af500b;
   border-radius: 0;
   font-size: 16px;
   color: #000;
@@ -110,21 +110,22 @@
 }
 #orange-btn:focus,
 #orange-btn:hover{
- background-color: #ffa500b8 !important;
+ background-color: #af500b !important;
  outline: none !important;
  box-shadow: none !important;
+ color: #fff;
 }
 
 /* Tournaments details */
 
 .details-left-btn #orange-btn {
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 } 
 #yello-btn {
-  background-color: #ffc107;
+  background-color: #ffc531;
   min-width: 150px;
-  border: none;
+  border: solid 2px #bd8c1c;
   border-radius: 0;
   font-size: 16px;
   color: #000;
@@ -134,7 +135,182 @@
 }
 #yello-btn:focus,
 #yello-btn:hover{
- background-color: #ffc1079e !important;
+ background-color: #bd8c1c !important;
  outline: none !important;
  box-shadow: none !important;
+ color: #fff;
+}
+ul.btn-row {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: grid;
+  margin-bottom: 30px;
+  grid-template-columns: 25% 25% 25% 25%;
+  text-align: right;
+}
+#blue-btn {
+  background-color: #85c9e1;
+  min-width: 150px;
+  border: solid 2px #308eb5;
+  border-radius: 0;
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+  height: 40px;
+  line-height: 1.5;
+}
+#blue-btn:focus,
+#blue-btn:hover{
+ background-color: #308eb5 !important;
+ outline: none !important;
+ box-shadow: none !important;
+ color: #fff;
+}
+#purple-btn{
+  background-color: #bd62ce;
+  min-width: 150px;
+  border: solid 2px #360040;
+  border-radius: 0;
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+  height: 40px;
+  line-height: 1.5;
+}
+#purple-btn:focus,
+#purple-btn:hover{
+ background-color: #360040 !important;
+ outline: none !important;
+ box-shadow: none !important;
+ color: #fff;
+}
+#red-btn{
+  background-color: #d1444c;
+  min-width: 150px;
+  border: solid 2px #7d2024;
+  border-radius: 0;
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+  height: 40px;
+  line-height: 1.5;
+}
+#purple-btn:focus,
+#purple-btn:hover{
+ background-color: #7d2024 !important;
+ outline: none !important;
+ box-shadow: none !important;
+ color: #fff;
+}
+#pink-btn{
+  background-color: #ffa1b4;
+  min-width: 150px;
+  border: solid 2px #c66d82;
+  border-radius: 0;
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+  height: 40px;
+  line-height: 1.5;
+}
+#pink-btn:focus,
+#pink-btn:hover{
+ background-color: #c66d82 !important;
+ outline: none !important;
+ box-shadow: none !important;
+ color: #fff;
+}
+#green-btn{
+  background-color: #5aac62;
+  min-width: 150px;
+  border: solid 2px #38833f;
+  border-radius: 0;
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+  height: 40px;
+  line-height: 1.5;
+}
+#green-btn:focus,
+#green-btn:hover{
+ background-color: #38833f !important;
+ outline: none !important;
+ box-shadow: none !important;
+ color: #fff;
+}
+ul.btn-row li .blue-select {
+  background-color: #85c9e1;
+  width: 150px;
+  border: solid 2px #308eb5;
+  border-radius: 0;
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+  height: 40px;
+  line-height: 1.5;
+  margin-right: 0 !important;
+}
+ul.btn-row li .blue-select:focus,
+ul.btn-row li .blue-select:hover {
+  background-color: #308eb5 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #000;
+}
+.yello-value {
+  background-color: #ffc531;
+  min-width: 150px;
+  border: solid 2px #bd8c1c;
+  border-radius: 0;
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+  height: 40px;
+  line-height: 35px;
+  display: inline-block;
+  text-align: center;
+}
+.purple-value{
+  background-color: #bd62ce;
+  min-width: 150px;
+  border: solid 2px #360040;
+  border-radius: 0;
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+  height: 40px;
+  line-height: 35px;
+  display: inline-block;
+  text-align: center;
+}
+#blue-input {
+  background-color: #85c9e1;
+  width: 150px;
+  border: solid 2px #308eb5;
+  border-radius: 0;
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+  height: 40px;
+  line-height: 1.5;
+  text-align: center;
+}
+#blue-input {
+  background-color: #85c9e1;
+  width: 150px;
+  border: solid 2px #308eb5;
+  border-radius: 0;
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+  height: 40px;
+  line-height: 1.5;
+  text-align: center;
+}
+#blue-input::placeholder {
+  color: #000;
+}
+.tournament-details-table table tbody tr td {
+  vertical-align: middle;
 }
