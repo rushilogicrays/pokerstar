@@ -314,3 +314,23 @@ ul.btn-row li .blue-select:hover {
 .tournament-details-table table tbody tr td {
   vertical-align: middle;
 }
+
+/* transaction */
+
+.transaction-main ul.btn-row li .blue-select,
+.transaction-main #blue-input {
+  width: inherit;
+  min-width: 150px;
+}
+ul.btn-row li textarea {
+  background-color: #85c9e1;
+  border: solid 2px #308eb5;
+  border-radius: 0;
+  font-size: 16px;
+  color: #000;
+  font-weight: 500;
+  height: 40px;
+  line-height: 1.5;
+  width: 90%;
+  padding: 0 10px;
+}
