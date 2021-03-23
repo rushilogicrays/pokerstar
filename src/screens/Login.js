@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios';
 
-const Login = () => {
+const Login = (props) => {
     const [userName, setUserName] = useState(undefined);
     const [password, setPassword] = useState(undefined);
     console.log("username --->", userName)
@@ -19,10 +19,12 @@ const Login = () => {
             } 
           })
             .then(function (response) {
-              console.log("res ---->", response.data);
+                localStorage.setItem("accessToken", response.data.key)
+                props.history.push('/pandingtournaments')
             });
         event.preventDefault();
     }
+    console.log("userName ---->", localStorage.getItem("accessToken"));
     return (
         <div className="login-page-main">
             <div className="container">
@@ -34,7 +36,7 @@ const Login = () => {
                             <Form.Control 
                                 type="username" 
                                 placeholder="Enter email" 
-                                onChange={(value) => console.log(value)} 
+                                onChange={(e) => setUserName(e.target.value)} 
                             />
                         </Form.Group>
 
@@ -43,7 +45,7 @@ const Login = () => {
                             <Form.Control 
                                 type="password" 
                                 placeholder="Password" 
-                                onChange={(value) => setPassword(value)}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </Form.Group>
 

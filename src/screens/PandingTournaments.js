@@ -5,19 +5,22 @@ import axios from 'axios';
 import moment from 'moment'
 
 
-const PandingTournaments = () => {
+const PandingTournaments = (props) => {
   const [data, setData] = useState([])
 
   useEffect(() => {
     axios({
       method: 'get',
       url: 'http://143.110.254.46:8084/poker/api/pending-tournaments',
+      // headers: {
+      //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
+      // }
     })
       .then(function (response) {
+        console.log("response ---->", response.data);
         setData(response.data);
       });
   }, []);
-
   return (
     <div className="App">
       <div className="data-fatch">
@@ -30,7 +33,7 @@ const PandingTournaments = () => {
         return (
           <div>
             {item &&
-              <div style={{cursor: "pointer"}} onClick={() => console.log("here")} className="data-fatch">
+              <div style={{cursor: "pointer"}} onClick={() => props.history.push(`/tournaments_details/${item.external_id}`)} className="data-fatch">
                 <p>{"#" + item.external_id}</p>
                 <p>{moment(item.start_tournament).format("h:mm") + " - " + moment(item.start_tournament).format("DD.MM.YY")}</p>
                 <p>{moment(item.end_tournament).format("h:mm") + " - " + moment(item.end_tournament).format("DD.MM.YY")}</p>
