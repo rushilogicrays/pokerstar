@@ -428,3 +428,38 @@ ul.btn-row li textarea {
 .login-form .action-btn #orange-btn {
   min-width: 110px;
 }
+
+/* Account */
+
+.account-name-details ul.btn-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.account-name-details ul.btn-row li {
+  margin-bottom: 10px;
+}
+.account-name-details ul.btn-row li span {
+  padding: 0 10px;
+}
+.account-deposit-btn ul.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.magenta-value {
+  background-color: #a8647b;
+  min-width: 150px;
+  border: solid 2px #3e0011;
+  border-radius: 0;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 500;
+  height: 40px;
+  line-height: 35px;
+  display: inline-block;
+  text-align: center;
+}
+.account-overview-page-main .overview-search {
+  margin-bottom: 30px;
+}
