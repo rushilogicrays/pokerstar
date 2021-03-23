@@ -49,7 +49,7 @@ const Login = () => {
 
                         <div className="action-btn">
                             <Link to="/change_password">Forgot Password</Link>
-                            <Button variant="primary" type="submit" onClick={e => submitLogin(e)}>Submit</Button>
+                            <Button id="orange-btn" variant="primary" type="submit" onClick={e => submitLogin(e)}>Submit</Button>
                         </div>
                     </Form>
                 </div>

@@ -317,6 +317,54 @@ ul.btn-row li .blue-select:hover {
 
 /* transaction */
 
+.transaction-feild {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #ddd;
+  border-radius: 5px;
+}
+.back-type-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+input.date-input {
+  display: inline-block;
+  width: 100%;
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem 1.75rem .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  border: none;
+  border-radius: 4px;
+}
+input.input-text {
+  display: inline-block;
+  width: 100%;
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem 1.75rem .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  border: none;
+  border-radius: 4px;
+}
+textarea.textarea-text {
+  display: inline-block;
+  width: 100%;
+  padding: .375rem 1.75rem .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  border: none;
+  border-radius: 4px;
+}
 .transaction-main ul.btn-row li .blue-select,
 .transaction-main #blue-input {
   width: inherit;
@@ -333,4 +381,50 @@ ul.btn-row li textarea {
   line-height: 1.5;
   width: 90%;
   padding: 0 10px;
+}
+
+/* tournaments overview */
+
+.overview-search {
+  margin-top: 30px;
+}
+.overview-search form.form-inline input.form-control {
+  width: 68%;
+}
+.tournament-details-table table thead tr th {
+  font-size: 13px;
+  vertical-align: middle;
+  padding: 8px;
+}
+.tournament-details-table table tbody tr td {
+  vertical-align: middle;
+  font-size: 13px;
+  padding: 10px;
+}
+.subtotale-box {
+  margin-top: 30px;
+}
+.subtotale-box ul {
+  margin: 0;
+  list-style: none;
+  background-color: #ddd;
+  padding: 15px;
+  border-radius: 5px;
+}
+.subtotale-box ul li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  color: #000;
+}
+.subtotale-box ul li.deducation-text {
+  border-bottom: dotted 1px #000;
+  padding-bottom: 15px;
+}
+.add-deducation-btn {
+  margin: 30px 0;
+}
+.login-form .action-btn #orange-btn {
+  min-width: 110px;
 }

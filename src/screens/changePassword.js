@@ -26,7 +26,7 @@ const ChangePassword = () => {
                         </Form.Group>
 
                         <div className="action-btn">
-                            <Button variant="primary" type="submit">Change Password</Button>
+                            <Button id="orange-btn" variant="primary" type="submit">Change Password</Button>
                         </div>
                     </Form>
                 </div>
