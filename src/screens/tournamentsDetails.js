@@ -4,8 +4,38 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Header from '../components/header';
 import Table from 'react-bootstrap/Table';
+import axios from 'axios';
 
-const Tournamentsdetails = () => {
+
+const Tournamentsdetails = (props) => {
+    const [data, setData] = useState(undefined);
+    console.log("props?.match?.params?.slug ---->", props?.match?.params?.slug);
+    useEffect(() => {
+        axios({
+          method: 'get',
+          url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,
+          // headers: {
+          //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
+          // }
+        })
+          .then(function (response) {
+            setData(response.data);
+          });
+      }, []);
+
+      const deleteTournament = () => {
+        axios({
+            method: 'delete',
+            url: `http://143.110.254.46/poker/api/delete-tournament`,
+            // headers: {
+            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
+            // }
+          })
+            .then(function (response) {
+              console.log(response.data);
+            });
+      }
+
     return (
         <div className="tournamnets-details-main">
             <div className="container">
@@ -57,7 +87,7 @@ const Tournamentsdetails = () => {
                                 <li> <span className="purple-value"> Total Tip </span> </li>
                             </ul>
                             <ul className="btn-row">
-                                <li> <Button id="red-btn"> Delete </Button> </li>
+                                <li> <Button id="red-btn" onClick={() => deleteTournament()}> Delete </Button> </li>
                                 <li> <Button id="pink-btn"> Reset </Button> </li>
                                 <li> <Button id="green-btn"> Save </Button> </li>
                             </ul>
@@ -72,68 +102,16 @@ const Tournamentsdetails = () => {
                                         <th>Tip</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>#1</td>
-                                        <td>Simba34</td>
-                                        <td><input type="text" id="blue-input" placeholder="5656564"/></td>
-                                        <td><input type="text" id="blue-input" placeholder="Tip"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td>#2</td>
-                                        <td>Slice 666</td>
-                                        <td><input type="text" id="blue-input" placeholder="5656564"/></td>
-                                        <td> <input type="text" id="blue-input" placeholder="Tip"/> </td>
-                                    </tr>
-                                    <tr>
-                                        <td>#3</td>
-                                        <td>Janba2k11</td>
-                                        <td><input type="text" id="blue-input" placeholder="5656564"/></td>
-                                        <td><input type="text" id="blue-input" placeholder="Tip"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td>34</td>
-                                        <td>Papapingu</td>
-                                        <td><input type="text" id="blue-input" placeholder="5656564"/></td>
-                                        <td><input type="text" id="blue-input" placeholder="Tip"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td>#5</td>
-                                        <td>Papapingu</td>
-                                        <td><input type="text" id="blue-input" placeholder="5656564"/></td>
-                                        <td><input type="text" id="blue-input" placeholder="Tip"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td>#6</td>
-                                        <td>Papapingu</td>
-                                        <td><input type="text" id="blue-input" placeholder="5656564"/></td>
-                                        <td><input type="text" id="blue-input" placeholder="Tip"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td>#7</td>
-                                        <td>Papapingu</td>
-                                        <td><input type="text" id="blue-input" placeholder="5656564"/></td>
-                                        <td><input type="text" id="blue-input" placeholder="Tip"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td>#8</td>
-                                        <td>Papapingu</td>
-                                        <td><input type="text" id="blue-input" placeholder="5656564"/></td>
-                                        <td><input type="text" id="blue-input" placeholder="Tip"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td>#9</td>
-                                        <td>Papapingu</td>
-                                        <td><input type="text" id="blue-input" placeholder="5656564"/></td>
-                                        <td><input type="text" id="blue-input" placeholder="Tip"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td>#10</td>
-                                        <td>Papapingu</td>
-                                        <td><input type="text" id="blue-input" placeholder="5656564"/></td>
-                                        <td><input type="text" id="blue-input" placeholder="Tip"/></td>
-                                    </tr>
-                                </tbody>
+                                {data?.rank?.map((item) => (
+                                    <tbody>
+                                        <tr>
+                                            <td>{`#${item.position}`}</td>
+                                            <td>Simba34</td>
+                                            <td><input type="text" id="blue-input" placeholder={item.payout}/></td>
+                                            <td><input type="text" id="blue-input" placeholder={item.tip}/></td>
+                                        </tr>
+                                    </tbody>
+                                ))}
                             </Table>
                         </div>
                     </div>
