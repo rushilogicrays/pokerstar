@@ -25,7 +25,7 @@ const App = () => {
         <Route path="/account-details" exact component={AccountDetails} />
         <Route path="/account-overview" exact component={AccountOverview} />
         <Route path="/reporting-non-confirmed-deposit" exact component={ReportingNonConfirmedDeposit} />
-        <Route path="/aeporting-all-account-debt" exact component={ReportingAllAccountDebt} />
+        <Route path="/reporting-all-account-debt" exact component={ReportingAllAccountDebt} />
       </Switch>
   </BrowserRouter>
   )

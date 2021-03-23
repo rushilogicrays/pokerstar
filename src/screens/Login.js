@@ -8,7 +8,6 @@ const Login = (props) => {
     const [userName, setUserName] = useState(undefined);
     const [password, setPassword] = useState(undefined);
     console.log("username --->", userName)
-    console.log("password --->", password)
     const submitLogin = (event) => {
         axios({
             method: 'post',
@@ -24,7 +23,6 @@ const Login = (props) => {
             });
         event.preventDefault();
     }
-    console.log("userName ---->", localStorage.getItem("accessToken"));
     return (
         <div className="login-page-main">
             <div className="container">
