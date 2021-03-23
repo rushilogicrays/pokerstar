@@ -22,15 +22,15 @@ const Tournamentsdetails = (props) => {
             totalTip += a[i].tip;
         }
     }
-    console.log("tournamentDetail ----->", data);
+    console.log("tournamentDetail ----->", rake);
     // console.log('total', props?.match?.params?.slug)
     useEffect(() => {
         axios({
-          method: 'get',
-          url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,
-          // headers: {
-          //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-          // }
+            method: 'get',
+            url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,
+            // headers: {
+            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
+            // }
         })
           .then(function (response) {
             setTournamentDetail(response.data.tournament);
@@ -41,7 +41,7 @@ const Tournamentsdetails = (props) => {
           });
       }, []);
 
-      const deleteTournament = () => {
+    const deleteTournament = () => {
         axios({
             method: 'delete',
             url: `http://143.110.254.46/poker/api/delete-tournament/${props?.match?.params?.slug}`,
@@ -60,7 +60,7 @@ const Tournamentsdetails = (props) => {
             // headers: {
             //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
             // }
-          })
+        })
             .then(function (response) {
                 console.log("response --->", response.data);
                 setData(response.data.rank);

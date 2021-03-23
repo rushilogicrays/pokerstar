@@ -7,6 +7,8 @@ import Header from "./components/header";
 import TournamentsDetails from './screens/tournamentsDetails';
 import TournamentsOverview from "./screens/tournamentsOverview";
 import Transaction from './screens/transaction';
+import AccountDetails from './screens/accountDetails';
+import AccountOverview from './screens/accountOverview';
 
 const App = () => {
   return(
@@ -18,6 +20,8 @@ const App = () => {
         <Route path="/tournaments_details/:slug" exact component={TournamentsDetails} />
         <Route path="/tournaments_overview" exact component={TournamentsOverview} />
         <Route path="/transaction" exact component={Transaction} />
+        <Route path="/account-details" exact component={AccountDetails} />
+        <Route path="/account-overview" exact component={AccountOverview} />
       </Switch>
   </BrowserRouter>
   )
