@@ -12,29 +12,29 @@ const Tournamentsdetails = (props) => {
     console.log("props?.match?.params?.slug ---->", props?.match?.params?.slug);
     useEffect(() => {
         axios({
-            method: 'get',
-            url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,
-            // headers: {
-            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-            // }
+          method: 'get',
+          url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,
+          // headers: {
+          //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
+          // }
         })
-            .then(function (response) {
-                setData(response.data);
-            });
-    }, []);
+          .then(function (response) {
+            setData(response.data);
+          });
+      }, []);
 
-    const deleteTournament = () => {
+      const deleteTournament = () => {
         axios({
             method: 'delete',
             url: `http://143.110.254.46/poker/api/delete-tournament`,
             // headers: {
             //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
             // }
-        })
+          })
             .then(function (response) {
-                console.log(response.data);
+              console.log(response.data);
             });
-    }
+      }
 
     return (
         <div className="tournamnets-details-main">
@@ -58,7 +58,7 @@ const Tournamentsdetails = (props) => {
                                 <li> <Button id="orange-btn"> Back </Button> </li>
                             </ul>
                             <ul className="btn-row">
-                                <li> <input type="text" id="blue-input" placeholder="Input Name" /> </li>
+                                <li> <input type="text" id="blue-input" placeholder="Input Name"/> </li>
                                 <li> <Form.Control
                                     as="select"
                                     className="mr-sm-2 blue-select"
@@ -78,7 +78,7 @@ const Tournamentsdetails = (props) => {
                                     <option value="3">430/14</option>
                                 </Form.Control>
                                 </li>
-                                <li> <input type="text" id="blue-input" placeholder="Rake" /> </li>
+                                <li> <input type="text" id="blue-input" placeholder="Rake"/> </li>
                             </ul>
                             <ul className="btn-row">
                                 <li> <span className="yello-value"> Total Players </span> </li>
@@ -107,8 +107,8 @@ const Tournamentsdetails = (props) => {
                                         <tr>
                                             <td>{`#${item.position}`}</td>
                                             <td>Simba34</td>
-                                            <td><input type="text" id="blue-input" placeholder={item.payout} /></td>
-                                            <td><input type="text" id="blue-input" placeholder={item.tip} /></td>
+                                            <td><input type="text" id="blue-input" placeholder={item.payout}/></td>
+                                            <td><input type="text" id="blue-input" placeholder={item.tip}/></td>
                                         </tr>
                                     </tbody>
                                 ))}

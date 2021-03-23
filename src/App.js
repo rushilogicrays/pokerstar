@@ -9,6 +9,8 @@ import TournamentsOverview from "./screens/tournamentsOverview";
 import Transaction from './screens/transaction';
 import AccountDetails from './screens/accountDetails';
 import AccountOverview from './screens/accountOverview';
+import ReportingNonConfirmedDeposit from './screens/ReportingNonConfirmedDeposit';
+import ReportingAllAccountDebt from './screens/ReportingAllAccountDebt';
 
 const App = () => {
   return(
@@ -22,6 +24,8 @@ const App = () => {
         <Route path="/transaction" exact component={Transaction} />
         <Route path="/account-details" exact component={AccountDetails} />
         <Route path="/account-overview" exact component={AccountOverview} />
+        <Route path="/reporting-non-confirmed-deposit" exact component={ReportingNonConfirmedDeposit} />
+        <Route path="/aeporting-all-account-debt" exact component={ReportingAllAccountDebt} />
       </Switch>
   </BrowserRouter>
   )
