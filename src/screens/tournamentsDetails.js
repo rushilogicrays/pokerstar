@@ -130,7 +130,7 @@ const Tournamentsdetails = (props) => {
                 <div className="row">
                     <div className="col-md-3 col-sm-3">
                         <div className="details-left-btn">
-                            <Button id="orange-btn" onClick={() => props.history.goBack()}>Panding Tournaments</Button>
+                            <Button id="orange-btn" onClick={() => props.history.goBack()}>Pending Tournaments</Button>
                             <Button id="orange-btn">Tournaments Overview</Button>
                         </div>
                     </div>
