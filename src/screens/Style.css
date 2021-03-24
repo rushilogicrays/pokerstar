@@ -149,6 +149,9 @@ ul.btn-row {
   grid-template-columns: 25% 25% 25% 25%;
   text-align: right;
 }
+.tournamnets-details-main ul.btn-row {
+  text-align: left;
+}
 #blue-btn {
   background-color: #85c9e1;
   min-width: 150px;
