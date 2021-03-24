@@ -222,13 +222,13 @@ const Tournamentsdetails = (props) => {
                     <div className="col-md-9 col-sm-9">
                         <div className="details-table-btn">
                             <ul className="btn-row">
-                                <li> <span className="yello-value"> {`${props?.match?.params?.slug ? props?.match?.params?.slug :  "Tournament ID" }`} </span> </li>
-                                <li> <span className="yello-value"> {`${tournamentDetail?.length > 0 ? moment(tournamentDetail[0].start_tournament).format("h:mm") + " - " + moment(tournamentDetail[0].start_tournament).format("DD.MM.YY") : "Start"}`} </span> </li>
-                                <li> <span className="yello-value"> {`${tournamentDetail?.length > 0 ? moment(tournamentDetail[0].end_tournament).format("h:mm") + " - " + moment(tournamentDetail[0].end_tournament).format("DD.MM.YY") : "End"}`} </span> </li>
+                                <li> <span className="lable" >Tournament ID</span> <span className="yello-value"> {`${props?.match?.params?.slug ? props?.match?.params?.slug :  "Tournament ID" }`} </span> </li>
+                                <li> <span className="lable" >Start</span> <span className="yello-value"> {`${tournamentDetail?.length > 0 ? moment(tournamentDetail[0].start_tournament).format("h:mm") + " - " + moment(tournamentDetail[0].start_tournament).format("DD.MM.YY") : "Start"}`} </span> </li>
+                                <li> <span className="lable" > End </span> <span className="yello-value"> {`${tournamentDetail?.length > 0 ? moment(tournamentDetail[0].end_tournament).format("h:mm") + " - " + moment(tournamentDetail[0].end_tournament).format("DD.MM.YY") : "End"}`} </span> </li>
                                 <li> <Button id="orange-btn" onClick={() => props.history.goBack()}> Back </Button> </li>
                             </ul>
                             <ul className="btn-row">
-                                <li> <input type="text" id="blue-input" placeholder="Input Name" value={name} onChange={(e) => setName(e.target.value)}/> </li>
+                                <li> <span className="lable" >Name</span> <input type="text" id="blue-input" placeholder="Input Name" value={name} onChange={(e) => setName(e.target.value)}/> </li>
                                 {/* <li> <Form.Control
                                     as="select"
                                     className="mr-sm-2 blue-select"
@@ -249,14 +249,14 @@ const Tournamentsdetails = (props) => {
                                     <option value="430/14">430/14</option>
                                 </Form.Control>
                                 </li> */}
-                                <li> <input type="text" id="blue-input" placeholder="BuyIn" value={buyIn} onChange={(e) => setBuyIn(e.target.value)}/> </li>
-                                <li> <input type="text" id="blue-input" placeholder="Rake" value={rake}  onChange={e => setRake(e.target.value)}/> </li>
+                                <li> <span className="lable" >Buyin</span> <input type="text" id="blue-input" placeholder="BuyIn" value={buyIn} onChange={(e) => setBuyIn(e.target.value)}/> </li>
+                                <li> <span className="lable" >Rake</span> <input type="text" id="blue-input" placeholder="Rake" value={rake}  onChange={e => setRake(e.target.value)}/> </li>
                             </ul>
                             <ul className="btn-row">
-                                <li> <span className="yello-value">{`${tournamentDetail?.length > 0 ? tournamentDetail[0].total_players : "Total Playes"}`}</span> </li>
-                                <li> <span className="purple-value">{`${totalPrizepool ? totalPrizepool : "Total Players"}`}</span> </li>
-                                <li> <span className="purple-value"> {`${totalRake ? totalRake: "Total Rake"}`}</span> </li>
-                                <li> <span className="purple-value"> {`${totalTip ? totalTip : "Total Tip"}`}</span> </li>
+                                <li> <span className="lable" >Total Players</span> <span className="yello-value">{`${tournamentDetail?.length > 0 ? tournamentDetail[0].total_players : "Total Playes"}`}</span> </li>
+                                <li> <span className="lable" >Total Pricepool</span> <span className="purple-value">{`${totalPrizepool ? totalPrizepool : "Total Players"}`}</span> </li>
+                                <li> <span className="lable" >Total Rake</span> <span className="purple-value"> {`${totalRake ? totalRake: "Total Rake"}`}</span> </li>
+                                <li> <span className="lable" >Total Tip</span> <span className="purple-value"> {`${totalTip ? totalTip : "Total Tip"}`}</span> </li>
                             </ul>
                             <ul className="btn-row">
                                 <li> <Button id="red-btn" onClick={() => deleteTournament()}> Delete </Button> </li>
