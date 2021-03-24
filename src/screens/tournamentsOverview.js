@@ -9,13 +9,14 @@ import Tournamentsdetails from './tournamentsDetails';
 import axios from 'axios';
 import moment from 'moment'
 
-const TournamentsOverview = () => {
+const TournamentsOverview = (props) => {
     const [value, setValue] = useState(new Date());
     const [tournamentDetails, setTournamentDetails] = useState(undefined);
+    const [originalData, setOriginalData] = useState(undefined);
     const [searchId, setSearchId] = useState(undefined);
     let date = moment(value).format("YYYY-MM-DD");
-    console.log("date --->", searchId);
-    useEffect(() => {
+    console.log("date --->", originalData);
+    useEffect(async() => {
         axios({
             method: 'get',
             url: `http://143.110.254.46/poker/api/tournament-overview?date=${date}`,
@@ -24,8 +25,8 @@ const TournamentsOverview = () => {
             // }
           })
             .then(function (response) {
-                console.log("response --->", response.data);
-                setTournamentDetails(response.data);
+                setTournamentDetails(response.data)
+                setOriginalData(response.data);
             });
     },[])
     const fetchDataByDate = (date) => {
@@ -38,13 +39,13 @@ const TournamentsOverview = () => {
             // }
           })
             .then(function (response) {
-                console.log("response --->", response.data);
+                setOriginalData(response.data);
                 setTournamentDetails(response.data);
         });
     }
 
     const searchById = (e) => {
-        let data = tournamentDetails?.filter((item) => item.external_id.toString() === searchId && item);
+        let data = originalData?.filter((item) => item.external_id.toString() === searchId && item);
         setTournamentDetails(data);
     }
     return (
@@ -94,7 +95,7 @@ const TournamentsOverview = () => {
                                 </thead>
                                 {tournamentDetails.map((item) => (
                                     <tbody>
-                                        <tr>
+                                        <tr onClick={() => props.history.push(`/tournaments_details/${item.external_id}`)}>
                                             <td>{"#" + item?.external_id}</td>
                                             <td>{item?.name}</td>
                                             <td>{moment(item?.start_tournament).format("h:mm") + " - " + moment(item?.start_tournament).format("DD.MM.YY")}</td>
@@ -110,7 +111,7 @@ const TournamentsOverview = () => {
                         </div>}
                         <div className="deducation-details-table">
                             <div className="add-deducation-btn">
-                                <Button id="orange-btn"> Add Deducation </Button>
+                                <Button id="orange-btn" onClick={() => props.history.push('/transaction/Deduction')}> Add Deducation </Button>
                             </div>
                             <Table striped bordered hover>
                                 <thead>

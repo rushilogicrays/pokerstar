@@ -21,7 +21,7 @@ const App = () => {
         <Route path="/pandingtournaments" exact component={PandingTournaments} />
         <Route path="/tournaments_details/:slug" exact component={TournamentsDetails} />
         <Route path="/tournaments_overview" exact component={TournamentsOverview} />
-        <Route path="/transaction" exact component={Transaction} />
+        <Route path="/transaction/:slug" exact component={Transaction} />
         <Route path="/account-details" exact component={AccountDetails} />
         <Route path="/account-overview" exact component={AccountOverview} />
         <Route path="/reporting-non-confirmed-deposit" exact component={ReportingNonConfirmedDeposit} />
