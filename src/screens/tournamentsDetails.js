@@ -73,54 +73,131 @@ const Tournamentsdetails = (props) => {
                     console.log("6 to 8")
                 }
                 if(totalPlayers >= 9 && totalPlayers <= 14){
-                    await setData(
-                        data?.map(item => 
-                                 item.position === 1 ? {...item, payout : 10} : item
-                            )    
+                    let updatedData = data?.map(item => 
+                            item.position === 1 ? {...item, payout : ((PrizePool*50)/100)} : item
                         )
-                    console.log("inthe the if --->", data);
-                    await setData(
-                        data?.map(item => 
-                                 item.position === 2 ? {...item, payout : 20} : item
-                            )    
+                    await setData(updatedData);
+                    let updatedData1 = updatedData?.map(item => 
+                        item.position === 2 ? {...item, payout : ((PrizePool*30)/100)} : item
                     )
-                    await setData(
-                        data?.map(item => 
-                                 item.position === 3 ? {...item, payout : ((PrizePool*10)/100)} : item
-                            )    
+                    await setData(updatedData1);
+                    let updatedData2 = updatedData1?.map(item => 
+                        item.position === 3 ? {...item, payout : ((PrizePool*20)/100)} : item
                     )
-                    // await setData(
-                    //     data?.map(item => 
-                    //              item.position > 3  ? {...item, payout : ""} : item
-                    //         )    
-                    // )
-                    // let dataupdate = data?.map(item => 
-                    //     item.position === 1 && {...item, payout : ((PrizePool*50)/100)}  
-                    // )
-                    // // console.log(dataupdate[0]);
-                    // {data?.map((item) => item.id === dataupdate[0].id ? console.log(item): null)}
-                    //await setData([...data, dataupdate[0]])
-                    //await setData(data.map(el => (el.id === dataupdate.id ? console.log("here") : el)))
-                    
-                    // await setData(
-                    //     data?.map(item => 
-                    //              item.position === 2 && {...item, payout : ((PrizePool*30)/100)}
-                    //         )
-                    // )
-                    // await setData(
-                    //     data?.map(item => 
-                    //              item.position === 3 && {...item, payout : ((PrizePool*10)/100)}
-                    //         )
-                            
-                    // )
-                    // await setData(
-                    //     data?.map(item => 
-                    //              item.position >= 4 && {...item, payout : ""}
-                    //         )
-                            
-                    // )
-
-                    console.log("9 to 14")
+                    await setData(updatedData2);
+                    let updatedData3 = updatedData2?.map(item => 
+                        item.position === 4 ? {...item, payout : ""} : item
+                    )
+                    await setData(updatedData3);
+                    await setData(
+                            updatedData3?.map(item => 
+                                         item.position > 4  ? {...item, payout : ""} : item
+                                    )    
+                            )
+                }
+                if (totalPlayers >= 15 && totalPlayers <= 17) {
+                    let updatedData = data?.map(item =>
+                        item.position === 1 ? { ...item, payout: ((PrizePool * 50) / 100) } : item
+                    )
+                    await setData(updatedData);
+                    let updatedData1 = updatedData?.map(item =>
+                        item.position === 2 ? { ...item, payout: ((PrizePool * 30) / 100) } : item
+                    )
+                    await setData(updatedData1);
+                    let updatedData2 = updatedData1?.map(item =>
+                        item.position === 3 ? { ...item, payout: ((PrizePool * 20) / 100) } : item
+                    )
+                    await setData(updatedData2);
+                    let updatedData3 = updatedData2?.map(item =>
+                        item.position === 4 ? { ...item, payout: "" } : item
+                    )
+                    await setData(updatedData3);
+                    await setData(
+                        updatedData3?.map(item =>
+                            item.position > 4 ? { ...item, payout: "" } : item
+                        )
+                    )
+                }
+                if (totalPlayers >= 18 && totalPlayers <= 24) {
+                    let updatedData = data?.map(item =>
+                        item.position === 1 ? { ...item, payout: ((PrizePool * 45) / 100) } : item
+                    )
+                    await setData(updatedData);
+                    let updatedData1 = updatedData?.map(item =>
+                        item.position === 2 ? { ...item, payout: ((PrizePool * 27) / 100) } : item
+                    )
+                    await setData(updatedData1);
+                    let updatedData2 = updatedData1?.map(item =>
+                        item.position === 3 ? { ...item, payout: ((PrizePool * 17) / 100) } : item
+                    )
+                    await setData(updatedData2);
+                    let updatedData3 = updatedData2?.map(item =>
+                        item.position === 4 ? { ...item, payout: ((PrizePool * 11) / 100) } : item
+                    )
+                    await setData(updatedData3);
+                    await setData(
+                        updatedData3?.map(item =>
+                            item.position > 4 ? { ...item, payout: "" } : item
+                        )
+                    )
+                }
+                if (totalPlayers >= 25 && totalPlayers <= 29) {
+                    let updatedData = data?.map(item =>
+                        item.position === 1 ? { ...item, payout: ((PrizePool * 38) / 100) } : item
+                    )
+                    await setData(updatedData);
+                    let updatedData1 = updatedData?.map(item =>
+                        item.position === 2 ? { ...item, payout: ((PrizePool * 25) / 100) } : item
+                    )
+                    await setData(updatedData1);
+                    let updatedData2 = updatedData1?.map(item =>
+                        item.position === 3 ? { ...item, payout: ((PrizePool * 17) / 100) } : item
+                    )
+                    await setData(updatedData2);
+                    let updatedData3 = updatedData2?.map(item =>
+                        item.position === 4 ? { ...item, payout: ((PrizePool * 12) / 100) } : item
+                    )
+                    await setData(updatedData3);
+                    let updatedData4 = updatedData3?.map(item =>
+                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                    )
+                    await setData(updatedData4);
+                    await setData(
+                        updatedData4?.map(item =>
+                            item.position > 5 ? { ...item, payout: "" } : item
+                        )
+                    )
+                }
+                if (totalPlayers >= 30 && totalPlayers <= 34) {
+                    let updatedData = data?.map(item =>
+                        item.position === 1 ? { ...item, payout: ((PrizePool * 37) / 100) } : item
+                    )
+                    await setData(updatedData);
+                    let updatedData1 = updatedData?.map(item =>
+                        item.position === 2 ? { ...item, payout: ((PrizePool * 24) / 100) } : item
+                    )
+                    await setData(updatedData1);
+                    let updatedData2 = updatedData1?.map(item =>
+                        item.position === 3 ? { ...item, payout: ((PrizePool * 15) / 100) } : item
+                    )
+                    await setData(updatedData2);
+                    let updatedData3 = updatedData2?.map(item =>
+                        item.position === 4 ? { ...item, payout: ((PrizePool * 10) / 100) } : item
+                    )
+                    await setData(updatedData3);
+                    let updatedData4 = updatedData3?.map(item =>
+                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                    )
+                    await setData(updatedData4);
+                    let updatedData5 = updatedData4?.map(item =>
+                        item.position === 6 ? { ...item, payout: ((PrizePool * 6) / 100) } : item
+                    )
+                    await setData(updatedData5);
+                    await setData(
+                        updatedData5?.map(item =>
+                            item.position > 5 ? { ...item, payout: "" } : item
+                        )
+                    )
                 }
             }
           }
