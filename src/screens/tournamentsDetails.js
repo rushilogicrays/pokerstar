@@ -5,7 +5,8 @@ import Form from 'react-bootstrap/Form';
 import Header from '../components/header';
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
-import moment from 'moment'
+import moment from 'moment';
+import Modal from 'react-bootstrap/Modal'
 
 const Tournamentsdetails = (props) => {
     const [data, setData] = useState(undefined);
@@ -14,14 +15,14 @@ const Tournamentsdetails = (props) => {
     const [buyIn, setBuyIn] = useState("");
     const [rake, setRake] = useState(undefined);
     const [name, setName] = useState(undefined);
-    const [PrizePool,setPrizePool] = useState(undefined);
+    const [PrizePool, setPrizePool] = useState(undefined);
     const [totalPlayers, setTotalPlayers] = useState(undefined);
     let totalPrizepool = (data?.length * (buyIn - rake))
     let totalRake = (data?.length * rake)
     var a = data
     let totalTip = 0;
-    if(a?.length > 0){
-        for (var i=0; i<a?.length; i++) {
+    if (a?.length > 0) {
+        for (var i = 0; i < a?.length; i++) {
             totalTip += a[i]?.tip;
         }
     }
@@ -30,70 +31,70 @@ const Tournamentsdetails = (props) => {
     //console.log("data ---->", data);
     useEffect(() => {
         axios({
-          method: 'get',
-          url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,
-          // headers: {
-          //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-          // }
+            method: 'get',
+            url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,
+            // headers: {
+            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
+            // }
         })
-          .then(function (response) {
-            setTournamentDetail(response.data.tournament);
-            setData(response.data.rank);
-            setBuyIn(response?.data?.tournament[0]?.buy_in)
-            setRake(response?.data?.tournament[0]?.rake)
-            setName(response?.data?.tournament[0]?.name)
-            setPrizePool(response?.data?.tournament[0]?.total_prizepool)
-            setOriginalData(response.data.rank)
-            setTotalPlayers(response?.data?.tournament[0]?.total_players)
-          });
-      }, []);
+            .then(function (response) {
+                setTournamentDetail(response.data.tournament);
+                setData(response.data.rank);
+                setBuyIn(response?.data?.tournament[0]?.buy_in)
+                setRake(response?.data?.tournament[0]?.rake)
+                setName(response?.data?.tournament[0]?.name)
+                setPrizePool(response?.data?.tournament[0]?.total_prizepool)
+                setOriginalData(response.data.rank)
+                setTotalPlayers(response?.data?.tournament[0]?.total_players)
+            });
+    }, []);
 
-      useEffect(async() => {
-          if(tournamentDetail){
-            if(buyIn >= 1 && buyIn <= 75){
-                if(totalPlayers >= 2 && totalPlayers <= 5){
+    useEffect(async () => {
+        if (tournamentDetail) {
+            if (buyIn >= 1 && buyIn <= 75) {
+                if (totalPlayers >= 2 && totalPlayers <= 5) {
                     setData(
-                        data?.map(item => 
-                                item.position === 1
-                                ? {...item, payout : ((PrizePool*100)/100)} 
-                                : {...item, payout : ""}
-                            )
+                        data?.map(item =>
+                            item.position === 1
+                                ? { ...item, payout: ((PrizePool * 100) / 100) }
+                                : { ...item, payout: "" }
+                        )
                     )
                     console.log("2 to 5");
                 }
-                if(totalPlayers >= 6 && totalPlayers <= 8){
+                if (totalPlayers >= 6 && totalPlayers <= 8) {
                     setData(
-                        data?.map(item => 
-                                item.position === 1
-                                ? {...item, payout : ((PrizePool*62)/100)} 
-                                : item.position === 2 ? {...item, payout : ((PrizePool*38)/100)} : {...item, payout : ""}
+                        data?.map(item =>
+                            item.position === 1
+                                ? { ...item, payout: ((PrizePool * 62) / 100) }
+                                : item.position === 2 ? { ...item, payout: ((PrizePool * 38) / 100) } : { ...item, payout: "" }
 
-                            )
+                        )
                     )
                     console.log("6 to 8")
                 }
-                if(totalPlayers >= 9 && totalPlayers <= 14){
-                    let updatedData = data?.map(item => 
-                            item.position === 1 ? {...item, payout : ((PrizePool*50)/100)} : item
-                        )
+                if (totalPlayers >= 9 && totalPlayers <= 14) {
+                    let updatedData = data?.map(item =>
+                        item.position === 1 ? { ...item, payout: ((PrizePool * 50) / 100) } : item
+                    )
                     await setData(updatedData);
-                    let updatedData1 = updatedData?.map(item => 
-                        item.position === 2 ? {...item, payout : ((PrizePool*30)/100)} : item
+                    let updatedData1 = updatedData?.map(item =>
+                        item.position === 2 ? { ...item, payout: ((PrizePool * 30) / 100) } : item
                     )
                     await setData(updatedData1);
-                    let updatedData2 = updatedData1?.map(item => 
-                        item.position === 3 ? {...item, payout : ((PrizePool*20)/100)} : item
+                    let updatedData2 = updatedData1?.map(item =>
+                        item.position === 3 ? { ...item, payout: ((PrizePool * 20) / 100) } : item
                     )
                     await setData(updatedData2);
-                    let updatedData3 = updatedData2?.map(item => 
-                        item.position === 4 ? {...item, payout : ""} : item
+                    let updatedData3 = updatedData2?.map(item =>
+                        item.position === 4 ? { ...item, payout: "" } : item
                     )
                     await setData(updatedData3);
                     await setData(
-                            updatedData3?.map(item => 
-                                         item.position > 4  ? {...item, payout : ""} : item
-                                    )    
-                            )
+                        updatedData3?.map(item =>
+                            item.position > 4 ? { ...item, payout: "" } : item
+                        )
+                    )
                 }
                 if (totalPlayers >= 15 && totalPlayers <= 17) {
                     let updatedData = data?.map(item =>
@@ -318,11 +319,11 @@ const Tournamentsdetails = (props) => {
                     )
                 }
             }
-          }
+        }
         console.log("tournament is set")
-      },[totalPlayers])
+    }, [totalPlayers])
 
-      const deleteTournament = () => {
+    const deleteTournament = () => {
         // axios({
         //     method: 'delete',
         //     url: `http://143.110.254.46/poker/api/delete-tournament/${props?.match?.params?.slug}`,
@@ -334,49 +335,49 @@ const Tournamentsdetails = (props) => {
         //       console.log(response.data.rank);
         //     });
         console.log("delete");
-      }
-      const fetchData = () => {
+    }
+    const fetchData = () => {
         axios({
             method: 'get',
             url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,
             // headers: {
             //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
             // }
-          })
+        })
             .then(function (response) {
                 setData(response.data.rank);
                 setName(response.data.tournament[0].name)
                 setBuyIn(response.data.tournament[0].buy_in)
                 setRake(response.data?.tournament[0].rake)
             });
-      }
-      const setCangeWin = async(e, index) => {
+    }
+    const setCangeWin = async (e, index) => {
         await setData(
-            data?.map(item => 
-                    item.id === index 
-                    ? {...item, payout : Number(e)} 
+            data?.map(item =>
+                item.id === index
+                    ? { ...item, payout: Number(e) }
                     : item
-                )
+            )
         )
         data?.filter(item => item.id === index ? console.log(item) : item)
-      }
-      const setCangeTip = async(e, index) => {
+    }
+    const setCangeTip = async (e, index) => {
         await setData(
-            data?.map(item => 
-                    item.id === index 
-                    ? {...item, tip : Number(e)} 
+            data?.map(item =>
+                item.id === index
+                    ? { ...item, tip: Number(e) }
                     : item
-                )
+            )
         )
         data?.filter(item => item.id === index ? console.log(item) : item)
-      }
+    }
 
-      const handleSave = () => {
+    const handleSave = () => {
         axios({
             method: 'put',
             url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,
             data: {
-                tournament:[
+                tournament: [
                     {
                         id: tournamentDetail[0].id,
                         external_id: tournamentDetail[0].external_id,
@@ -397,11 +398,15 @@ const Tournamentsdetails = (props) => {
             // headers: {
             //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
             // }
-          })
+        })
             .then(function (response) {
-              console.log("res --->", response.data);
+                console.log("res --->", response.data);
             });
-      }
+    }
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     return (
         <div className="tournamnets-details-main">
             <div className="container">
@@ -418,13 +423,13 @@ const Tournamentsdetails = (props) => {
                     <div className="col-md-9 col-sm-9">
                         <div className="details-table-btn">
                             <ul className="btn-row">
-                                <li> <span className="lable" >Tournament ID</span> <span className="yello-value"> {`${props?.match?.params?.slug ? props?.match?.params?.slug :  "Tournament ID" }`} </span> </li>
+                                <li> <span className="lable" >Tournament ID</span> <span className="yello-value"> {`${props?.match?.params?.slug ? props?.match?.params?.slug : "Tournament ID"}`} </span> </li>
                                 <li> <span className="lable" >Start</span> <span className="yello-value"> {`${tournamentDetail?.length > 0 ? moment(tournamentDetail[0].start_tournament).format("h:mm") + " - " + moment(tournamentDetail[0].start_tournament).format("DD.MM.YY") : "Start"}`} </span> </li>
                                 <li> <span className="lable" > End </span> <span className="yello-value"> {`${tournamentDetail?.length > 0 ? moment(tournamentDetail[0].end_tournament).format("h:mm") + " - " + moment(tournamentDetail[0].end_tournament).format("DD.MM.YY") : "End"}`} </span> </li>
                                 <li> <Button id="orange-btn" onClick={() => props.history.goBack()}> Back </Button> </li>
                             </ul>
                             <ul className="btn-row">
-                                <li> <span className="lable" >Name</span> <input type="text" id="blue-input" placeholder="Input Name" value={name} onChange={(e) => setName(e.target.value)}/> </li>
+                                <li> <span className="lable" >Name</span> <input type="text" id="blue-input" placeholder="Input Name" value={name} onChange={(e) => setName(e.target.value)} /> </li>
                                 {/* <li> <Form.Control
                                     as="select"
                                     className="mr-sm-2 blue-select"
@@ -445,46 +450,63 @@ const Tournamentsdetails = (props) => {
                                     <option value="430/14">430/14</option>
                                 </Form.Control>
                                 </li> */}
-                                <li> <span className="lable" >Buyin</span> <input type="text" id="blue-input" placeholder="BuyIn" value={buyIn} onChange={(e) => setBuyIn(e.target.value)}/> </li>
-                                <li> <span className="lable" >Rake</span> <input type="text" id="blue-input" placeholder="Rake" value={rake}  onChange={e => setRake(e.target.value)}/> </li>
+                                <li> <span className="lable" >Buyin</span> <input type="text" id="blue-input" placeholder="BuyIn" value={buyIn} onChange={(e) => setBuyIn(e.target.value)} /> </li>
+                                <li> <span className="lable" >Rake</span> <input type="text" id="blue-input" placeholder="Rake" value={rake} onChange={e => setRake(e.target.value)} /> </li>
                             </ul>
                             <ul className="btn-row">
                                 <li> <span className="lable" >Total Players</span> <span className="yello-value">{`${tournamentDetail?.length > 0 ? tournamentDetail[0].total_players : "Total Playes"}`}</span> </li>
                                 <li> <span className="lable" >Total Pricepool</span> <span className="purple-value">{`${totalPrizepool ? totalPrizepool : "Total Players"}`}</span> </li>
-                                <li> <span className="lable" >Total Rake</span> <span className="purple-value"> {`${totalRake ? totalRake: "Total Rake"}`}</span> </li>
+                                <li> <span className="lable" >Total Rake</span> <span className="purple-value"> {`${totalRake ? totalRake : "Total Rake"}`}</span> </li>
                                 <li> <span className="lable" >Total Tip</span> <span className="purple-value"> {`${totalTip ? totalTip : "Total Tip"}`}</span> </li>
                             </ul>
                             <ul className="btn-row">
                                 <li> <Button id="red-btn" onClick={() => deleteTournament()}> Delete </Button> </li>
+                                <li> <Button id="red-btn" onClick={handleShow}> Delete </Button> </li>
                                 <li> <Button id="pink-btn" onClick={() => fetchData()}> Reset </Button> </li>
                                 <li> <Button id="green-btn" onClick={() => handleSave()}> Save </Button> </li>
+                                <li> <Button id="green-btn" onClick={handleShow}> Save </Button> </li>
                             </ul>
                         </div>
-                            <div className="tournament-details-table">
-                                <Table striped bordered hover>
-                                    <thead>
-                                        <tr>
-                                            <th>Rank</th>
-                                            <th>Player</th>
-                                            <th>Win</th>
-                                            <th>Tip</th>
-                                        </tr>
-                                    </thead>
-                                    {data?.map((item, index) => {    
-                                        // console.log(item)                            
-                                        return(
-                                            <tbody>
-                                                <tr>
-                                                    <td>{`#${item?.position}`}</td>
-                                                    <td>{item?.account_id?.account_name}</td>
-                                                    <td><input type="text" id="blue-input" value={item?.payout} onChange={(e) => setCangeWin(e.target.value, item?.id)}/></td>
-                                                    <td><input type="text" id="blue-input" value={item?.tip} onChange={(e) => setCangeTip(e.target.value, item?.id)}/></td>
-                                                </tr>
-                                            </tbody>
-                                    )})}
-                                </Table>
-                            </div>
+                        <div className="tournament-details-table">
+                            <Table striped bordered hover>
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Player</th>
+                                        <th>Win</th>
+                                        <th>Tip</th>
+                                    </tr>
+                                </thead>
+                                {data?.map((item, index) => {
+                                    // console.log(item)                            
+                                    return (
+                                        <tbody>
+                                            <tr>
+                                                <td>{`#${item?.position}`}</td>
+                                                <td>{item?.account_id?.account_name}</td>
+                                                <td><input type="text" id="blue-input" value={item?.payout} onChange={(e) => setCangeWin(e.target.value, item?.id)} /></td>
+                                                <td><input type="text" id="blue-input" value={item?.tip} onChange={(e) => setCangeTip(e.target.value, item?.id)} /></td>
+                                            </tr>
+                                        </tbody>
+                                    )
+                                })}
+                            </Table>
+                        </div>
                     </div>
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Modal heading</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Close
+                            </Button>
+                            <Button variant="primary" onClick={handleClose}>
+                                Save Changes
+                                </Button>
+                        </Modal.Footer>
+                    </Modal>
                 </div>
             </div>
         </div>
