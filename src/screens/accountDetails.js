@@ -42,12 +42,12 @@ const AccountDetails = () => {
                                 <thead>
                                     <tr>
                                         <th>Tournament ID</th>
-                                        <th>Name</th>
-                                        <th>Start</th>
-                                        <th>End</th>
-                                        <th>Total Player</th>
-                                        <th>Total Pricepool</th>
-                                        <th>Total Rake</th>
+                                        <th>Time</th>
+                                        <th>Account Type</th>
+                                        <th>Payment Method</th>
+                                        <th>Amount</th>
+                                        <th>Confirmed</th>
+                                        <th>Discription</th>
                                         <th>Total Tip</th>
                                     </tr>
                                 </thead>
