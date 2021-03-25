@@ -9,6 +9,7 @@ const Login = (props) => {
     const [password, setPassword] = useState(undefined);
     console.log("username --->", userName)
     const submitLogin = (event) => {
+        //console.log("here");
         axios({
             method: 'post',
             url: 'http://143.110.254.46/poker/rest-auth/login/',
@@ -20,6 +21,16 @@ const Login = (props) => {
             .then(function (response) {
                 localStorage.setItem("accessToken", response.data.key)
                 props.history.push('/pandingtournaments')
+            });
+        axios({
+            method: 'get',
+            url: 'http://143.110.254.46/poker/rest-auth/user/',
+            headers: {
+              Authorization: "Token "+localStorage.getItem("accessToken").trim()
+            }
+          })
+            .then(function (response) {
+                localStorage.setItem("pk", response.data.pk)
             });
         event.preventDefault();
     }
