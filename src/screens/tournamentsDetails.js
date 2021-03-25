@@ -323,16 +323,17 @@ const Tournamentsdetails = (props) => {
       },[totalPlayers])
 
       const deleteTournament = () => {
-        axios({
-            method: 'delete',
-            url: `http://143.110.254.46/poker/api/delete-tournament/${props?.match?.params?.slug}`,
-            // headers: {
-            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-            // }
-          })
-            .then(function (response) {
-              console.log(response.data.rank);
-            });
+        // axios({
+        //     method: 'delete',
+        //     url: `http://143.110.254.46/poker/api/delete-tournament/${props?.match?.params?.slug}`,
+        //     // headers: {
+        //     //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
+        //     // }
+        //   })
+        //     .then(function (response) {
+        //       console.log(response.data.rank);
+        //     });
+        console.log("delete");
       }
       const fetchData = () => {
         axios({
