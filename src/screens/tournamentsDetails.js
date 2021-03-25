@@ -63,15 +63,23 @@ const Tournamentsdetails = (props) => {
                     console.log("2 to 5");
                 }
                 if (totalPlayers >= 6 && totalPlayers <= 8) {
-                    setData(
-                        data?.map(item =>
-                            item.position === 1
-                                ? { ...item, payout: ((PrizePool * 62) / 100) }
-                                : item.position === 2 ? { ...item, payout: ((PrizePool * 38) / 100) } : { ...item, payout: "" }
-
+                    let updatedData = data?.map(item =>
+                        item.position === 1 ? { ...item, payout: ((PrizePool * 62) / 100) } : item
+                    )
+                    await setData(updatedData);
+                    let updatedData1 = updatedData?.map(item =>
+                        item.position === 2 ? { ...item, payout: ((PrizePool * 38) / 100) } : item
+                    )
+                    await setData(updatedData1);
+                    let updatedData3 = updatedData2?.map(item =>
+                        item.position === 4 ? { ...item, payout: "" } : item
+                    )
+                    await setData(updatedData3);
+                    await setData(
+                        updatedData3?.map(item =>
+                            item.position > 4 ? { ...item, payout: "" } : item
                         )
                     )
-                    console.log("6 to 8")
                 }
                 if (totalPlayers >= 9 && totalPlayers <= 14) {
                     let updatedData = data?.map(item =>
@@ -965,13 +973,10 @@ const Tournamentsdetails = (props) => {
                 console.log("res --->", response.data);
             });
     }
-<<<<<<< HEAD
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-=======
->>>>>>> 5d7e0b30c8815b07718da8eb5174224927c874a9
     return (
         <div className="tournamnets-details-main">
             <div className="container">
