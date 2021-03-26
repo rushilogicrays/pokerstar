@@ -50,7 +50,8 @@ const Tournamentsdetails = (props) => {
             });
     }, []);
 
-    useEffect(async () => {
+    const calculation = async(e) => {
+        await setBuyIn(e.target.value)
         if (tournamentDetail) {
             if (buyIn >= 1 && buyIn <= 75) {
                 if (totalPlayers >= 2 && totalPlayers <= 5) {
@@ -931,7 +932,11 @@ const Tournamentsdetails = (props) => {
             }
         }
         console.log("tournament is set")
-    }, [totalPlayers])
+    }
+
+    // useEffect(async () => {
+       
+    // }, [totalPlayers])
 
     const deleteTournament = () => {
         axios({
@@ -1061,7 +1066,7 @@ const Tournamentsdetails = (props) => {
                                     <option value="430/14">430/14</option>
                                 </Form.Control>
                                 </li> */}
-                                <li> <span className="lable" >Buyin</span> <input type="text" id="blue-input" placeholder="BuyIn" value={buyIn} onChange={(e) => setBuyIn(e.target.value)} /> </li>
+                                <li> <span className="lable" >Buyin</span> <input type="text" id="blue-input" placeholder="BuyIn" value={buyIn} onChange={(e) => calculation(e)} /> </li>
                                 <li> <span className="lable" >Rake</span> <input type="text" id="blue-input" placeholder="Rake" value={rake} onChange={e => setRake(e.target.value)} /> </li>
                             </ul>
                             <ul className="btn-row">
