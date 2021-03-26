@@ -134,13 +134,13 @@ const TournamentsOverview = (props) => {
                                     </tr>
                                 </thead>
                                 {deductionData?.map((item) => (
-                                    <tbody onClick={() => props.history.push('/transaction/""')}>
-                                    <tr>
-                                        <td>{item.transaction_amount}</td>
-                                        <td>item</td>
-                                        <td>{item.description}</td>
-                                        <td><Button>X</Button></td>
-                                    </tr>
+                                    <tbody onClick={() => props.history.push("/transaction/" + (item.id))}>
+                                        <tr>
+                                            <td>{item.transaction_amount}</td>
+                                            <td>item</td>
+                                            <td>{item.description}</td>
+                                            <td><Button>X</Button></td>
+                                        </tr>
                                     </tbody>
                                 ))}
                             </Table>

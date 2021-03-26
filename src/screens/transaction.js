@@ -7,6 +7,7 @@ import moment from 'moment';
 
 
 const Transaction = (props) => {
+    const [deductionData, setDeductionData] = useState(undefined);
     const [transactionType, setTransactionType] = useState(props?.match?.params?.slug ? props?.match?.params?.slug : undefined);
     const [paymentMethod, setPaymentMethod] = useState(undefined);
     const [toFrom, setToFrom] = useState(undefined);
@@ -16,9 +17,14 @@ const Transaction = (props) => {
     const [amount, setAmount] = useState(undefined);
     const [description, setDescription] = useState(undefined);
     const [checkBox, setCheckBox] = useState(false);
-    const [getPaymentMethod, setGetPaymentMethod] = useState(undefined);;
-    console.log("transactionType", paymentMethod);
-    console.log("params ----->", props?.match?.params?.slug)
+    const [getPaymentMethod, setGetPaymentMethod] = useState(undefined);
+    let filterTransection = deductionData?.filter((item) => item.id.toString() === props?.match?.params?.slug?.toString() ? item : null )
+    console.log("transactionType", to);
+    console.log("params ----->", filterTransection);
+    useEffect(async() => {
+        setTo(filterTransection?.length > 0 ? filterTransection[0].to_account_id : null)
+        setFrom(filterTransection?.length > 0 ? filterTransection[0].from_account_id : null)
+    })
     useEffect(async() => {
         axios({
             method: 'get',
@@ -41,6 +47,16 @@ const Transaction = (props) => {
             .then(function (response) {
                 setGetPaymentMethod(response.data)
                 // setOriginalData(response.data);
+            });
+        axios({
+            method: 'get',
+            url: `http://143.110.254.46/poker/api/get-transactions?transaction_type=Deduction`,
+            // headers: {
+            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
+            // }
+            })
+            .then(function (response) {
+                setDeductionData(response.data);
             });
     },[])
     const handleSubmit = () => {
@@ -123,6 +139,7 @@ const Transaction = (props) => {
                                             className="mr-sm-2 blue-select"
                                             id="inlineFormCustomSelect"
                                             custom
+                                            value={from}
                                             onChange={(e) => setFrom(e.target.value)}
                                         >
                                             <option>From</option>
@@ -140,6 +157,7 @@ const Transaction = (props) => {
                                             className="mr-sm-2 blue-select"
                                             id="inlineFormCustomSelect"
                                             custom
+                                            value={to}
                                             onChange={(e) => setTo(e.target.value)}
                                         >
                                             <option>To</option>
@@ -159,12 +177,15 @@ const Transaction = (props) => {
                                             <Form.Check checked={checkBox} type="checkbox" label="Confirmed" onClick={() => setCheckBox(!checkBox)} />
                                         </Form.Group>
                                     </div>}
-                                    <div className="col-md-6 col-sm-6">
-                                        <Button id="red-btn"> Cancel Transaction </Button>
-                                    </div>
-                                    <div className="col-md-6 col-sm-6" onClick={() => handleSubmit()}>
-                                        <Button id="green-btn"> Submit/Update Transaction </Button>
-                                    </div>
+                                    {filterTransection?.length > 0 ? (
+                                        <div className="col-md-6 col-sm-6">
+                                            <Button id="red-btn"> Cancel Transaction </Button>
+                                        </div>
+                                    ) : (
+                                        <div className="col-md-6 col-sm-6" onClick={() => handleSubmit()}>
+                                            <Button id="green-btn"> Submit/Update Transaction </Button>
+                                        </div>
+                                    )}
 
                                 </div>
                             </div>
