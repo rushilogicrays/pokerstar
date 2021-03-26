@@ -12,7 +12,7 @@ const Login = (props) => {
         //console.log("here");
         axios({
             method: 'post',
-            url: 'http://143.110.254.46/poker/rest-auth/login/',
+            url: 'http://143.110.254.46:8084/poker/rest-auth/login/',
             data: {
                 username : userName,
                 password : password
@@ -24,7 +24,7 @@ const Login = (props) => {
             });
         axios({
             method: 'get',
-            url: 'http://143.110.254.46/poker/rest-auth/user/',
+            url: 'http://143.110.254.46:8084/poker/rest-auth/user/',
             headers: {
               Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
