@@ -48,7 +48,7 @@ const Tournamentsdetails = (props) => {
             method: 'get',
             url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,
             headers: {
-              Authorization: "Token "+localStorage.getItem("accessToken").trim()
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
         })
             .then(function (response) {
@@ -1869,7 +1869,7 @@ const Tournamentsdetails = (props) => {
                 rank: data
             },
             headers: {
-              Authorization: "Token "+localStorage.getItem("accessToken").trim()
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
           })
             .then(function (response) {
@@ -1883,9 +1883,9 @@ const Tournamentsdetails = (props) => {
         axios({
             method: 'get',
             url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,
-            // headers: {
-            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-            // }
+            headers: {
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
+            }
         })
             .then(function (response) {
                 setData(response.data.rank);
@@ -1939,7 +1939,7 @@ const Tournamentsdetails = (props) => {
                 rank: data
             },
             headers: {
-              Authorization: "Token "+localStorage.getItem("accessToken").trim()
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
         })
             .then(function (response) {

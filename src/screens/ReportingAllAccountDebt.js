@@ -10,9 +10,9 @@ const ReportingNonConfirmedDeposit = (props) => {
         axios({
             method: 'get',
             url: `http://143.110.254.46/poker/api/get-account-details`,
-            // headers: {
-            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-            // }
+            headers: {
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
+            }
           })
             .then(function (response) {
                 setData(response?.data?.filter((item) => item.balance < 0 ? item : null))

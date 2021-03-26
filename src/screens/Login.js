@@ -26,7 +26,7 @@ const Login = (props) => {
             method: 'get',
             url: 'http://143.110.254.46/poker/rest-auth/user/',
             headers: {
-              Authorization: "Token "+localStorage.getItem("accessToken").trim()
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
           })
             .then(function (response) {

@@ -37,9 +37,9 @@ const Transaction = (props) => {
         axios({
             method: 'get',
             url: `http://143.110.254.46/poker/api/get-account-details`,
-            // headers: {
-            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-            // }
+            headers: {
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
+            }
           })
             .then(function (response) {
                 setToFrom(response.data)
@@ -48,7 +48,7 @@ const Transaction = (props) => {
                 method: 'get',
                 url: `http://143.110.254.46/poker/api/get-paymenttype`,
                 headers: {
-                    Authorization: "Token "+localStorage.getItem("accessToken").trim()
+                    Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
                 }
                 })
                 .then(function (response) {
@@ -58,9 +58,9 @@ const Transaction = (props) => {
             axios({
                 method: 'get',
                 url: `http://143.110.254.46/poker/api/get-transactions?transaction_type=Deduction`,
-                // headers: {
-                //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-                // }
+                headers: {
+                  Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
+                }
                 })
                 .then(function (response) {
                     setDeductionData(response.data);
@@ -110,7 +110,7 @@ const Transaction = (props) => {
                 payment_type_id: paymentMethod
             },
             headers: {
-              Authorization: "Token "+localStorage.getItem("accessToken").trim()
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
           })
             .then(function (response) {

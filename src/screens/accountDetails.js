@@ -26,7 +26,7 @@ const AccountDetails = (props) => {
             method: 'get',
             url: `http://143.110.254.46/poker/api/account-details/${props?.match?.params?.slug}`,
             headers: {
-              Authorization: "Token "+localStorage.getItem("accessToken").trim()
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
           })
             .then(function (response) {

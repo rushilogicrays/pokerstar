@@ -20,9 +20,9 @@ const TournamentsOverview = (props) => {
         axios({
             method: 'get',
             url: `http://143.110.254.46/poker/api/tournament-overview?date=${date}`,
-            // headers: {
-            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-            // }
+            headers: {
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
+            }
           })
             .then(function (response) {
                 setTournamentDetails(response.data)
@@ -32,9 +32,9 @@ const TournamentsOverview = (props) => {
         axios({
             method: 'get',
             url: `http://143.110.254.46/poker/api/get-transactions?transaction_type=Deduction`,
-            // headers: {
-            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-            // }
+            headers: {
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
+            }
             })
             .then(function (response) {
                 setDeductionData(response.data);
@@ -46,7 +46,7 @@ const TournamentsOverview = (props) => {
             method: 'get',
             url: `http://143.110.254.46/poker/api/tournament-overview?date=${moment(date).format("YYYY-MM-DD")}`,
             headers: {
-              Authorization: "Token "+localStorage.getItem("accessToken").trim()
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
           })
             .then(function (response) {
@@ -56,9 +56,9 @@ const TournamentsOverview = (props) => {
         axios({
             method: 'get',
             url: `http://143.110.254.46/poker/api/get-transactions?transaction_type=Deduction&date=${moment(date).format("YYYY-MM-DD")}`,
-            // headers: {
-            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-            // }
+            headers: {
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
+            }
             })
             .then(function (response) {
                 setDeductionData(response.data);

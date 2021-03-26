@@ -11,9 +11,9 @@ const ReportingAllAccountDebt = (props) => {
         axios({
             method: 'get',
             url: `http://143.110.254.46/poker/api/get-transactions?transaction_type=Deposit&confirm=0`,
-            // headers: {
-            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-            // }
+            headers: {
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
+            }
           })
             .then(function (response) {
                 setData(response.data);

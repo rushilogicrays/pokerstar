@@ -14,9 +14,9 @@ const PandingTournaments = (props) => {
     axios({
       method: 'get',
       url: 'http://143.110.254.46:8084/poker/api/pending-tournaments',
-      // headers: {
-      //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-      // }
+      headers: {
+        Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
+      }
     })
       .then(function (response) {
         console.log("response ---->", response.data);
