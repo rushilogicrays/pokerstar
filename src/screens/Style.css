@@ -473,3 +473,6 @@ ul.btn-row li textarea {
   display: block;
   font-size: 14px;
 }
+.account-main .overview-search {
+  margin-bottom: 30px;
+}
