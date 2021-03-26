@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Header from '../components/header';
 import axios from 'axios';
 import moment from 'moment';
-
+import Modal from 'react-bootstrap/Modal'
 
 const Transaction = (props) => {
     const [deductionData, setDeductionData] = useState(undefined);
@@ -18,45 +18,52 @@ const Transaction = (props) => {
     const [description, setDescription] = useState(undefined);
     const [checkBox, setCheckBox] = useState(false);
     const [getPaymentMethod, setGetPaymentMethod] = useState(undefined);
+    const [showCancel, setShowCancel] = useState(false);
+    const [showSave, setShowSave] = useState(false);
     let filterTransection = deductionData?.filter((item) => item.id.toString() === props?.match?.params?.slug?.toString() ? item : null )
-    console.log("transactionType", to);
-    console.log("params ----->", filterTransection);
+    console.log("transactionType", from);
+    // console.log("params ----->", localStorage.getItem("accessToken").trim());
     useEffect(async() => {
-        setTo(filterTransection?.length > 0 ? filterTransection[0].to_account_id : null)
-        setFrom(filterTransection?.length > 0 ? filterTransection[0].from_account_id : null)
+        if(filterTransection?.length > 0){
+            setTo(filterTransection?.length > 0 ? filterTransection[0].to_account_id.id : undefined)
+            setFrom(filterTransection?.length > 0 ? filterTransection[0].from_account_id.id : undefined)
+            setPaymentMethod(filterTransection?.length > 0 ? filterTransection[0].payment_type_id?.id : undefined)
+            setAmount(filterTransection?.length > 0 ? filterTransection[0].transaction_amount : undefined)
+            setTransactionType(filterTransection?.length > 0 ? filterTransection[0].transaction_type : undefined)
+            setDescription(filterTransection?.length > 0 ? filterTransection[0].description : undefined)
+        }
     })
-    useEffect(async() => {
+    useEffect(() => {
         axios({
             method: 'get',
             url: `http://143.110.254.46/poker/api/get-account-details`,
-            headers: {
-              Authorization: "Token "+localStorage.getItem("accessToken").trim()
-            }
-          })
-            .then(function (response) {
-                setToFrom(response.data)
-                // setOriginalData(response.data);
-            });
-        axios({
-            method: 'get',
-            url: `http://143.110.254.46/poker/api/get-paymenttype`,
-            headers: {
-              Authorization: "Token "+localStorage.getItem("accessToken").trim()
-            }
-            })
-            .then(function (response) {
-                setGetPaymentMethod(response.data)
-                // setOriginalData(response.data);
-            });
-        axios({
-            method: 'get',
-            url: `http://143.110.254.46/poker/api/get-transactions?transaction_type=Deduction`,
             // headers: {
             //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
             // }
-            })
+          })
             .then(function (response) {
-                setDeductionData(response.data);
+                setToFrom(response.data)
+            });
+            axios({
+                method: 'get',
+                url: `http://143.110.254.46/poker/api/get-paymenttype`,
+                headers: {
+                    Authorization: "Token "+localStorage.getItem("accessToken").trim()
+                }
+                })
+                .then(function (response) {
+                    setGetPaymentMethod(response.data)
+                    // setOriginalData(response.data);
+            });
+            axios({
+                method: 'get',
+                url: `http://143.110.254.46/poker/api/get-transactions?transaction_type=Deduction`,
+                // headers: {
+                //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
+                // }
+                })
+                .then(function (response) {
+                    setDeductionData(response.data);
             });
     },[])
     const handleSubmit = () => {
@@ -83,6 +90,33 @@ const Transaction = (props) => {
                 console.log("res ---->", response);
                 // setOriginalData(response.data);
         });
+        setShowSave(false);
+    }
+
+    const cancelTransaction = () => {
+        axios({
+            method: 'post',
+            url: `http://143.110.254.46/poker/api/cancel-transaction/${filterTransection[0].id}`,
+            data: {
+                transaction_type: transactionType,
+                transaction_amount: amount,
+                description: description,
+                confirm: checkBox,
+                from_account_id: from,
+                to_account_id: to,
+                tournament_id: 17,
+                admin_id: localStorage.getItem("pk"),
+                payment_type_id: paymentMethod
+            },
+            headers: {
+              Authorization: "Token "+localStorage.getItem("accessToken").trim()
+            }
+          })
+            .then(function (response) {
+                console.log("res ---->", response);
+                // setOriginalData(response.data);
+        });
+        setShowCancel(false)
     }
     return (
         <div className="transaction-main">
@@ -103,6 +137,7 @@ const Transaction = (props) => {
                                             custom
                                             onChange={(e) => setTransactionType(e.target.value)}
                                             value={transactionType}
+                                            readonly={filterTransection?.length > 0 ? true : false}
                                         >
                                             <option value="0">Type</option>
                                             <option value="Deposit">Deposit</option>
@@ -113,7 +148,7 @@ const Transaction = (props) => {
                                         </Form.Control>
                                     </div>
                                     <div className="col-md-6 col-sm-6 text-right mb-4">
-                                        <Button id="orange-btn"> Back </Button>
+                                        <Button id="orange-btn" onClick={() => props.history.goBack()}> Back </Button>
                                     </div>
                                     {transactionType === "Deduction" && <div className="col-md-6 col-sm-6 mb-4"><input readonly value={moment(date).format("YYYY-MM-DD")} className="date-input" /> </div>}
                                     <div className="col-md-6 col-sm-6 mb-4">
@@ -122,7 +157,9 @@ const Transaction = (props) => {
                                             className="mr-sm-2 blue-select"
                                             id="inlineFormCustomSelect"
                                             custom
+                                            value={paymentMethod}
                                             onChange={(e) => setPaymentMethod(e.target.value)}
+                                            readonly={filterTransection?.length > 0 ? true : false}
                                         >
                                             <option value="0">Payment Method</option>
                                             {getPaymentMethod?.map((item) => (
@@ -141,6 +178,7 @@ const Transaction = (props) => {
                                             custom
                                             value={from}
                                             onChange={(e) => setFrom(e.target.value)}
+                                            readonly={filterTransection?.length > 0 ? true : false}
                                         >
                                             <option>From</option>
                                             {toFrom?.map((item) => (
@@ -159,6 +197,7 @@ const Transaction = (props) => {
                                             custom
                                             value={to}
                                             onChange={(e) => setTo(e.target.value)}
+                                            readonly={filterTransection?.length > 0 ? true : false}
                                         >
                                             <option>To</option>
                                             {toFrom?.map((item) => (
@@ -167,22 +206,22 @@ const Transaction = (props) => {
                                         </Form.Control>
                                     </div>
                                     <div className="col-md-4 col-sm-4 mb-4">
-                                        <input type="text" className="input-text" placeholder="Amount" onChange={(e) => setAmount(e.target.value)} />
+                                        <input type="text" className="input-text" placeholder="Amount" value={amount} readonly={filterTransection?.length > 0 ? true : false} onChange={(e) => setAmount(e.target.value)} />
                                     </div>
                                     <div className="col-md-12 col-sm-12 mb-4">
-                                        <textarea className="textarea-text" name="comment" form="usrform" onChange={(e) => setDescription(e.target.value)}>Description...</textarea>
+                                        <textarea className="textarea-text" name="comment" form="usrform" value={description} readonly={filterTransection?.length > 0 ? true : false} onChange={(e) => setDescription(e.target.value)}>Description...</textarea>
                                     </div>
                                     {transactionType === "Deposit" && <div className="col-md-12 col-sm-12 mb-4">
-                                        <Form.Group controlId="formBasicCheckbox">
-                                            <Form.Check checked={checkBox} type="checkbox" label="Confirmed" onClick={() => setCheckBox(!checkBox)} />
+                                        <Form.Group controlId="formBasicCheckbox" readonly={filterTransection?.length > 0 ? true : false}>
+                                            <Form.Check readonly={filterTransection?.length > 0 ? true : false} checked={checkBox} type="checkbox" label="Confirmed" onClick={() => setCheckBox(!checkBox)} />
                                         </Form.Group>
                                     </div>}
                                     {filterTransection?.length > 0 ? (
-                                        <div className="col-md-6 col-sm-6">
+                                        <div className="col-md-6 col-sm-6" onClick={() => setShowCancel(true)}>
                                             <Button id="red-btn"> Cancel Transaction </Button>
                                         </div>
                                     ) : (
-                                        <div className="col-md-6 col-sm-6" onClick={() => handleSubmit()}>
+                                        <div className="col-md-6 col-sm-6" onClick={() => setShowSave(true)}>
                                             <Button id="green-btn"> Submit/Update Transaction </Button>
                                         </div>
                                     )}
@@ -193,6 +232,34 @@ const Transaction = (props) => {
                     </div>
                 </div>
             </div>
+            <Modal show={showCancel} onHide={() => setShowCancel(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Delete</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to cancel this Transaction?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowCancel(false)}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={() => cancelTransaction()}>
+                        cancel Transaction
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showSave} onHide={() => setShowSave(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Save</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to save this Transaction?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowSave(false)}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={() => handleSubmit()}>
+                        Save Transaction
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }
