@@ -14,6 +14,8 @@ import ReportingNonConfirmedDeposit from './screens/ReportingNonConfirmedDeposit
 import ReportingAllAccountDebt from './screens/ReportingAllAccountDebt';
 
 const App = () => {
+      {/* uncomment for server deploment */}
+    {/* <BrowserRouter> */}
   return(
     <BrowserRouter>
       <Switch>

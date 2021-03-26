@@ -72,6 +72,7 @@ const TournamentsOverview = (props) => {
                                 //onChange={onChange}
                                 value={value}
                                 onChange={(date) => fetchDataByDate(date)}
+                                maxDate={new Date()}
                             />
                             <div className="overview-search">
                                 <Form inline>
@@ -137,7 +138,7 @@ const TournamentsOverview = (props) => {
                                     <tbody onClick={() => props.history.push("/transaction/" + (item.id))}>
                                         <tr>
                                             <td>{item.transaction_amount}</td>
-                                            <td>item</td>
+                                            <td>{item?.from_account_id?.account_name}</td>
                                             <td>{item.description}</td>
                                             <td><Button>X</Button></td>
                                         </tr>
