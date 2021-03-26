@@ -5,9 +5,23 @@ import FormControl from 'react-bootstrap/FormControl';
 import Header from '../components/header';
 import Table from 'react-bootstrap/Table';
 import { Calendar } from 'react-calendar';
+import axios from 'axios';
 
 const Account = () => {
-
+    const [formData, setFormData] = useState(undefined);
+    console.log("formdata --->", formData);
+    useEffect(() => {
+        axios({
+            method: 'get',
+            url: `http://143.110.254.46/poker/api/get-account-details`,
+            // headers: {
+            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
+            // }
+          })
+            .then(function (response) {
+                setFormData(response.data)
+            });
+    },[])
     return (
         <div className="account-main">
             <div className="container">
@@ -16,12 +30,12 @@ const Account = () => {
                 </div>
                 <div className="row">
                     <div className="col-md-6">
-                        <div className="overview-search">
+                        {/* <div className="overview-search">
                             <Form inline>
                                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                                 <Button variant="outline-success">Search</Button>
                             </Form>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="col-md-6">
 
@@ -31,17 +45,17 @@ const Account = () => {
                             <Table striped bordered hover>
                                 <thead>
                                     <tr>
-                                        <th>A</th>
-                                        <th>B</th>
-                                        <th>C</th>
-                                        <th>D</th>
-                                        <th>E</th>
-                                        <th>F</th>
-                                        <th>G</th>
-                                        <th>H</th>
+                                        <th>Account Name</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                {formData?.map((item) => (
+                                    <tbody>
+                                        <tr>
+                                            <td>{item?.account_name}</td>
+                                        </tr>
+                                    </tbody>
+                                ))}
+                                {/* <tbody>
                                     <tr>
                                         <td>Amelie</td>
                                         <td>Bmelie</td>
@@ -82,7 +96,7 @@ const Account = () => {
                                         <td>Gmelie Amelie Amelie</td>
                                         <td>Hmelie Amelie</td>
                                     </tr>
-                                </tbody>
+                                </tbody> */}
                             </Table>
                         </div>
                     </div>
