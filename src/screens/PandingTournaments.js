@@ -5,6 +5,7 @@ import axios from 'axios';
 import moment from 'moment';
 import Header from './../components/header';
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 
 
 const PandingTournaments = (props) => {
@@ -29,7 +30,12 @@ const PandingTournaments = (props) => {
         <div className="header">
           <Header />
         </div>
-        <div className="pending-tournament-details-table">
+        <div className="pending-tournament-details-table" style={{flexDirection: "row", display: "flex"}}>
+        <div className="col-md-3 col-sm-3">
+            <div className="details-left-btn">
+                <Button id="orange-btn" onClick={() => props.history.push('/tournaments_overview')}>Tournaments Overview</Button>
+            </div>
+        </div>
           <Table striped bordered hover>
             <thead>
               <tr>

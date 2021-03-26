@@ -43,8 +43,14 @@ const AccountDetails = (props) => {
                     <div className="col-md-6">
                         <div className="account-name-details">
                             <ul className="btn-row">
-                                <li> <span className="magenta-value"> {data?.account[0].account_name} </span> </li>
-                                <li> <span className="magenta-value"> {data?.account[0].balance} </span> </li>
+                                <div>
+                                    <span style={{marginRight: 20}}>Accounnt Name</span> 
+                                    <li><span className="magenta-value"> {data?.account[0].account_name} </span> </li>
+                                </div>
+                                <div>
+                                    <span style={{marginRight: 10}}>Accounnt Balance</span>
+                                    <li> <span className="magenta-value"> {data?.account[0].balance} </span> </li>
+                                </div>
                             </ul>
                             <ul className="btn-row">
                                 <li> <Button id="purple-btn"> Show All </Button> </li>

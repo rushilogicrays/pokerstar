@@ -6,8 +6,21 @@ import Nav from 'react-bootstrap/Nav'
 import Logo from '../images/logo.png'
 import PandingTournaments from './../screens/PandingTournaments';
 import { propTypes } from 'react-bootstrap/esm/Image';
+import axios from 'axios';
 
 const Header = (props) => {
+    const handelLogOut = () => {
+        axios({
+            method: 'post',
+            url: `http://143.110.254.46:8084/poker/rest-auth/logout/`,
+            headers: {
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
+            }
+          })
+            .then(function (response) {
+                console.log(response.data)
+            });
+    }
     return (
         <div className="header-main">
             <div className="container">
@@ -31,7 +44,7 @@ const Header = (props) => {
                             <Nav.Link className="orange-btn" href="/change_password" eventKey="link-3">My Admin</Nav.Link>
                         </Nav.Item>
                         <Nav.Item as="li">
-                            <Nav.Link className="orange-btn" href="/home" eventKey="link-4">Logout</Nav.Link>
+                            <Nav.Link className="orange-btn" eventKey="link-4" onClick={() => handelLogOut()}>Logout</Nav.Link>
                         </Nav.Item>
                         </Nav>
                         </div>

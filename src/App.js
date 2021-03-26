@@ -20,6 +20,7 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Login} />
+        <Route path="/login" exact component={Login} />
         <Route path="/change_password" exact component={ChangePassword} />
         <Route path="/pendingtournaments" exact component={PandingTournaments} />
         <Route path="/tournaments_details/:slug" exact component={TournamentsDetails} />
