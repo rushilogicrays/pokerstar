@@ -965,13 +965,6 @@ const Tournamentsdetails = (props) => {
                 console.log("res --->", response.data);
             });
     }
-<<<<<<< HEAD
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-=======
->>>>>>> 5d7e0b30c8815b07718da8eb5174224927c874a9
     return (
         <div className="tournamnets-details-main">
             <div className="container">
