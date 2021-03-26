@@ -5,13 +5,14 @@ import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 import moment from 'moment';
 
-const AccountDetails = () => {
+const AccountDetails = (props) => {
     const[data, setData] = useState(undefined);
+    console.log("props?.match?.params?.slug --------->", props?.match?.params?.slug);
     console.log("data ---->",  data?.transaction);
     useEffect(() => {
         axios({
             method: 'get',
-            url: `http://143.110.254.46/poker/api/account-details/2`,
+            url: `http://143.110.254.46/poker/api/account-details/${props?.match?.params?.slug}`,
             headers: {
               Authorization: "Token "+localStorage.getItem("accessToken").trim()
             }
@@ -41,12 +42,12 @@ const AccountDetails = () => {
                     <div className="col-md-6">
                         <div className="account-deposit-btn">
                             <ul className="btn-row">
-                                <li> <Button id="pink-btn"> Deposit </Button> </li>
-                                <li> <Button id="pink-btn"> Withdrawal </Button> </li>
+                                <li> <Button id="pink-btn" onClick={() => props.history.push('/transaction/Deposit')}> Deposit </Button> </li>
+                                <li> <Button id="pink-btn" onClick={() => props.history.push('/transaction/Withdrawal')}> Withdrawal </Button> </li>
                             </ul>
                             <ul className="btn-row">
-                                <li> <Button id="pink-btn"> Manual </Button> </li>
-                                <li> <Button id="pink-btn"> Deducation </Button> </li>
+                                <li> <Button id="pink-btn" onClick={() => props.history.push('/transaction/Manual')}> Manual </Button> </li>
+                                <li> <Button id="pink-btn" onClick={() => props.history.push('/transaction/Deduction')}> Deducation </Button> </li>
                             </ul>
                         </div>
                     </div>

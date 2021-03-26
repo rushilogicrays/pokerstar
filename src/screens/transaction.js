@@ -145,6 +145,7 @@ const Transaction = (props) => {
                                             <option value="Deduction">Deduction</option>
                                             <option value="BuyIn">BuyIn</option>
                                             <option value="Payout">Payout</option>
+                                            <option value="Manual">Manual</option>
                                         </Form.Control>
                                     </div>
                                     <div className="col-md-6 col-sm-6 text-right mb-4">

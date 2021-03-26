@@ -72,6 +72,7 @@ const TournamentsOverview = (props) => {
                                 //onChange={onChange}
                                 value={value}
                                 onChange={(date) => fetchDataByDate(date)}
+                                maxDate={new Date()}
                             />
                             <div className="overview-search">
                                 <Form inline>

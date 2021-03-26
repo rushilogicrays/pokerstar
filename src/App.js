@@ -13,6 +13,8 @@ import ReportingNonConfirmedDeposit from './screens/ReportingNonConfirmedDeposit
 import ReportingAllAccountDebt from './screens/ReportingAllAccountDebt';
 
 const App = () => {
+      {/* uncomment for server deploment */}
+    {/* <BrowserRouter> */}
   return(
     <BrowserRouter>
       <Switch>
@@ -22,7 +24,7 @@ const App = () => {
         <Route path="/tournaments_details/:slug" exact component={TournamentsDetails} />
         <Route path="/tournaments_overview" exact component={TournamentsOverview} />
         <Route path="/transaction/:slug" exact component={Transaction} />
-        <Route path="/account-details" exact component={AccountDetails} />
+        <Route path="/account-details/:slug" exact component={AccountDetails} />
         <Route path="/account-overview" exact component={AccountOverview} />
         <Route path="/reporting-non-confirmed-deposit" exact component={ReportingNonConfirmedDeposit} />
         <Route path="/reporting-all-account-debt" exact component={ReportingAllAccountDebt} />
