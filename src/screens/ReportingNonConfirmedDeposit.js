@@ -10,7 +10,7 @@ const ReportingAllAccountDebt = (props) => {
     useEffect(async() => {
         axios({
             method: 'get',
-            url: `http://143.110.254.46/poker/api/get-transactions?confirm=0`,
+            url: `http://143.110.254.46/poker/api/get-transactions?transaction_type=Deposit&confirm=0`,
             // headers: {
             //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
             // }

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Nav from 'react-bootstrap/Nav'
 import Logo from '../images/logo.png'
 import PandingTournaments from './../screens/PandingTournaments';
+import { propTypes } from 'react-bootstrap/esm/Image';
 
-const Header = () => {
+const Header = (props) => {
     return (
         <div className="header-main">
             <div className="container">
@@ -15,11 +17,23 @@ const Header = () => {
                             <img src={Logo} />
                         </div>
                         <div className="header-navigation-btn">
-                            <Button id="orange-btn">Tournaments</Button>
-                            <Button id="orange-btn">Account</Button>
-                            <Button id="orange-btn">Reporting</Button>
-                            <Button id="orange-btn">My Admin</Button>
-                            <Button id="orange-btn">Logout</Button>
+                        <Nav defaultActiveKey="/tournaments" as="ul">
+                        <Nav.Item as="li">
+                            <Nav.Link className="orange-btn" href="/pendingtournaments">Tournaments</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item as="li">
+                            <Nav.Link className="orange-btn" href="/account" eventKey="link-1">Account</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item as="li">
+                            <Nav.Link className="orange-btn" href="/reporting-all-account-debt" eventKey="link-2">Reporting</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item as="li">
+                            <Nav.Link className="orange-btn" href="/change_password" eventKey="link-3">My Admin</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item as="li">
+                            <Nav.Link className="orange-btn" href="/home" eventKey="link-4">Logout</Nav.Link>
+                        </Nav.Item>
+                        </Nav>
                         </div>
                     </div>
                 </div>

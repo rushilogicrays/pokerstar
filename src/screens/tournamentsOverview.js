@@ -15,7 +15,7 @@ const TournamentsOverview = (props) => {
     const [originalData, setOriginalData] = useState(undefined);
     const [searchId, setSearchId] = useState(undefined);
     const [deductionData, setDeductionData] = useState(undefined);
-    let date = moment(value).format("YYYY-MM-DD");
+    let date = moment.utc(value).format("YYYY-MM-DD");
     useEffect(async() => {
         axios({
             method: 'get',
@@ -53,6 +53,16 @@ const TournamentsOverview = (props) => {
                 setOriginalData(response.data);
                 setTournamentDetails(response.data);
         });
+        axios({
+            method: 'get',
+            url: `http://143.110.254.46/poker/api/get-transactions?transaction_type=Deduction&date=${moment(date).format("YYYY-MM-DD")}`,
+            // headers: {
+            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
+            // }
+            })
+            .then(function (response) {
+                setDeductionData(response.data);
+            });
     }
 
     const searchById = (e) => {

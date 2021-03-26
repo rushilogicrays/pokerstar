@@ -4,6 +4,9 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 const ChangePassword = () => {
+    const [changePassword, setChangePassword] = useState(undefined);
+    const [newPassword1, setNewPassword1] = useState(undefined);
+    const [newPassword2, setNewPassword2] = useState(undefined);
     return (
         <div className="login-page-main">
             <div className="container">

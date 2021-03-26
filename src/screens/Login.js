@@ -20,7 +20,7 @@ const Login = (props) => {
           })
             .then(function (response) {
                 localStorage.setItem("accessToken", response.data.key)
-                props.history.push('/pandingtournaments')
+                props.history.push('/pendingtournaments')
             });
         axios({
             method: 'get',
@@ -41,10 +41,10 @@ const Login = (props) => {
                     <Form className="form-field">
                         <h1> Login </h1>
                         <Form.Group>
-                            <Form.Label>Email address</Form.Label>
+                            <Form.Label>UserName</Form.Label>
                             <Form.Control 
                                 type="username" 
-                                placeholder="Enter email" 
+                                placeholder="Enter username" 
                                 onChange={(e) => setUserName(e.target.value)} 
                             />
                         </Form.Group>

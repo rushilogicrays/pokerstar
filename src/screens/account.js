@@ -6,8 +6,9 @@ import Header from '../components/header';
 import Table from 'react-bootstrap/Table';
 import { Calendar } from 'react-calendar';
 import axios from 'axios';
+import { propTypes } from 'react-bootstrap/esm/Image';
 
-const Account = () => {
+const Account = (props) => {
     const [formData, setFormData] = useState(undefined);
     console.log("formdata --->", formData);
     useEffect(() => {
@@ -42,62 +43,29 @@ const Account = () => {
                     </div>
                     <div className="col-md-12 col-sm-12">
                         <div className="account-details-table">
-                            <Table striped bordered hover>
+                            <h2>Master Account | Outside Account</h2>
+                            <div className="account-details-list">
+                                <h2>Account Name</h2>
+                                <ul>
+                                    {formData?.map((item) => (
+                                        <li onClick={() => props.history.push(`/account-details/${item.id}`)} > {item?.account_name + " :: " + item?.balance} </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            {/* <Table striped bordered hover>
                                 <thead>
                                     <tr>
                                         <th>Account Name</th>
                                     </tr>
                                 </thead>
                                 {formData?.map((item) => (
-                                    <tbody>
+                                    <tbody onClick={() => props.history.push(`/account-details/${item.id}`)}>
                                         <tr>
                                             <td>{item?.account_name}</td>
                                         </tr>
                                     </tbody>
                                 ))}
-                                {/* <tbody>
-                                    <tr>
-                                        <td>Amelie</td>
-                                        <td>Bmelie</td>
-                                        <td>Cmelie</td>
-                                        <td>Dmelie</td>
-                                        <td>Emelie</td>
-                                        <td>Fmelie</td>
-                                        <td>Gmelie</td>
-                                        <td>Hmelie</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Amelie Amelie</td>
-                                        <td>Bmelie Amelie</td>
-                                        <td>Cmelie Amelie Amelie</td>
-                                        <td>Dmelie Amelie</td>
-                                        <td>Emelie Amelie Amelie</td>
-                                        <td>Fmelie Amelie Amelie</td>
-                                        <td>Gmelie Amelie Amelie</td>
-                                        <td>Hmelie Amelie</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Amelie</td>
-                                        <td>Bmelie</td>
-                                        <td>Cmelie</td>
-                                        <td>Dmelie</td>
-                                        <td>Emelie</td>
-                                        <td>Fmelie</td>
-                                        <td>Gmelie</td>
-                                        <td>Hmelie</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Amelie Amelie</td>
-                                        <td>Bmelie Amelie</td>
-                                        <td>Cmelie Amelie Amelie</td>
-                                        <td>Dmelie Amelie</td>
-                                        <td>Emelie Amelie Amelie</td>
-                                        <td>Fmelie Amelie Amelie</td>
-                                        <td>Gmelie Amelie Amelie</td>
-                                        <td>Hmelie Amelie</td>
-                                    </tr>
-                                </tbody> */}
-                            </Table>
+                            </Table> */}
                         </div>
                     </div>
                 </div>

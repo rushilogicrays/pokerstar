@@ -9,7 +9,7 @@ import Table from 'react-bootstrap/Table';
 
 const PandingTournaments = (props) => {
   const [data, setData] = useState([])
-
+  console.log("data ----->", moment.utc("2020-10-15T20:00:00Z").format("DD-MM-YYYY"));
   useEffect(() => {
     axios({
       method: 'get',
@@ -20,7 +20,7 @@ const PandingTournaments = (props) => {
     })
       .then(function (response) {
         console.log("response ---->", response.data);
-        setData(response.data);
+        setData(response.data.map((item) => item.state !== "Cancel" ? item : null));
       });
   }, []);
   return (
@@ -44,8 +44,8 @@ const PandingTournaments = (props) => {
                 {item &&
                   <tr onClick={() => props.history.push(`/tournaments_details/${item.external_id}`)}>
                     <td>{"#" + item.external_id}</td>
-                    <td>{moment(item.start_tournament).format("h:mm") + " - " + moment(item.start_tournament).format("DD.MM.YY")}</td>
-                    <td>{moment(item.end_tournament).format("h:mm") + " - " + moment(item.end_tournament).format("DD.MM.YY")}</td>
+                    <td>{moment.utc(item.start_tournament).format("hh:mm") + " - " + moment.utc(item.start_tournament).format("DD.MM.YY")}</td>
+                    <td>{moment.utc(item.end_tournament).format("hh:mm") + " - " + moment.utc(item.end_tournament).format("DD.MM.YY")}</td>
                     <td>{item.total_players}</td>
                   </tr>
                 }

@@ -9,6 +9,18 @@ const AccountDetails = (props) => {
     const[data, setData] = useState(undefined);
     console.log("props?.match?.params?.slug --------->", props?.match?.params?.slug);
     console.log("data ---->",  data?.transaction);
+    // useEffect(() => {
+    //     axios({
+    //         method: 'get',
+    //         url: `http://143.110.254.46/poker/api/account-details/1`,
+    //         headers: {
+    //           Authorization: "Token "+localStorage.getItem("accessToken").trim()
+    //         }
+    //       })
+    //         .then(function (response) {
+    //             setData(response.data);
+    //     });
+    // },[])
     useEffect(() => {
         axios({
             method: 'get',
@@ -19,8 +31,8 @@ const AccountDetails = (props) => {
           })
             .then(function (response) {
                 setData(response.data);
-        });
-    },[])
+        });   
+    })
     return (
         <div className="account-details-page-main">
             <div className="header container">
@@ -72,7 +84,7 @@ const AccountDetails = (props) => {
                                     <tbody>
                                         <tr>
                                             <td>{`#${item?.id}`}</td>
-                                            <td>{`${moment(item.created_at).format("DD.MM.YY")} - ${moment(item.created_at).format("h:mm")}`}</td>
+                                            <td>{`${moment.utc(item.created_at).format("DD.MM.YY")} - ${moment.utc(item.created_at).format("hh:mm")}`}</td>
                                             <td>{item?.transaction_type}</td>
                                             <td>{item?.from_account_id?.account_name}</td>
                                             <td>{item?.to_account_id?.account_name}</td>

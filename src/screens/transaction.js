@@ -91,6 +91,7 @@ const Transaction = (props) => {
                 // setOriginalData(response.data);
         });
         setShowSave(false);
+        props.history.goBack();
     }
 
     const cancelTransaction = () => {
@@ -116,7 +117,8 @@ const Transaction = (props) => {
                 console.log("res ---->", response);
                 // setOriginalData(response.data);
         });
-        setShowCancel(false)
+        setShowCancel(false);
+        props.history.goBack();
     }
     return (
         <div className="transaction-main">
@@ -151,7 +153,7 @@ const Transaction = (props) => {
                                     <div className="col-md-6 col-sm-6 text-right mb-4">
                                         <Button id="orange-btn" onClick={() => props.history.goBack()}> Back </Button>
                                     </div>
-                                    {transactionType === "Deduction" && <div className="col-md-6 col-sm-6 mb-4"><input readonly value={moment(date).format("YYYY-MM-DD")} className="date-input" /> </div>}
+                                    {transactionType === "Deduction" && <div className="col-md-6 col-sm-6 mb-4"><input type="date" value={moment(date).format("YYYY-MM-DD")} className="date-input" onChange={(e) => setDate(e.target.value)}/> </div>}
                                     <div className="col-md-6 col-sm-6 mb-4">
                                         <Form.Control
                                             as="select"
@@ -210,7 +212,7 @@ const Transaction = (props) => {
                                         <input type="text" className="input-text" placeholder="Amount" value={amount} readonly={filterTransection?.length > 0 ? true : false} onChange={(e) => setAmount(e.target.value)} />
                                     </div>
                                     <div className="col-md-12 col-sm-12 mb-4">
-                                        <textarea className="textarea-text" name="comment" form="usrform" value={description} readonly={filterTransection?.length > 0 ? true : false} onChange={(e) => setDescription(e.target.value)}>Description...</textarea>
+                                        <textarea placeholder="Description..." className="textarea-text" name="comment" form="usrform" value={description} readonly={filterTransection?.length > 0 ? true : false} onChange={(e) => setDescription(e.target.value)}></textarea>
                                     </div>
                                     {transactionType === "Deposit" && <div className="col-md-12 col-sm-12 mb-4">
                                         <Form.Group controlId="formBasicCheckbox" readonly={filterTransection?.length > 0 ? true : false}>
