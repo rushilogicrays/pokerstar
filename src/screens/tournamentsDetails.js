@@ -29,13 +29,14 @@ const Tournamentsdetails = (props) => {
     //console.log("tournamentDetail ----->", tournamentDetail[0].total_players);
     //console.log('total', totalPlayers);
     //console.log("data ---->", data);
+    //console.log("acc ---->", localStorage.getItem("accessToken").trim());
     useEffect(() => {
         axios({
             method: 'get',
             url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,
-            // headers: {
-            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-            // }
+            headers: {
+              Authorization: "Token "+localStorage.getItem("accessToken").trim()
+            }
         })
             .then(function (response) {
                 setTournamentDetail(response.data.tournament);
@@ -60,53 +61,57 @@ const Tournamentsdetails = (props) => {
                                 : { ...item, payout: "" }
                         )
                     )
-                    console.log("2 to 5");
                 }
                 if (totalPlayers >= 6 && totalPlayers <= 8) {
-                    setData(
-                        data?.map(item =>
-                            item.position === 1
-                                ? { ...item, payout: ((PrizePool * 62) / 100) }
-                                : item.position === 2 ? { ...item, payout: ((PrizePool * 38) / 100) } : { ...item, payout: "" }
-
-                        )
-                    )
-                    console.log("6 to 8")
-                }
-                if (totalPlayers >= 9 && totalPlayers <= 14) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 50) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 62) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 30) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 38) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 20) / 100) } : item
+                        item.position === 3 ? { ...item, payout: "" } : item
                     )
                     await setData(updatedData2);
-                    let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: "" } : item
-                    )
-                    await setData(updatedData3);
                     await setData(
-                        updatedData3?.map(item =>
-                            item.position > 4 ? { ...item, payout: "" } : item
+                        updatedData2?.map(item =>
+                            item.position > 3 ? { ...item, payout: "" } : item
+                        )
+                    )
+                }
+                if (totalPlayers >= 9 && totalPlayers <= 14) {
+                    let updatedData = data?.map(item =>
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 50) / 100)) } : item
+                    )
+                    await setData(updatedData);
+                    let updatedData1 = updatedData?.map(item =>
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 30) / 100)) } : item
+                    )
+                    await setData(updatedData1);
+                    let updatedData2 = updatedData1?.map(item =>
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 20) / 100)) } : item
+                    )
+                    await setData(updatedData2);
+                    await setData(
+                        updatedData2?.map(item =>
+                            item.position > 3 ? { ...item, payout: "" } : item
                         )
                     )
                 }
                 if (totalPlayers >= 15 && totalPlayers <= 17) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 50) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 50) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 30) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 30) / 100)) } : item
                     )
+                    console.log("updatedData2 ---->", updatedData1);
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 20) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 20) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
@@ -121,19 +126,26 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 18 && totalPlayers <= 24) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 45) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 45) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 27) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 27) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 17) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 17) / 100)) } : item
                     )
+                    var a = updatedData2
+                    let totalTip = 0;
+                    if (a?.length > 0) {
+                        for (var i = 0; i < a?.length; i++) {
+                            totalTip += a[i]?.payout;
+                        }
+                    }
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 11) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(PrizePool - totalTip) } : item
                     )
                     await setData(updatedData3);
                     await setData(
@@ -144,23 +156,30 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 25 && totalPlayers <= 29) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 38) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 38) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 25) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 25) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 17) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 17) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 12) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(((PrizePool * 12) / 100)) } : item
                     )
+                    var a = updatedData3
+                    let totalTip = 0;
+                    if (a?.length > 0) {
+                        for (var i = 0; i < a?.length; i++) {
+                            totalTip += a[i]?.payout;
+                        }
+                    }
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(PrizePool - totalTip) } : item
                     )
                     await setData(updatedData4);
                     await setData(
@@ -172,27 +191,34 @@ const Tournamentsdetails = (props) => {
                 if (totalPlayers >= 30 && totalPlayers <= 34) {
                     console.log("30 to 34");
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 37) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 37) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 24) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 24) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 15) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 15) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 10) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(((PrizePool * 10) / 100)) } : item
                     )
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(((PrizePool * 8) / 100)) } : item
                     )
+                    var a = updatedData4
+                    let totalTip = 0;
+                    if (a?.length > 0) {
+                        for (var i = 0; i < a?.length; i++) {
+                            totalTip += a[i]?.payout;
+                        }
+                    }
                     await setData(updatedData4);
                     let updatedData5 = updatedData4?.map(item =>
-                        item.position === 6 ? { ...item, payout: ((PrizePool * 6) / 100) } : item
+                        item.position === 6 ? { ...item, payout: Math.floor(PrizePool - totalTip) } : item
                     )
                     await setData(updatedData5);
                     await setData(
@@ -203,31 +229,38 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 35 && totalPlayers <= 39) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 33) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 33) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 22) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 22) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 15) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 15) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 10) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(((PrizePool * 10) / 100)) } : item
                     )
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(((PrizePool * 8) / 100)) } : item
                     )
                     await setData(updatedData4);
                     let updatedData5 = updatedData4?.map(item =>
-                        item.position === 6 ? { ...item, payout: ((PrizePool * 7) / 100) } : item
+                        item.position === 6 ? { ...item, payout: Math.floor(((PrizePool * 7) / 100)) } : item
                     )
+                    var a = updatedData5
+                    let totalTip = 0;
+                    if (a?.length > 0) {
+                        for (var i = 0; i < a?.length; i++) {
+                            totalTip += a[i]?.payout;
+                        }
+                    }
                     await setData(updatedData5);
                     let updatedData6 = updatedData5?.map(item =>
-                        item.position === 7 ? { ...item, payout: ((PrizePool * 5) / 100) } : item
+                        item.position === 7 ? { ...item, payout: Math.floor(PrizePool - totalTip) } : item
                     )
                     await setData(updatedData6);
                     await setData(
@@ -238,35 +271,42 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 40 && totalPlayers <= 44) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 32) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 32) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 20) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 20) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 13) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 13) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 9) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(((PrizePool * 9) / 100)) } : item
                     )
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(((PrizePool * 8) / 100)) } : item
                     )
                     await setData(updatedData4);
                     let updatedData5 = updatedData4?.map(item =>
-                        item.position === 6 ? { ...item, payout: ((PrizePool * 7) / 100) } : item
+                        item.position === 6 ? { ...item, payout: Math.floor(((PrizePool * 7) / 100)) } : item
                     )
                     await setData(updatedData5);
                     let updatedData6 = updatedData5?.map(item =>
-                        item.position === 7 ? { ...item, payout: ((PrizePool * 6) / 100) } : item
+                        item.position === 7 ? { ...item, payout: Math.floor(((PrizePool * 6) / 100)) } : item
                     )
+                    var a = updatedData6
+                    let totalTip = 0;
+                    if (a?.length > 0) {
+                        for (var i = 0; i < a?.length; i++) {
+                            totalTip += a[i]?.payout;
+                        }
+                    }
                     await setData(updatedData6);
                     let updatedData7 = updatedData6?.map(item =>
-                        item.position === 8 ? { ...item, payout: ((PrizePool * 5) / 100) } : item
+                        item.position === 8 ? { ...item, payout: Math.floor(PrizePool - totalTip) } : item
                     )
                     await setData(updatedData7);
                     await setData(
@@ -278,39 +318,46 @@ const Tournamentsdetails = (props) => {
                 if (totalPlayers >= 45) {
                     console.log("46 above");
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 28) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 28) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 18) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 18) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 12) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 12) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 9) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(((PrizePool * 9) / 100)) } : item
                     )
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(((PrizePool * 8) / 100)) } : item
                     )
                     await setData(updatedData4);
                     let updatedData5 = updatedData4?.map(item =>
-                        item.position === 6 ? { ...item, payout: ((PrizePool * 7) / 100) } : item
+                        item.position === 6 ? { ...item, payout: Math.floor(((PrizePool * 7) / 100)) } : item
                     )
                     await setData(updatedData5);
                     let updatedData6 = updatedData5?.map(item =>
-                        item.position === 7 ? { ...item, payout: ((PrizePool * 6) / 100) } : item
+                        item.position === 7 ? { ...item, payout: Math.floor(((PrizePool * 6) / 100)) } : item
                     )
                     await setData(updatedData6);
                     let updatedData7 = updatedData6?.map(item =>
-                        item.position === 8 ? { ...item, payout: ((PrizePool * 5) / 100) } : item
+                        item.position === 8 ? { ...item, payout: Math.floor(((PrizePool * 5) / 100)) } : item
                     )
+                    var a = updatedData7
+                    let totalTip = 0;
+                    if (a?.length > 0) {
+                        for (var i = 0; i < a?.length; i++) {
+                            totalTip += a[i]?.payout;
+                        }
+                    }
                     await setData(updatedData7);
                     let updatedData8 = updatedData7?.map(item =>
-                        item.position === 9 ? { ...item, payout: ((PrizePool * 7) / 100) } : item
+                        item.position === 9 ? { ...item, payout: Math.floor(PrizePool - totalTip) } : item
                     )
                     await setData(updatedData8);
                     await setData(
@@ -324,7 +371,7 @@ const Tournamentsdetails = (props) => {
                 if (totalPlayers >= 2 && totalPlayers <= 5) {
                     console.log("2 to 5");
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 100) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 100) / 100)) } : item
                     )
                     await setData(updatedData);
                     await setData(
@@ -335,11 +382,11 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 6 && totalPlayers <= 8) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 62) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 62) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 38) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 38) / 100)) } : item
                     )
                     await setData(updatedData1);
                     await setData(
@@ -350,15 +397,15 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 9 && totalPlayers <= 14) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 50) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 50) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 30) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 30) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 20) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(PrizePool - (updatedData1[0].payout + updatedData1[1].payout)) } : item
                     )
                     await setData(updatedData2);
                     await setData(
@@ -369,19 +416,19 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 15 && totalPlayers <= 17) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 45) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 45) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 27) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 27) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 17) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 17) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 11) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(PrizePool - (updatedData2[0].payout + updatedData2[1].payout + updatedData2[2].payout)) } : item
                     )
                     await setData(updatedData3);
                     await setData(
@@ -392,19 +439,19 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 18 && totalPlayers <= 24) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 45) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 45) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 27) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 27) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 17) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 17) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 11) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(PrizePool - (updatedData2[0].payout + updatedData2[1].payout + updatedData2[2].payout)) } : item
                     )
                     await setData(updatedData3);
                     await setData(
@@ -415,23 +462,23 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 25 && totalPlayers <= 29) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 38) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 38) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 25) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 25) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 17) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 17) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 12) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(((PrizePool * 12) / 100)) } : item
                     )
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(PrizePool - (updatedData3[0].payout + updatedData3[1].payout + updatedData3[2].payout + updatedData3[3].payout)) } : item
                     )
                     await setData(updatedData4);
                     await setData(
@@ -442,27 +489,27 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 30 && totalPlayers <= 34) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 37) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 37) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 24) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 24) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 15) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 15) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 10) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(((PrizePool * 10) / 100)) } : item
                     )
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(((PrizePool * 8) / 100)) } : item
                     )
                     await setData(updatedData4);
                     let updatedData5 = updatedData4?.map(item =>
-                        item.position === 6 ? { ...item, payout: ((PrizePool * 6) / 100) } : item
+                        item.position === 6 ? { ...item, payout: Math.floor(PrizePool - (updatedData4[0].payout + updatedData4[1].payout + updatedData4[2].payout + updatedData4[3].payout + updatedData4[4].payout)) } : item
                     )
                     await setData(updatedData5);
                     await setData(
@@ -473,31 +520,31 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 35 && totalPlayers <= 39) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 33) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 33) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 22) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 22) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 15) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 15) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 10) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(((PrizePool * 10) / 100)) } : item
                     )
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(((PrizePool * 8) / 100)) } : item
                     )
                     await setData(updatedData4);
                     let updatedData5 = updatedData4?.map(item =>
-                        item.position === 6 ? { ...item, payout: ((PrizePool * 7) / 100) } : item
+                        item.position === 6 ? { ...item, payout: Math.floor(((PrizePool * 7) / 100)) } : item
                     )
                     await setData(updatedData5);
                     let updatedData6 = updatedData5?.map(item =>
-                        item.position === 7 ? { ...item, payout: ((PrizePool * 5) / 100) } : item
+                        item.position === 7 ? { ...item, payout: Math.floor(PrizePool - (updatedData5[0].payout + updatedData5[1].payout + updatedData5[2].payout + updatedData5[3].payout + updatedData5[4].payout + updatedData5[5].payout)) } : item
                     )
                     await setData(updatedData6);
                     await setData(
@@ -508,35 +555,35 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 40 && totalPlayers <= 44) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 33) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 33) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 22) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 22) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 15) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 15) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 10) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(((PrizePool * 10) / 100)) } : item
                     )
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(((PrizePool * 8) / 100)) } : item
                     )
                     await setData(updatedData4);
                     let updatedData5 = updatedData4?.map(item =>
-                        item.position === 6 ? { ...item, payout: ((PrizePool * 7) / 100) } : item
+                        item.position === 6 ? { ...item, payout: Math.floor(((PrizePool * 7) / 100)) } : item
                     )
                     await setData(updatedData5);
                     let updatedData6 = updatedData5?.map(item =>
-                        item.position === 7 ? { ...item, payout: ((PrizePool * 5) / 100) } : item
+                        item.position === 7 ? { ...item, payout: Math.floor(((PrizePool * 5) / 100)) } : item
                     )
                     await setData(updatedData6);
                     let updatedData7 = updatedData6?.map(item =>
-                        item.position === 8 ? { ...item, payout: ((PrizePool * 5) / 100) } : item
+                        item.position === 8 ? { ...item, payout: Math.floor(PrizePool - (updatedData6[0].payout + updatedData6[1].payout + updatedData6[2].payout + updatedData6[3].payout + updatedData6[4].payout + updatedData6[5].payout + updatedData6[6].payout)) } : item
                     )
                     await setData(updatedData7);
                     await setData(
@@ -547,39 +594,39 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 45) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 28) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 28) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 18) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 18) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 12) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 12) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 9) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(((PrizePool * 9) / 100)) } : item
                     )
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(((PrizePool * 8) / 100)) } : item
                     )
                     await setData(updatedData4);
                     let updatedData5 = updatedData4?.map(item =>
-                        item.position === 6 ? { ...item, payout: ((PrizePool * 7) / 100) } : item
+                        item.position === 6 ? { ...item, payout: Math.floor(((PrizePool * 7) / 100)) } : item
                     )
                     await setData(updatedData5);
                     let updatedData6 = updatedData5?.map(item =>
-                        item.position === 7 ? { ...item, payout: ((PrizePool * 6) / 100) } : item
+                        item.position === 7 ? { ...item, payout: Math.floor(((PrizePool * 6) / 100)) } : item
                     )
                     await setData(updatedData6);
                     let updatedData7 = updatedData6?.map(item =>
-                        item.position === 8 ? { ...item, payout: ((PrizePool * 5) / 100) } : item
+                        item.position === 8 ? { ...item, payout: Math.floor(((PrizePool * 5) / 100)) } : item
                     )
                     await setData(updatedData7);
                     let updatedData8 = updatedData7?.map(item =>
-                        item.position === 9 ? { ...item, payout: ((PrizePool * 7) / 100) } : item
+                        item.position === 9 ? { ...item, payout: Math.floor(PrizePool - (updatedData7[0].payout + updatedData7[1].payout + updatedData7[2].payout + updatedData7[3].payout + updatedData7[4].payout + updatedData7[5].payout + updatedData7[6].payout + updatedData7[7].payout)) } : item
                     )
                     await setData(updatedData8);
                     await setData(
@@ -592,7 +639,7 @@ const Tournamentsdetails = (props) => {
             if(buyIn >= 126){
                 if (totalPlayers >= 2 && totalPlayers <= 5) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 100) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 100) / 100)) } : item
                     )
                     await setData(updatedData);
                     await setData(
@@ -603,11 +650,11 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 6 && totalPlayers <= 8) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 62) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 62) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 38) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 38) / 100)) } : item
                     )
                     await setData(updatedData1);
                     await setData(
@@ -618,15 +665,16 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 9 && totalPlayers <= 14) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 50) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 50) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 30) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 30) / 100)) } : item
                     )
+                    console.log("updatedData1 --->", updatedData1);
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 20) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(PrizePool - (updatedData1[0].payout + updatedData1[1].payout)) } : item
                     )
                     await setData(updatedData2);
                     await setData(
@@ -637,19 +685,19 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 15 && totalPlayers <= 17) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 45) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 45) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 27) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 27) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 17) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 17) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 11) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(PrizePool - (updatedData2[0].payout + updatedData2[1].payout + updatedData2[2].payout )) } : item
                     )
                     await setData(updatedData3);
                     await setData(
@@ -660,23 +708,23 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 18 && totalPlayers <= 24) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 38) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 38) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 25) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 25) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 17) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 17) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 12) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(((PrizePool * 12) / 100)) } : item
                     )
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(PrizePool - (updatedData3[0].payout + updatedData3[1].payout + updatedData3[2].payout + updatedData3[3].payout)) } : item
                     )
                     await setData(updatedData4);
                     await setData(
@@ -687,27 +735,27 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 25 && totalPlayers <= 29) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 37) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 37) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 24) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 24) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 15) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 15) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 10) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(((PrizePool * 10) / 100)) } : item
                     )
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(((PrizePool * 8) / 100)) } : item
                     )
                     await setData(updatedData4);
                     let updatedData5 = updatedData4?.map(item =>
-                        item.position === 6 ? { ...item, payout: ((PrizePool * 6) / 100) } : item
+                        item.position === 6 ? { ...item, payout: Math.floor(PrizePool - (updatedData4[0].payout + updatedData4[1].payout + updatedData4[2].payout + updatedData4[3].payout + updatedData4[4].payout)) } : item
                     )
                     await setData(updatedData5);
                     await setData(
@@ -718,31 +766,31 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 30 && totalPlayers <= 34) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 33) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 33) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 22) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 22) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 15) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 15) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 10) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(((PrizePool * 10) / 100)) } : item
                     )
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(((PrizePool * 8) / 100)) } : item
                     )
                     await setData(updatedData4);
                     let updatedData5 = updatedData4?.map(item =>
-                        item.position === 6 ? { ...item, payout: ((PrizePool * 7) / 100) } : item
+                        item.position === 6 ? { ...item, payout: Math.floor(((PrizePool * 7) / 100)) } : item
                     )
                     await setData(updatedData5);
                     let updatedData6 = updatedData5?.map(item =>
-                        item.position === 7 ? { ...item, payout: ((PrizePool * 5) / 100) } : item
+                        item.position === 7 ? { ...item, payout: Math.floor(PrizePool - (updatedData5[0].payout + updatedData5[1].payout + updatedData5[2].payout + updatedData5[3].payout + updatedData5[4].payout + updatedData5[5].payout)) } : item
                     )
                     await setData(updatedData6);
                     await setData(
@@ -753,35 +801,35 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 35 && totalPlayers <= 39) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 32) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 32) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 20) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 20) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 13) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 13) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 9) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(((PrizePool * 9) / 100)) } : item
                     )
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(((PrizePool * 8) / 100)) } : item
                     )
                     await setData(updatedData4);
                     let updatedData5 = updatedData4?.map(item =>
-                        item.position === 6 ? { ...item, payout: ((PrizePool * 7) / 100) } : item
+                        item.position === 6 ? { ...item, payout: Math.floor(((PrizePool * 7) / 100)) } : item
                     )
                     await setData(updatedData5);
                     let updatedData6 = updatedData5?.map(item =>
-                        item.position === 7 ? { ...item, payout: ((PrizePool * 6) / 100) } : item
+                        item.position === 7 ? { ...item, payout: Math.floor(((PrizePool * 6) / 100)) } : item
                     )
                     await setData(updatedData6);
                     let updatedData7 = updatedData6?.map(item =>
-                        item.position === 8 ? { ...item, payout: ((PrizePool * 5) / 100) } : item
+                        item.position === 8 ? { ...item, payout: Math.floor(PrizePool - (updatedData6[0].payout + updatedData6[1].payout + updatedData6[2].payout + updatedData6[3].payout + updatedData6[4].payout + updatedData6[5].payout + updatedData6[6].payout)) } : item
                     )
                     await setData(updatedData7);
                     await setData(
@@ -792,39 +840,39 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 40 && totalPlayers <= 44) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 28) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 28) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 18) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 18) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 12) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 12) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 9) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(((PrizePool * 9) / 100)) } : item
                     )
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(((PrizePool * 8) / 100)) } : item
                     )
                     await setData(updatedData4);
                     let updatedData5 = updatedData4?.map(item =>
-                        item.position === 6 ? { ...item, payout: ((PrizePool * 7) / 100) } : item
+                        item.position === 6 ? { ...item, payout: Math.floor(((PrizePool * 7) / 100)) } : item
                     )
                     await setData(updatedData5);
                     let updatedData6 = updatedData5?.map(item =>
-                        item.position === 7 ? { ...item, payout: ((PrizePool * 6) / 100) } : item
+                        item.position === 7 ? { ...item, payout: Math.floor(((PrizePool * 6) / 100)) } : item
                     )
                     await setData(updatedData6);
                     let updatedData7 = updatedData6?.map(item =>
-                        item.position === 8 ? { ...item, payout: ((PrizePool * 5) / 100) } : item
+                        item.position === 8 ? { ...item, payout: Math.floor(((PrizePool * 5) / 100)) } : item
                     )
                     await setData(updatedData7);
                     let updatedData8 = updatedData7?.map(item =>
-                        item.position === 9 ? { ...item, payout: ((PrizePool * 7) / 100) } : item
+                        item.position === 9 ? { ...item, payout: Math.floor(PrizePool - (updatedData7[0].payout + updatedData7[1].payout + updatedData7[2].payout + updatedData7[3].payout + updatedData7[4].payout + updatedData7[5].payout + updatedData7[6].payout + updatedData7[7].payout)) } : item
                     )
                     await setData(updatedData8);
                     await setData(
@@ -835,43 +883,43 @@ const Tournamentsdetails = (props) => {
                 }
                 if (totalPlayers >= 45) {
                     let updatedData = data?.map(item =>
-                        item.position === 1 ? { ...item, payout: ((PrizePool * 28) / 100) } : item
+                        item.position === 1 ? { ...item, payout: Math.floor(((PrizePool * 28) / 100)) } : item
                     )
                     await setData(updatedData);
                     let updatedData1 = updatedData?.map(item =>
-                        item.position === 2 ? { ...item, payout: ((PrizePool * 18) / 100) } : item
+                        item.position === 2 ? { ...item, payout: Math.floor(((PrizePool * 18) / 100)) } : item
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: ((PrizePool * 12) / 100) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(((PrizePool * 12) / 100)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: ((PrizePool * 9) / 100) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(((PrizePool * 9) / 100)) } : item
                     )
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: ((PrizePool * 8) / 100) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(((PrizePool * 8) / 100)) } : item
                     )
                     await setData(updatedData4);
                     let updatedData5 = updatedData4?.map(item =>
-                        item.position === 6 ? { ...item, payout: ((PrizePool * 7) / 100) } : item
+                        item.position === 6 ? { ...item, payout: Math.floor(((PrizePool * 7) / 100)) } : item
                     )
                     await setData(updatedData5);
                     let updatedData6 = updatedData5?.map(item =>
-                        item.position === 7 ? { ...item, payout: ((PrizePool * 6) / 100) } : item
+                        item.position === 7 ? { ...item, payout: Math.floor(((PrizePool * 6) / 100)) } : item
                     )
                     await setData(updatedData6);
                     let updatedData7 = updatedData6?.map(item =>
-                        item.position === 8 ? { ...item, payout: ((PrizePool * 5) / 100) } : item
+                        item.position === 8 ? { ...item, payout: Math.floor(((PrizePool * 5) / 100)) } : item
                     )
                     await setData(updatedData7);
                     let updatedData8 = updatedData7?.map(item =>
-                        item.position === 9 ? { ...item, payout: ((PrizePool * 4) / 100) } : item
+                        item.position === 9 ? { ...item, payout: Math.floor(((PrizePool * 4) / 100)) } : item
                     )
                     await setData(updatedData8);
                     let updatedData9 = updatedData8?.map(item =>
-                        item.position === 10 ? { ...item, payout: ((PrizePool * 3) / 100) } : item
+                        item.position === 10 ? { ...item, payout: Math.floor(PrizePool - (updatedData8[0].payout + updatedData8[1].payout + updatedData8[2].payout + updatedData8[3].payout + updatedData8[4].payout + updatedData8[5].payout + updatedData8[6].payout + updatedData8[7].payout + updatedData8[8].payout)) } : item
                     )
                     await setData(updatedData9);
                     await setData(
@@ -886,16 +934,17 @@ const Tournamentsdetails = (props) => {
     }, [totalPlayers])
 
     const deleteTournament = () => {
-        // axios({
-        //     method: 'delete',
-        //     url: `http://143.110.254.46/poker/api/delete-tournament/${props?.match?.params?.slug}`,
-        //     // headers: {
-        //     //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-        //     // }
-        //   })
-        //     .then(function (response) {
-        //       console.log(response.data.rank);
-        //     });
+        axios({
+            method: 'delete',
+            url: `http://143.110.254.46/poker/api/delete-tournament/${props?.match?.params?.slug}`,
+            // headers: {
+            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
+            // }
+          })
+            .then(function (response) {
+              console.log(response.data.rank);
+            });
+        setShowDelete(false);
         console.log("delete");
     }
     const fetchData = () => {
@@ -956,15 +1005,19 @@ const Tournamentsdetails = (props) => {
                     }
                 ],
                 rank: data
+            },
+            headers: {
+              Authorization: "Token "+localStorage.getItem("accessToken").trim()
             }
-            // headers: {
-            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-            // }
         })
             .then(function (response) {
                 console.log("res --->", response.data);
             });
+            setShowSave(false)
     }
+    const [show, setShow] = useState(false);
+    const [showDelete, setShowDelete] = useState(false)
+    const [showSave, setShowSave] = useState(false);
     return (
         <div className="tournamnets-details-main">
             <div className="container">
@@ -1018,11 +1071,9 @@ const Tournamentsdetails = (props) => {
                                 <li> <span className="lable" >Total Tip</span> <span className="purple-value"> {`${totalTip ? totalTip : "Total Tip"}`}</span> </li>
                             </ul>
                             <ul className="btn-row">
-                                <li> <Button id="red-btn" onClick={() => deleteTournament()}> Delete </Button> </li>
-                                <li> <Button id="red-btn" onClick={handleShow}> Delete </Button> </li>
+                                <li> <Button id="red-btn" onClick={() => setShowDelete(true)}> Delete </Button> </li>
                                 <li> <Button id="pink-btn" onClick={() => fetchData()}> Reset </Button> </li>
-                                <li> <Button id="green-btn" onClick={() => handleSave()}> Save </Button> </li>
-                                <li> <Button id="green-btn" onClick={handleShow}> Save </Button> </li>
+                                <li> <Button id="green-btn" onClick={() => setShowSave(true)}> Save </Button> </li>
                             </ul>
                         </div>
                         <div className="tournament-details-table">
@@ -1051,18 +1102,32 @@ const Tournamentsdetails = (props) => {
                             </Table>
                         </div>
                     </div>
-                    <Modal show={show} onHide={handleClose}>
+                    <Modal show={showDelete} onHide={() => setShowDelete(false)}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Modal heading</Modal.Title>
+                            <Modal.Title>Delete</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                        <Modal.Body>Are you sure you want to delete this tournament?</Modal.Body>
                         <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
+                            <Button variant="secondary" onClick={() => setShowDelete(false)}>
                                 Close
                             </Button>
-                            <Button variant="primary" onClick={handleClose}>
+                            <Button variant="primary" onClick={() => deleteTournament()}>
                                 Save Changes
-                                </Button>
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+                    <Modal show={showSave} onHide={() => setShowSave(false)}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Save</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>Are you sure you want to save this tournament?</Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={() => setShowSave(false)}>
+                                Close
+                            </Button>
+                            <Button variant="primary" onClick={() => handleSave()}>
+                                Save Changes
+                            </Button>
                         </Modal.Footer>
                     </Modal>
                 </div>

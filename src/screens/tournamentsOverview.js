@@ -14,8 +14,8 @@ const TournamentsOverview = (props) => {
     const [tournamentDetails, setTournamentDetails] = useState(undefined);
     const [originalData, setOriginalData] = useState(undefined);
     const [searchId, setSearchId] = useState(undefined);
+    const [deductionData, setDeductionData] = useState(undefined);
     let date = moment(value).format("YYYY-MM-DD");
-    console.log("date --->", originalData);
     useEffect(async() => {
         axios({
             method: 'get',
@@ -28,15 +28,26 @@ const TournamentsOverview = (props) => {
                 setTournamentDetails(response.data)
                 setOriginalData(response.data);
             });
+        
+        axios({
+            method: 'get',
+            url: `http://143.110.254.46/poker/api/get-transactions?transaction_type=Deduction`,
+            // headers: {
+            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
+            // }
+            })
+            .then(function (response) {
+                setDeductionData(response.data);
+            });
     },[])
     const fetchDataByDate = (date) => {
         // setValue(date);
         axios({
             method: 'get',
             url: `http://143.110.254.46/poker/api/tournament-overview?date=${moment(date).format("YYYY-MM-DD")}`,
-            // headers: {
-            //   Authorization: "Token "+localStorage.getItem("accessToken").trim()
-            // }
+            headers: {
+              Authorization: "Token "+localStorage.getItem("accessToken").trim()
+            }
           })
             .then(function (response) {
                 setOriginalData(response.data);
@@ -118,42 +129,20 @@ const TournamentsOverview = (props) => {
                                     <tr>
                                         <th>Amount</th>
                                         <th>To</th>
-                                        <th>Reson</th>
+                                        <th>Reason</th>
                                         <th>Remove</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>75</td>
-                                        <td>Silce 666</td>
-                                        <td>Buyin free</td>
-                                        <td>x</td>
-                                    </tr>
-                                    <tr>
-                                        <td>75</td>
-                                        <td>Silce 666</td>
-                                        <td>Buyin free</td>
-                                        <td>x</td>
-                                    </tr>
-                                    <tr>
-                                        <td>75</td>
-                                        <td>Silce 666</td>
-                                        <td>Buyin free</td>
-                                        <td>x</td>
-                                    </tr>
-                                    <tr>
-                                        <td>75</td>
-                                        <td>Silce 666</td>
-                                        <td>Buyin free</td>
-                                        <td>x</td>
-                                    </tr>
-                                    <tr>
-                                        <td>75</td>
-                                        <td>Silce 666</td>
-                                        <td>Buyin free</td>
-                                        <td>x</td>
-                                    </tr>
-                                </tbody>
+                                {deductionData?.map((item) => (
+                                    <tbody onClick={() => props.history.push("/transaction/" + (item.id))}>
+                                        <tr>
+                                            <td>{item.transaction_amount}</td>
+                                            <td>item</td>
+                                            <td>{item.description}</td>
+                                            <td><Button>X</Button></td>
+                                        </tr>
+                                    </tbody>
+                                ))}
                             </Table>
                         </div>
                     </div>
