@@ -23,7 +23,7 @@ const ReportingNonConfirmedDeposit = (props) => {
         <div className="re-non-deposit-main">
             <div className="container">
                 <div className="header">
-                    <Header />
+                    <Header push={props.history.push}/>
                 </div>
                 <div className="row">
                     <div className="col-md-3 col-sm-3">

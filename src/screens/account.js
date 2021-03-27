@@ -27,7 +27,7 @@ const Account = (props) => {
         <div className="account-main">
             <div className="container">
                 <div className="header">
-                    <Header />
+                    <Header push={props.history.push}/>
                 </div>
                 <div className="row">
                     <div className="col-md-6">

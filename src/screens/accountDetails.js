@@ -36,7 +36,7 @@ const AccountDetails = (props) => {
     return (
         <div className="account-details-page-main">
             <div className="header container">
-                <Header />
+                <Header push={props.history.push}/>
             </div>
             <div className="container">
                 <div className="row">

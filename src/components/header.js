@@ -20,6 +20,7 @@ const Header = (props) => {
             .then(function (response) {
                 console.log(response.data)
             });
+            props.push('/login')
     }
     return (
         <div className="header-main">

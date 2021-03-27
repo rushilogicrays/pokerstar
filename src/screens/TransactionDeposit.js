@@ -6,7 +6,7 @@ import axios from 'axios';
 import moment from 'moment';
 import Modal from 'react-bootstrap/Modal'
 
-const Transaction = (props) => {
+const TransactionDeposit = (props) => {
     const [deductionData, setDeductionData] = useState(undefined);
     const [transactionType, setTransactionType] = useState(props?.match?.params?.slug ? props?.match?.params?.slug : undefined);
     const [paymentMethod, setPaymentMethod] = useState(undefined);
@@ -21,7 +21,7 @@ const Transaction = (props) => {
     const [showCancel, setShowCancel] = useState(false);
     const [showSave, setShowSave] = useState(false);
     let filterTransection = deductionData?.filter((item) => item.id.toString() === props?.match?.params?.slug?.toString() ? item : null )
-    console.log("transactionType", from);
+    console.log("transactionType", deductionData);
     // console.log("params ----->", localStorage.getItem("accessToken").trim());
     useEffect(async() => {
         if(filterTransection?.length > 0){
@@ -267,4 +267,4 @@ const Transaction = (props) => {
     )
 }
 
-export default Transaction;
+export default TransactionDeposit;

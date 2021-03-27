@@ -6,11 +6,11 @@ import Header from '../components/header';
 import Table from 'react-bootstrap/Table';
 
 
-const AccountOverview = () => {
+const AccountOverview = (props) => {
     return (
         <div className="account-overview-page-main">
             <div className="header container">
-                <Header />
+                <Header push={props.history.push}/>
             </div>
             <div className="container">
                 <div className="row">

@@ -29,7 +29,7 @@ const Tournamentsdetails = (props) => {
             totalTip += a[i]?.tip;
         }
     }
-    console.log("data --->", tournamentDetail ? tournamentDetail[0].state === "Imported" : null);
+    //console.log("data --->", tournamentDetail ? tournamentDetail[0].state === "Imported" : null);
     // const setBuyIn = (value) => {
     //     buyIn = value
     // }
@@ -62,14 +62,13 @@ const Tournamentsdetails = (props) => {
                 setTotalPlayers(response?.data?.tournament[0]?.total_players)
             });
     }, []);
-
+    console.log("data ----------------------------------------->", PrizePool );
     const calculation = async(e) => {
         console.log(Number(e.target.value));
         setBuyIn(Number(e.target.value))
-        let totalPrizepool = await (data?.length * (Number(e.target.value) - rake))
+        let totalPrizepool = await (Number(tournamentDetail ? tournamentDetail[0].total_players : 0) * (Number(e.target.value) - Number(rake)))
         setPrizePool(totalPrizepool);
-        console.log("PrizePool --->", totalPrizepool)
-
+        //console.log("PrizePool --->", totalPrizepool)
         if (tournamentDetail) {
             if (Number(e.target.value) >= 1 && Number(e.target.value) <= 75) {
                 if (totalPlayers >= 2 && totalPlayers <= 5) {
@@ -954,7 +953,7 @@ const Tournamentsdetails = (props) => {
     }
 
     const calculationRake = async(e) => {
-        let totalPrizepool = await (data?.length * (Number(buyIn) - e))
+        let totalPrizepool = await (Number(tournamentDetail ? tournamentDetail[0].total_players : 0) * (Number(buyIn) - e))
         setPrizePool(totalPrizepool);
         setRake(e);
         console.log("PrizePool --->", totalPrizepool)
@@ -1955,7 +1954,7 @@ const Tournamentsdetails = (props) => {
         <div className="tournamnets-details-main">
             <div className="container">
                 <div className="header">
-                    <Header />
+                    <Header push={props.history.push}/>
                 </div>
                 <div className="row">
                     <div className="col-md-3 col-sm-3">
@@ -1999,14 +1998,14 @@ const Tournamentsdetails = (props) => {
                             </ul>
                             <ul className="btn-row">
                                 <li> <span className="lable" >Total Players</span> <span className="yello-value">{`${tournamentDetail?.length > 0 ? tournamentDetail[0].total_players : "Total Playes"}`}</span> </li>
-                                <li> <span className="lable" >Total Pricepool</span> <span className="purple-value">{`${totalPrizepool ? totalPrizepool : "Total Players"}`}</span> </li>
+                                <li> <span className="lable" >Total Pricepool</span> <span className="purple-value">{`${PrizePool ? PrizePool : "Total PrizePool"}`}</span> </li>
                                 <li> <span className="lable" >Total Rake</span> <span className="purple-value"> {`${totalRake ? totalRake : "Total Rake"}`}</span> </li>
                                 <li> <span className="lable" >Total Tip</span> <span className="purple-value"> {`${totalTip ? totalTip : "Total Tip"}`}</span> </li>
                             </ul>
                             <ul className="btn-row">
-                                {tournamentDetail && tournamentDetail[0].state === "Done" ? <li> <Button id="red-btn" onClick={() => setShowDelete(true)}> Delete </Button> </li> : null}
+                                <li> <Button id="red-btn" onClick={() => setShowDelete(true)}> Delete </Button> </li>
                                 <li> <Button id="pink-btn" onClick={() => fetchData()}> Reset </Button> </li>
-                                {tournamentDetail && tournamentDetail[0].state === "Imported" ? <li> <Button id="green-btn" onClick={() => setShowSave(true)}> Save </Button> </li> : null}
+                                <li> <Button id="green-btn" onClick={() => setShowSave(true)}> Save </Button> </li>
                             </ul>
                         </div>
                         <div className="tournament-details-table">

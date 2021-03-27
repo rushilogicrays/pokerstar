@@ -12,6 +12,7 @@ import AccountDetails from './screens/accountDetails';
 import AccountOverview from './screens/accountOverview';
 import ReportingNonConfirmedDeposit from './screens/ReportingNonConfirmedDeposit';
 import ReportingAllAccountDebt from './screens/ReportingAllAccountDebt';
+import TransactionDeposit from './screens/TransactionDeposit';
 
 const App = () => {
       {/* uncomment for server deploment */}
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/account-overview" exact component={AccountOverview} />
         <Route path="/reporting-non-confirmed-deposit" exact component={ReportingNonConfirmedDeposit} />
         <Route path="/reporting-all-account-debt" exact component={ReportingAllAccountDebt} />
+        <Route path="/transaction-deposit/:slug" exact component={TransactionDeposit} />
       </Switch>
   </BrowserRouter>
   )

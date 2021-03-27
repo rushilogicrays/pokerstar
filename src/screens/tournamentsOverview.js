@@ -11,11 +11,35 @@ import moment from 'moment'
 
 const TournamentsOverview = (props) => {
     const [value, setValue] = useState(new Date());
-    const [tournamentDetails, setTournamentDetails] = useState(undefined);
+    const [tournamentDetails, setTournamentDetails] = useState([]);
     const [originalData, setOriginalData] = useState(undefined);
     const [searchId, setSearchId] = useState(undefined);
     const [deductionData, setDeductionData] = useState(undefined);
     let date = moment.utc(value).format("YYYY-MM-DD");
+    console.log("tournamentDetails ---->", tournamentDetails);
+    var rake = tournamentDetails
+    let totalRake = 0;
+    if (rake?.length > 0) {
+        for (var i = 0; i < rake?.length; i++) {
+            totalRake += rake[i]?.rake;
+        }
+    }
+    var tip = tournamentDetails
+    let totalTip = 0;
+    if (tip?.length > 0) {
+        for (var i = 0; i < tip?.length; i++) {
+            totalTip += tip[i]?.total_tip;
+        }
+    }
+    var deducation = tournamentDetails
+    let totalDeducation = 0;
+    if (deducation?.length > 0) {
+        for (var i = 0; i < deducation?.length; i++) {
+            totalDeducation += deducation[i]?.total_prizepool;
+        }
+    }
+    var totalOfAllValue = totalRake + totalTip + totalDeducation;
+    console.log("totalRake ---->", totalOfAllValue)
     useEffect(async() => {
         axios({
             method: 'get',
@@ -73,7 +97,7 @@ const TournamentsOverview = (props) => {
         <div className="tournaments-overview-main">
             <div className="container">
                 <div className="tournaments-overview-header">
-                    <Header />
+                    <Header push={props.history.push}/>
                 </div>
                 <div className="row">
                     <div className="col-md-3 col-sm-3">
@@ -93,10 +117,10 @@ const TournamentsOverview = (props) => {
                         </div>
                         <div className="subtotale-box">
                             <ul>
-                                <li> <strong className="text">+ Total Rake</strong> <span>745</span> </li>
-                                <li> <strong className="text">+ Total Tip</strong> <span>47</span> </li>
-                                <li className="deducation-text"> <strong className="text">+ Total Deducation</strong> <span>125</span> </li>
-                                <li> <strong className="text">Profit</strong> <span>670</span> </li>
+                                <li> <strong className="text">+ Total Rake</strong> <span>{totalRake}</span> </li>
+                                <li> <strong className="text">+ Total Tip</strong> <span>{totalTip}</span> </li>
+                                <li className="deducation-text"> <strong className="text">+ Total Deducation</strong> <span>{totalDeducation}</span> </li>
+                                <li> <strong className="text">Profit</strong> <span>{totalOfAllValue}</span> </li>
                             </ul>
                         </div>
                     </div>

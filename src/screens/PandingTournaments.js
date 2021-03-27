@@ -28,7 +28,7 @@ const PandingTournaments = (props) => {
     <div className="pennding-tournament-main">
       <div className="container">
         <div className="header">
-          <Header />
+          <Header push={props.history.push}/>
         </div>
         <div className="pending-tournament-details-table" style={{flexDirection: "row", display: "flex"}}>
         <div className="col-md-3 col-sm-3">
