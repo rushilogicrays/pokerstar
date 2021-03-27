@@ -13,7 +13,7 @@ const TransactionDeposit = (props) => {
     const [toFrom, setToFrom] = useState(undefined);
     const [from, setFrom] = useState(undefined);
     const [to, setTo] = useState(undefined);
-    const [date, setDate] = useState(moment(new Date()).format("YYYY-MM-DD"));
+    const [date, setDate] = useState(moment.utc(new Date()).format("YYYY-MM-DD"));
     const [amount, setAmount] = useState(undefined);
     const [description, setDescription] = useState(undefined);
     const [checkBox, setCheckBox] = useState(false);
@@ -73,7 +73,6 @@ const TransactionDeposit = (props) => {
                 confirm: checkBox,
                 from_account_id: from,
                 to_account_id: to,
-                tournament_id: 17,
                 admin_id: localStorage.getItem("pk"),
                 payment_type_id: paymentMethod
             },
@@ -84,9 +83,9 @@ const TransactionDeposit = (props) => {
             .then(function (response) {
                 console.log("res ---->", response);
                 // setOriginalData(response.data);
+                props.history.goBack();
         });
         setShowSave(false);
-        props.history.goBack();
     }
     return (
         <div className="transaction-main">
@@ -121,7 +120,7 @@ const TransactionDeposit = (props) => {
                                     <div className="col-md-6 col-sm-6 text-right mb-4">
                                         <Button id="orange-btn" onClick={() => props.history.goBack()}> Back </Button>
                                     </div>
-                                    {transactionType === "Deduction" && <div className="col-md-6 col-sm-6 mb-4"><input type="date" value={moment(date).format("YYYY-MM-DD")} className="date-input" onChange={(e) => setDate(e.target.value)}/> </div>}
+                                    {transactionType === "Deduction" && <div className="col-md-6 col-sm-6 mb-4"><input type="date" value={moment.utc(date).format("YYYY-MM-DD")} className="date-input" onChange={(e) => setDate(e.target.value)}/> </div>}
                                     <div className="col-md-6 col-sm-6 mb-4">
                                         <Form.Control
                                             as="select"

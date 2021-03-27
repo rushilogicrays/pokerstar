@@ -73,7 +73,6 @@ const TrannsactionWithdrawal = (props) => {
                 confirm: checkBox,
                 from_account_id: from,
                 to_account_id: to,
-                tournament_id: 17,
                 admin_id: localStorage.getItem("pk"),
                 payment_type_id: paymentMethod
             },
@@ -83,10 +82,10 @@ const TrannsactionWithdrawal = (props) => {
           })
             .then(function (response) {
                 console.log("res ---->", response);
+                props.history.goBack();
                 // setOriginalData(response.data);
         });
         setShowSave(false);
-        props.history.goBack();
     }
     return (
         <div className="transaction-main">
@@ -121,7 +120,7 @@ const TrannsactionWithdrawal = (props) => {
                                     <div className="col-md-6 col-sm-6 text-right mb-4">
                                         <Button id="orange-btn" onClick={() => props.history.goBack()}> Back </Button>
                                     </div>
-                                    {transactionType === "Deduction" && <div className="col-md-6 col-sm-6 mb-4"><input type="date" value={moment(date).format("YYYY-MM-DD")} className="date-input" onChange={(e) => setDate(e.target.value)}/> </div>}
+                                    {transactionType === "Deduction" && <div className="col-md-6 col-sm-6 mb-4"><input type="date" value={moment.utc(date).format("YYYY-MM-DD")} className="date-input" onChange={(e) => setDate(e.target.value)}/> </div>}
                                     <div className="col-md-6 col-sm-6 mb-4">
                                         <Form.Control
                                             as="select"
