@@ -31,11 +31,11 @@ const TournamentsOverview = (props) => {
             totalTip += tip[i]?.total_tip;
         }
     }
-    var deducation = tournamentDetails
+    var deducation = deductionData
     let totalDeducation = 0;
     if (deducation?.length > 0) {
         for (var i = 0; i < deducation?.length; i++) {
-            totalDeducation += deducation[i]?.total_prizepool;
+            totalDeducation += deducation[i]?.transaction_amount;
         }
     }
     var totalOfAllValue = totalRake + totalTip + totalDeducation;

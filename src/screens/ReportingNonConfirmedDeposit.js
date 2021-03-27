@@ -4,9 +4,12 @@ import Header from '../components/header';
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 import moment from 'moment';
+import Modal from 'react-bootstrap/Modal'
 
 const ReportingAllAccountDebt = (props) => {
     const [data, setData] = useState(undefined);
+    const [showModal, setShowModal] = useState(false);
+    const [id, setId] = useState(undefined);
     useEffect(async() => {
         axios({
             method: 'get',
@@ -19,6 +22,23 @@ const ReportingAllAccountDebt = (props) => {
                 setData(response.data);
             });
     },[])
+    const handleConfirm = () => {
+        axios({
+            method: 'post',
+            url: `http://143.110.254.46:8084/poker/api/confirm-deposit/${id}`,
+            headers: {
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
+            }
+          })
+            .then(function (response) {
+                console.log(response.data);
+            });
+        setShowModal(false)
+    }
+    const modalShow = (id) => {
+        setId(id);
+        setShowModal(true);
+    }
     return (
         <div className="re-non-deposit-main">
             <div className="container">
@@ -57,97 +77,29 @@ const ReportingAllAccountDebt = (props) => {
                                             <td>{item?.payment_type_id?.payment_name}</td>
                                             <td>{item?.transaction_amount}</td>
                                             <td>{item?.description}</td>
-                                            <td>{`${item?.confirm ? "true" : "false"}`}</td>
+                                            <td><Button onClick={() => modalShow(item.id)}>Confirm</Button></td>
                                         </tr>
                                     </tbody>
                                 ))}
-                                {/* <tbody>
-                                    <tr>
-                                        <td>#1234567</td>
-                                        <td>NL 50 Turbo</td>
-                                        <td>19:00 - 16/03/2021</td>
-                                        <td>22:01 - 16/03/2021</td>
-                                        <td>18</td>
-                                        <td>766</td>
-                                        <td>76</td>
-                                        <td>12</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#1234567</td>
-                                        <td>NL 50 Turbo</td>
-                                        <td>19:00 - 16/03/2021</td>
-                                        <td>22:01 - 16/03/2021</td>
-                                        <td>18</td>
-                                        <td>766</td>
-                                        <td>76</td>
-                                        <td>12</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#1234567</td>
-                                        <td>NL 50 Turbo</td>
-                                        <td>19:00 - 16/03/2021</td>
-                                        <td>22:01 - 16/03/2021</td>
-                                        <td>18</td>
-                                        <td>766</td>
-                                        <td>76</td>
-                                        <td>12</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#1234567</td>
-                                        <td>NL 50 Turbo</td>
-                                        <td>19:00 - 16/03/2021</td>
-                                        <td>22:01 - 16/03/2021</td>
-                                        <td>18</td>
-                                        <td>766</td>
-                                        <td>76</td>
-                                        <td>12</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#1234567</td>
-                                        <td>NL 50 Turbo</td>
-                                        <td>19:00 - 16/03/2021</td>
-                                        <td>22:01 - 16/03/2021</td>
-                                        <td>18</td>
-                                        <td>766</td>
-                                        <td>76</td>
-                                        <td>12</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#1234567</td>
-                                        <td>NL 50 Turbo</td>
-                                        <td>19:00 - 16/03/2021</td>
-                                        <td>22:01 - 16/03/2021</td>
-                                        <td>18</td>
-                                        <td>766</td>
-                                        <td>76</td>
-                                        <td>12</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#1234567</td>
-                                        <td>NL 50 Turbo</td>
-                                        <td>19:00 - 16/03/2021</td>
-                                        <td>22:01 - 16/03/2021</td>
-                                        <td>18</td>
-                                        <td>766</td>
-                                        <td>76</td>
-                                        <td>12</td>
-                                    </tr>
-                                    <tr>
-                                        <td>#1234567</td>
-                                        <td>NL 50 Turbo</td>
-                                        <td>19:00 - 16/03/2021</td>
-                                        <td>22:01 - 16/03/2021</td>
-                                        <td>18</td>
-                                        <td>766</td>
-                                        <td>76</td>
-                                        <td>12</td>
-                                    </tr>
-                                </tbody> */}
                             </Table>
                         </div>
                     </div>
                 </div>
             </div>
+            <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to confirm this tournament?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={() => handleConfirm()}>
+                        Confirm
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }

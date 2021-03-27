@@ -13,7 +13,7 @@ const Transaction = (props) => {
     const [toFrom, setToFrom] = useState(undefined);
     const [from, setFrom] = useState(undefined);
     const [to, setTo] = useState(undefined);
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(moment(new Date()).format("YYYY-MM-DD"));
     const [amount, setAmount] = useState(undefined);
     const [description, setDescription] = useState(undefined);
     const [checkBox, setCheckBox] = useState(false);
@@ -21,8 +21,11 @@ const Transaction = (props) => {
     const [showCancel, setShowCancel] = useState(false);
     const [showSave, setShowSave] = useState(false);
     let filterTransection = deductionData?.filter((item) => item.id.toString() === props?.match?.params?.slug?.toString() ? item : null )
-    console.log("transactionType", from);
+    console.log("transactionType", date);
     // console.log("params ----->", localStorage.getItem("accessToken").trim());
+    useEffect(() => {
+        setFrom(props?.match?.params?.slug === "Deduction" && transactionType === "Deduction" ? 1 : undefined);
+    })
     useEffect(async() => {
         if(filterTransection?.length > 0){
             setTo(filterTransection?.length > 0 ? filterTransection[0].to_account_id.id : undefined)
@@ -74,6 +77,7 @@ const Transaction = (props) => {
             data: {
                 transaction_type: transactionType,
                 transaction_amount: amount,
+                created_at: `${date}T06:0:00.0000000`,
                 description: description,
                 confirm: checkBox,
                 from_account_id: from,
