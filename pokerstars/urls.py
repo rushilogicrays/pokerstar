@@ -1,6 +1,6 @@
 from django.conf.urls import url 
 from django.urls import path, include
-from pokerstars.views import pending_tournaments, delete_tournament, build_tournaments , transaction , account_details ,tournament_overview , rank_update , get_account_details, create_transaction , get_transactions , cancel_transaction , get_paymenttype , import_tournaments
+from pokerstars.views import pending_tournaments, delete_tournament, build_tournaments , transaction , account_details ,tournament_overview , rank_update , get_account_details, create_transaction , get_transactions , cancel_transaction , get_paymenttype , import_tournaments, confirm_deposit
 urlpatterns = [
 	path('api/pending-tournaments', pending_tournaments),
 	path('api/tournament/<slug:external_id>', build_tournaments),
@@ -14,5 +14,6 @@ urlpatterns = [
 	path('api/cancel-transaction/<int:pk>', cancel_transaction),
 	path('api/get-account-details/', get_account_details),
 	path('api/account-details/<int:id>', account_details),
-	path('api/import-tournaments',import_tournaments)
+	path('api/import-tournaments',import_tournaments),
+	path('api/confirm-deposit/<int:pk>', confirm_deposit),
 ]

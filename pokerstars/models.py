@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from enum import Enum
+from datetime import datetime
 
 # Create your models here.
 
@@ -91,7 +92,8 @@ class Transaction_Detail(models.Model):
     description = models.CharField(max_length=2000,null=True, blank=True)
     confirm = models.BooleanField()
     tournament_id = models.ForeignKey(Tournament,on_delete=models.CASCADE,null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True,null=True, blank=True)
+    # created_at = models.DateTimeField(auto_now_add=True,null=True, blank=True)
+    created_at = models.DateTimeField(default=datetime.now,null=True, blank=True)
     admin_id = models.ForeignKey(User, on_delete=models.CASCADE)
     payment_type_id = models.ForeignKey(PaymentType,on_delete=models.CASCADE,max_length=100)
 

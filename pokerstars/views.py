@@ -72,7 +72,7 @@ def build_tournaments(request, external_id):
 		tournament_data = JSONParser().parse(request)
 		tournament_data = loads(dumps(tournament_data))
 		tournament_data['tournament'][0]['state'] = "Done"
-		print(tournament_data['tournament'][0])
+		# print(tournament_data['tournament'][0])
 		# print(tournament_data['rank'])
 		# return JsonResponse(tournament_data, status=status.HTTP_200_OK)
 
@@ -83,11 +83,11 @@ def build_tournaments(request, external_id):
 			print(tournament_data_serializer.errors)
 
 		master_account_id = 1
-		print(len(tournament_data['rank']))
+		# print(len(tournament_data['rank']))
 		count = 1;
 		countv = 1;
 		for rank in tournament_data['rank']:
-			print("COUNT::" + str(count))
+			# print("COUNT::" + str(count))
 			count+=1
 			queryset = Rank.objects.get(pk=rank['id'])
 			if not rank['payout']:
@@ -98,9 +98,9 @@ def build_tournaments(request, external_id):
 			rank_serializer = RankSerializer(queryset, data=rank, partial=True) 
 			if rank_serializer.is_valid():
 				rank_serializer.save()
-				print("COUNT V::" + str(countv))
+				# print("COUNT V::" + str(countv))
 				countv+=1
-				print("BUY IN::" + str(tournament_data['tournament'][0]["buy_in"]))
+				# print("BUY IN::" + str(tournament_data['tournament'][0]["buy_in"]))
 				#initialize buy-in transaction
 				txn_obj = Transaction_Detail()
 				txn_obj.transaction_type = "BuyIn"
@@ -125,7 +125,7 @@ def build_tournaments(request, external_id):
 				to_account.save()
 
 				if int(rank['payout']) > 0:
-					print('payout > 0')
+					# print('payout > 0')
 					#initialize buy-in transaction
 					txn_obj = Transaction_Detail()
 					txn_obj.transaction_type = "Payout"
@@ -150,7 +150,7 @@ def build_tournaments(request, external_id):
 					to_account.save()
 
 				if int(rank['tip']) > 0:
-					print('tip > 0')
+					# print('tip > 0')
 					#initialize buy-in transaction
 					txn_obj = Transaction_Detail()
 					txn_obj.transaction_type = "Tip"
@@ -214,8 +214,8 @@ def tournament_overview(request):
 		if date:
 			start_date = date + timedelta(hours=6)
 			end_date = start_date + timedelta(days=1)
-			print(start_date)
-			print(end_date)
+			# print(start_date)
+			# print(end_date)
 
 			filters['start_tournament__range'] = (start_date,end_date)
 
@@ -248,8 +248,8 @@ def get_transactions(request):
 		if date:
 			start_date = date + timedelta(hours=6)
 			end_date = start_date + timedelta(days=1)
-			print(start_date)
-			print(end_date)
+			# print(start_date)
+			# print(end_date)
 
 			filters['created_at__range'] = (start_date,end_date)
 
@@ -404,10 +404,17 @@ def delete_tournament(request, external_id):
 
 	elif request.method == "PUT":
 		queryset1 = Tournament.objects.get(external_id = external_id) 
+
+		# if status is imported, delete it from database, else revert transactions and change it's status
+		if(queryset1.state == "Imported"):
+			queryset1.delete()
+			return JsonResponse({'message': 'Tournament was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT, safe=False)
+
+
 		tournament_data = JSONParser().parse(request)
 		tournament_data = loads(dumps(tournament_data))
 		tournament_data['tournament'][0]['state'] = "Cancel"
-		print(tournament_data['tournament'][0])
+		# print(tournament_data['tournament'][0])
 		# print(tournament_data['rank'])
 		# return JsonResponse(tournament_data, status=status.HTTP_200_OK)
 
@@ -418,11 +425,11 @@ def delete_tournament(request, external_id):
 			print(tournament_data_serializer.errors)
 
 		master_account_id = 1
-		print(len(tournament_data['rank']))
+		# print(len(tournament_data['rank']))
 		count = 1;
 		countv = 1;
 		for rank in tournament_data['rank']:
-			print("COUNT::" + str(count))
+			# print("COUNT::" + str(count))
 			count+=1
 			queryset = Rank.objects.get(pk=rank['id'])
 			if not rank['payout']:
@@ -433,9 +440,9 @@ def delete_tournament(request, external_id):
 			rank_serializer = RankSerializer(queryset, data=rank, partial=True) 
 			if rank_serializer.is_valid():
 				rank_serializer.save()
-				print("COUNT V::" + str(countv))
+				# print("COUNT V::" + str(countv))
 				countv+=1
-				print("BUY IN::" + str(tournament_data['tournament'][0]["buy_in"]))
+				# print("BUY IN::" + str(tournament_data['tournament'][0]["buy_in"]))
 				#initialize buy-in transaction
 				txn_obj = Transaction_Detail()
 				txn_obj.transaction_type = "BuyIn"
@@ -461,7 +468,7 @@ def delete_tournament(request, external_id):
 				to_account.save()
 
 				if int(rank['payout']) > 0:
-					print('payout > 0')
+					# print('payout > 0')
 					#initialize buy-in transaction
 					txn_obj = Transaction_Detail()
 					txn_obj.transaction_type = "Payout"
@@ -487,7 +494,7 @@ def delete_tournament(request, external_id):
 					to_account.save()
 
 				if int(rank['tip']) > 0:
-					print('tip > 0')
+					# print('tip > 0')
 					#initialize buy-in transaction
 					txn_obj = Transaction_Detail()
 					txn_obj.transaction_type = "Tip"
@@ -644,11 +651,11 @@ def import_tournaments(request):
 							end_date = re.search('\Tournament finished(.*?)\ C', str(part)).group(1).strip()
 							total_players = re.search('([0-9]{0,2})(.*?)\ players', str(part)).group(1).strip()
 
-							print("tournament_id: ",tournament_id)
-							print("start_date: ",start_date)
-							print("end_date: ",end_date)
-							print("total_players: ",total_players)
-							print("\n\n\n")
+							# print("tournament_id: ",tournament_id)
+							# print("start_date: ",start_date)
+							# print("end_date: ",end_date)
+							# print("total_players: ",total_players)
+							# print("\n\n\n")
 							
 							rank_re = re.findall('[0-9]+\: ', str(part))
 							user_re = re.findall('\:(.*?)\(', str(part))
@@ -678,7 +685,7 @@ def import_tournaments(request):
 								tournament = Tournament.objects.create(external_id=tournament_id,start_tournament=start_date,end_tournament=end_date,total_players=int(total_players),state="Imported")
 							# external_id=tournament_id,start_tournament=start_date,end_tournament=end_date
 								# add all player related details to rank
-								print("Tournament ID::",tournament.id)
+								# print("Tournament ID::",tournament.id)
 								for index, item in enumerate(users):
 									rank = Rank()
 									rank.tournament_id = tournament
@@ -710,3 +717,10 @@ def import_tournaments(request):
 
 		return JsonResponse({"message": "Tournaments Imported Successfully"}, status=status.HTTP_200_OK, safe=False)
 
+@api_view(['POST'])
+def confirm_deposit(request,pk): 
+	if request.method == 'POST':
+		queryset1 = Transaction_Detail.objects.get(pk = pk)
+		queryset1.confirm = 1
+		queryset1.save()
+		return JsonResponse({"message": "Deposit Confirmed Successfully"}, status=status.HTTP_200_OK, safe=False)
