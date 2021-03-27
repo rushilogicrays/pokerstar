@@ -75,7 +75,7 @@ const AccountDetails = (props) => {
                             <Table striped bordered hover>
                                 <thead>
                                     <tr>
-                                        <th>Tournament ID</th>
+                                        <th>Transaction ID</th>
                                         <th>Time</th>
                                         <th>Transaction Type</th>
                                         <th>From</th>
@@ -90,7 +90,7 @@ const AccountDetails = (props) => {
                                     <tbody onClick={() => props.history.push(`/transaction/${item.id}`)}>
                                         <tr>
                                             <td>{`#${item?.id}`}</td>
-                                            <td>{`${moment.utc(item.created_at).format("DD.MM.YY")} - ${moment.utc(item.created_at).format("hh:mm")}`}</td>
+                                            <td>{`${moment.utc(item.created_at).format("DD.MM.YY")} - ${moment.utc(item.created_at).format("HH:mm")}`}</td>
                                             <td>{item?.transaction_type}</td>
                                             <td>{item?.from_account_id?.account_name}</td>
                                             <td>{item?.to_account_id?.account_name}</td>

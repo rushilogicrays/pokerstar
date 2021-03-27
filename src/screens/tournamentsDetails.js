@@ -21,7 +21,7 @@ const Tournamentsdetails = (props) => {
     const [totalPlayers, setTotalPlayers] = useState(undefined);
     //let buyIn = 0;
     let totalPrizepool = (data?.length * (buyIn - rake))
-    let totalRake = (data?.length * rake)
+    let totalRake = Number(tournamentDetail ? tournamentDetail[0].total_players : 0) * Number(rake);
     var a = data
     let totalTip = 0;
     if (a?.length > 0) {
@@ -68,6 +68,7 @@ const Tournamentsdetails = (props) => {
         setBuyIn(Number(e.target.value))
         let totalPrizepool = await (Number(tournamentDetail ? tournamentDetail[0].total_players : 0) * (Number(e.target.value) - Number(rake)))
         setPrizePool(totalPrizepool);
+        totalRake = await (Number(tournamentDetail ? tournamentDetail[0].total_players : 0) * Number(rake))
         //console.log("PrizePool --->", totalPrizepool)
         if (tournamentDetail) {
             if (Number(e.target.value) >= 1 && Number(e.target.value) <= 75) {
@@ -956,8 +957,7 @@ const Tournamentsdetails = (props) => {
         let totalPrizepool = await (Number(tournamentDetail ? tournamentDetail[0].total_players : 0) * (Number(buyIn) - e))
         setPrizePool(totalPrizepool);
         setRake(e);
-        console.log("PrizePool --->", totalPrizepool)
-
+        totalRake = Number(tournamentDetail ? tournamentDetail[0].total_players : 0) * Number(e)
         if (tournamentDetail) {
             if (Number(buyIn) >= 1 && Number(buyIn) <= 75) {
                 if (totalPlayers >= 2 && totalPlayers <= 5) {
@@ -1873,10 +1873,11 @@ const Tournamentsdetails = (props) => {
           })
             .then(function (response) {
               console.log(response.data.rank);
+              props.history.goBack()
             });
         setShowDelete(false);
         console.log("delete");
-        props.history.goBack()
+        // props.history.goBack()
     }
     const fetchData = () => {
         axios({
@@ -1943,13 +1944,14 @@ const Tournamentsdetails = (props) => {
         })
             .then(function (response) {
                 console.log("res --->", response.data);
+                props.history.goBack()
             });
             setShowSave(false)
-            props.history.goBack()
     }
     const [show, setShow] = useState(false);
     const [showDelete, setShowDelete] = useState(false)
     const [showSave, setShowSave] = useState(false);
+    console.log("tournamentDetail ----->", tournamentDetail)
     return (
         <div className="tournamnets-details-main">
             <div className="container">
@@ -1967,8 +1969,8 @@ const Tournamentsdetails = (props) => {
                         <div className="details-table-btn">
                             <ul className="btn-row">
                                 <li> <span className="lable" >Tournament ID</span> <span className="yello-value"> {`${props?.match?.params?.slug ? props?.match?.params?.slug : "Tournament ID"}`} </span> </li>
-                                <li> <span className="lable" >Start</span> <span className="yello-value"> {`${tournamentDetail?.length > 0 ? moment.utc(tournamentDetail[0].start_tournament).format("hh:mm") + " - " + moment.utc(tournamentDetail[0].start_tournament).format("DD.MM.YY") : "Start"}`} </span> </li>
-                                <li> <span className="lable" > End </span> <span className="yello-value"> {`${tournamentDetail?.length > 0 ? moment.utc(tournamentDetail[0].end_tournament).format("hh:mm") + " - " + moment.utc(tournamentDetail[0].end_tournament).format("DD.MM.YY") : "End"}`} </span> </li>
+                                <li> <span className="lable" >Start</span> <span className="yello-value"> {`${tournamentDetail?.length > 0 ? moment.utc(tournamentDetail[0].start_tournament).format("HH:mm") + " - " + moment.utc(tournamentDetail[0].start_tournament).format("DD.MM.YY") : "Start"}`} </span> </li>
+                                <li> <span className="lable" > End </span> <span className="yello-value"> {`${tournamentDetail?.length > 0 ? moment.utc(tournamentDetail[0].end_tournament).format("HH:mm") + " - " + moment.utc(tournamentDetail[0].end_tournament).format("DD.MM.YY") : "End"}`} </span> </li>
                                 <li> <Button id="orange-btn" onClick={() => props.history.goBack()}> Back </Button> </li>
                             </ul>
                             <ul className="btn-row">
@@ -2005,7 +2007,7 @@ const Tournamentsdetails = (props) => {
                             <ul className="btn-row">
                                 <li> <Button id="red-btn" onClick={() => setShowDelete(true)}> Delete </Button> </li>
                                 <li> <Button id="pink-btn" onClick={() => fetchData()}> Reset </Button> </li>
-                                <li> <Button id="green-btn" onClick={() => setShowSave(true)}> Save </Button> </li>
+                                {tournamentDetail && tournamentDetail[0].state === "Imported" ? <li> <Button id="green-btn" onClick={() => setShowSave(true)}> Save </Button> </li> : null}
                             </ul>
                         </div>
                         <div className="tournament-details-table">

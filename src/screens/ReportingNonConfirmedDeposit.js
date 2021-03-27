@@ -71,7 +71,7 @@ const ReportingAllAccountDebt = (props) => {
                                     <tbody>
                                         <tr>
                                             <td>{`#${item.id}`}</td>
-                                            <td>{`${moment(item.created_at).format("DD.MM.YY")} - ${moment(item.created_at).format("h:mm")}`}</td>
+                                            <td>{`${moment(item.created_at).format("DD.MM.YY")} - ${moment(item.created_at).format("HH:mm")}`}</td>
                                             <td>{item?.from_account_id?.account_name}</td>
                                             <td>{item?.to_account_id?.account_name}</td>
                                             <td>{item?.payment_type_id?.payment_name}</td>

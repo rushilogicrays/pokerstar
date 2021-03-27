@@ -38,7 +38,7 @@ const TournamentsOverview = (props) => {
             totalDeducation += deducation[i]?.transaction_amount;
         }
     }
-    var totalOfAllValue = totalRake + totalTip + totalDeducation;
+    var totalOfAllValue = totalRake + totalTip - totalDeducation;
     console.log("totalRake ---->", totalOfAllValue)
     useEffect(async() => {
         axios({
@@ -119,7 +119,7 @@ const TournamentsOverview = (props) => {
                             <ul>
                                 <li> <strong className="text">+ Total Rake</strong> <span>{totalRake}</span> </li>
                                 <li> <strong className="text">+ Total Tip</strong> <span>{totalTip}</span> </li>
-                                <li className="deducation-text"> <strong className="text">+ Total Deducation</strong> <span>{totalDeducation}</span> </li>
+                                <li className="deducation-text"> <strong className="text">- Total Deducation</strong> <span>{totalDeducation}</span> </li>
                                 <li> <strong className="text">Profit</strong> <span>{totalOfAllValue}</span> </li>
                             </ul>
                         </div>
@@ -144,8 +144,8 @@ const TournamentsOverview = (props) => {
                                         <tr onClick={() => props.history.push(`/tournaments_details/${item.external_id}`)}>
                                             <td>{"#" + item?.external_id}</td>
                                             <td>{item?.name}</td>
-                                            <td>{moment(item?.start_tournament).format("h:mm") + " - " + moment(item?.start_tournament).format("DD.MM.YY")}</td>
-                                            <td>{moment(item?.end_tournament).format("h:mm") + " - " + moment(item?.end_tournament).format("DD.MM.YY")}</td>
+                                            <td>{moment.utc(item?.start_tournament).format("HH:mm") + " - " + moment.utc(item?.start_tournament).format("DD.MM.YY")}</td>
+                                            <td>{moment.utc(item?.end_tournament).format("HH:mm") + " - " + moment.utc(item?.end_tournament).format("DD.MM.YY")}</td>
                                             <td>{item?.total_players}</td>
                                             <td>{item?.total_prizepool}</td>
                                             <td>{item?.rake}</td>

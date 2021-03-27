@@ -45,18 +45,20 @@ const PandingTournaments = (props) => {
                 <th>Total Player</th>
               </tr>
             </thead>
-            {data.map((item) => (
+            {data.map((item) => {
+              console.log("item ---->",item)
+            return(
               <tbody>
                 {item &&
                   <tr onClick={() => props.history.push(`/tournaments_details/${item.external_id}`)}>
                     <td>{"#" + item.external_id}</td>
-                    <td>{moment.utc(item.start_tournament).format("hh:mm") + " - " + moment.utc(item.start_tournament).format("DD.MM.YY")}</td>
-                    <td>{moment.utc(item.end_tournament).format("hh:mm") + " - " + moment.utc(item.end_tournament).format("DD.MM.YY")}</td>
+                    <td>{moment.utc(item.start_tournament).format("HH:mm") + " - " + moment.utc(item.start_tournament).format("DD.MM.YY")}</td>
+                    <td>{moment.utc(item.end_tournament).format("HH:mm") + " - " + moment.utc(item.end_tournament).format("DD.MM.YY")}</td>
                     <td>{item.total_players}</td>
                   </tr>
                 }
               </tbody>
-            ))}
+            )})}
           </Table>
         </div>
       </div>
