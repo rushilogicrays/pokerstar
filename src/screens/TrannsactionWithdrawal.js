@@ -6,7 +6,7 @@ import axios from 'axios';
 import moment from 'moment';
 import Modal from 'react-bootstrap/Modal'
 
-const TransactionDeposit = (props) => {
+const TrannsactionWithdrawal = (props) => {
     const [deductionData, setDeductionData] = useState(undefined);
     const [transactionType, setTransactionType] = useState(undefined);
     const [paymentMethod, setPaymentMethod] = useState(undefined);
@@ -24,8 +24,8 @@ const TransactionDeposit = (props) => {
     //console.log("transactionType", deductionData);
     // console.log("params ----->", localStorage.getItem("accessToken").trim());
     useEffect(() => {
-        setFrom(props?.match?.params?.slug)
-        setTransactionType("Deposit")
+        setTo(props?.match?.params?.slug)
+        setTransactionType("Withdrawal")
     },[])
     useEffect(() => {
         axios({
@@ -107,7 +107,7 @@ const TransactionDeposit = (props) => {
                                             custom
                                             onChange={(e) => setTransactionType(e.target.value)}
                                             value={transactionType}
-                                        
+                                            
                                         >
                                             <option value="0">Type</option>
                                             <option value="Deposit">Deposit</option>
@@ -130,7 +130,7 @@ const TransactionDeposit = (props) => {
                                             custom
                                             value={paymentMethod}
                                             onChange={(e) => setPaymentMethod(e.target.value)}
-                                        
+                                            
                                         >
                                             <option value="0">Payment Method</option>
                                             {getPaymentMethod?.map((item) => (
@@ -149,7 +149,7 @@ const TransactionDeposit = (props) => {
                                             custom
                                             value={from}
                                             onChange={(e) => setFrom(e.target.value)}
-                                        
+                                            
                                         >
                                             <option>From</option>
                                             {toFrom?.map((item) => (
@@ -168,7 +168,7 @@ const TransactionDeposit = (props) => {
                                             custom
                                             value={to}
                                             onChange={(e) => setTo(e.target.value)}
-                                        
+                                            
                                         >
                                             <option>To</option>
                                             {toFrom?.map((item) => (
@@ -177,14 +177,14 @@ const TransactionDeposit = (props) => {
                                         </Form.Control>
                                     </div>
                                     <div className="col-md-4 col-sm-4 mb-4">
-                                        <input type="text" className="input-text" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} />
+                                        <input type="text" className="input-text" placeholder="Amount" value={amount}  onChange={(e) => setAmount(e.target.value)} />
                                     </div>
                                     <div className="col-md-12 col-sm-12 mb-4">
-                                        <textarea placeholder="Description..." className="textarea-text" name="comment" form="usrform" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+                                        <textarea placeholder="Description..." className="textarea-text" name="comment" form="usrform" value={description}  onChange={(e) => setDescription(e.target.value)}></textarea>
                                     </div>
                                     {transactionType === "Deposit" && <div className="col-md-12 col-sm-12 mb-4">
-                                        <Form.Group controlId="formBasicCheckbox">
-                                            <Form.Check checked={checkBox} type="checkbox" label="Confirmed" onClick={() => setCheckBox(!checkBox)} />
+                                        <Form.Group controlId="formBasicCheckbox" >
+                                            <Form.Check  checked={checkBox} type="checkbox" label="Confirmed" onClick={() => setCheckBox(!checkBox)} />
                                         </Form.Group>
                                     </div>}
                                         <div className="col-md-6 col-sm-6" onClick={() => setShowSave(true)}>
@@ -214,4 +214,4 @@ const TransactionDeposit = (props) => {
     )
 }
 
-export default TransactionDeposit;
+export default TrannsactionWithdrawal;

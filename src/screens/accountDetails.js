@@ -32,7 +32,7 @@ const AccountDetails = (props) => {
             .then(function (response) {
                 setData(response.data);
         });   
-    })
+    },[])
     return (
         <div className="account-details-page-main">
             <div className="header container">
@@ -60,8 +60,8 @@ const AccountDetails = (props) => {
                     <div className="col-md-6">
                         <div className="account-deposit-btn">
                             <ul className="btn-row">
-                                <li> <Button id="pink-btn" onClick={() => props.history.push('/transaction/Deposit')}> Deposit </Button> </li>
-                                <li> <Button id="pink-btn" onClick={() => props.history.push('/transaction/Withdrawal')}> Withdrawal </Button> </li>
+                                <li> <Button id="pink-btn" onClick={() => props.history.push(`/transaction-deposit/${props?.match?.params?.slug}`)}> Deposit </Button> </li>
+                                <li> <Button id="pink-btn" onClick={() => props.history.push(`/transaction-withdrawal/${props?.match?.params?.slug}`)}> Withdrawal </Button> </li>
                             </ul>
                             <ul className="btn-row">
                                 <li> <Button id="pink-btn" onClick={() => props.history.push('/transaction/Manual')}> Manual </Button> </li>
@@ -87,7 +87,7 @@ const AccountDetails = (props) => {
                                     </tr>
                                 </thead>
                                 {data?.transaction?.map((item) => (
-                                    <tbody>
+                                    <tbody onClick={() => props.history.push(`/transaction/${item.id}`)}>
                                         <tr>
                                             <td>{`#${item?.id}`}</td>
                                             <td>{`${moment.utc(item.created_at).format("DD.MM.YY")} - ${moment.utc(item.created_at).format("hh:mm")}`}</td>

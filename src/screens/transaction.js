@@ -60,7 +60,7 @@ const Transaction = (props) => {
             });
             axios({
                 method: 'get',
-                url: `http://143.110.254.46/poker/api/get-transactions?transaction_type=Deduction`,
+                url: `http://143.110.254.46/poker/api/get-transactions`,
                 headers: {
                   Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
                 }
