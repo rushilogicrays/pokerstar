@@ -168,8 +168,8 @@ def build_tournaments(request, external_id):
 					# from_account_ser = AccountSerializer(from_account)
 					# to_account_ser = AccountSerializer(to_account)
 
-					from_account.balance = from_account.balance - int(rank['payout'])
-					to_account.balance = to_account.balance + int(rank['payout'])
+					from_account.balance = from_account.balance - int(rank['tip'])
+					to_account.balance = to_account.balance + int(rank['tip'])
 
 					from_account.save()
 					to_account.save()
@@ -406,7 +406,7 @@ def delete_tournament(request, external_id):
 		queryset1 = Tournament.objects.get(external_id = external_id) 
 
 		# if status is imported, delete it from database, else revert transactions and change it's status
-		if(queryset1.state == "Imported"):
+		if(queryset1.state != "Done"):
 			queryset1.delete()
 			return JsonResponse({'message': 'Tournament was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT, safe=False)
 
@@ -452,12 +452,12 @@ def delete_tournament(request, external_id):
 				txn_obj.description = "Tournament Deleted"
 				txn_obj.tournament_id = queryset1
 				txn_obj.admin_id = request.user
-				txn_obj.payment_type_id = PaymentType.objects.get(pk=1)
+				txn_obj.payment_type_id = PaymentType.objects.get(pk=2)
 				txn_obj.confirm = 0
 				txn_obj.save()
 
-				from_account = Account.objects.get(pk=rank['account_id']['id'])
-				to_account = Account.objects.get(pk=master_account_id) # 1 = master account
+				from_account = Account.objects.get(pk=master_account_id)
+				to_account = Account.objects.get(pk=rank['account_id']['id']) # 1 = master account
 				# from_account_ser = AccountSerializer(from_account)
 				# to_account_ser = AccountSerializer(to_account)
 
@@ -478,12 +478,12 @@ def delete_tournament(request, external_id):
 					txn_obj.description = "Tournament Deleted"
 					txn_obj.tournament_id = queryset1
 					txn_obj.admin_id = request.user
-					txn_obj.payment_type_id = PaymentType.objects.get(pk=1)
+					txn_obj.payment_type_id = PaymentType.objects.get(pk=2)
 					txn_obj.confirm = 0
 					txn_obj.save()
 
-					from_account = Account.objects.get(pk=master_account_id) # 1 = master account
-					to_account = Account.objects.get(pk=rank['account_id']['id'])
+					from_account = Account.objects.get(pk=rank['account_id']['id']) # 1 = master account
+					to_account = Account.objects.get(pk=master_account_id)
 					# from_account_ser = AccountSerializer(from_account)
 					# to_account_ser = AccountSerializer(to_account)
 
@@ -504,17 +504,17 @@ def delete_tournament(request, external_id):
 					txn_obj.description = "Tournament Deleted"
 					txn_obj.tournament_id = queryset1
 					txn_obj.admin_id = request.user
-					txn_obj.payment_type_id = PaymentType.objects.get(pk=1)
+					txn_obj.payment_type_id = PaymentType.objects.get(pk=2)
 					txn_obj.confirm = 0
 					txn_obj.save()
 
-					from_account = Account.objects.get(pk=master_account_id) # 1 = master account
-					to_account = Account.objects.get(pk=rank['account_id']['id'])
+					from_account = Account.objects.get(pk=rank['account_id']['id']) # 1 = master account
+					to_account = Account.objects.get(pk=master_account_id)
 					# from_account_ser = AccountSerializer(from_account)
 					# to_account_ser = AccountSerializer(to_account)
 
-					from_account.balance = from_account.balance - int(rank['payout'])
-					to_account.balance = to_account.balance + int(rank['payout'])
+					from_account.balance = from_account.balance - int(rank['tip'])
+					to_account.balance = to_account.balance + int(rank['tip'])
 
 					from_account.save()
 					to_account.save()
@@ -525,7 +525,7 @@ def delete_tournament(request, external_id):
 
 
 		return JsonResponse(tournament_data_serializer.data)
-		return JsonResponse({'message': '{} Tournament was deleted successfully!'.format(count[0])}, status=status.HTTP_204_NO_CONTENT)
+		return JsonResponse({'message': 'Tournament was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
 
 
 
@@ -673,6 +673,12 @@ def import_tournaments(request):
 
 							# add new users in account
 							for user in users:
+								try:
+									user = re.sub(r'\[(.*?)\]', '', user)
+								except Exception as e:
+									print(e)
+									print(traceback.format_exc())
+
 								Account.objects.update_or_create(account_name=user)
 
 							try:
