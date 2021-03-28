@@ -154,8 +154,8 @@ def build_tournaments(request, external_id):
 					#initialize buy-in transaction
 					txn_obj = Transaction_Detail()
 					txn_obj.transaction_type = "Tip"
-					txn_obj.from_account_id = Account.objects.get(pk=master_account_id) #(name = "Master")
-					txn_obj.to_account_id = Account.objects.get(pk=rank['account_id']['id'])
+					txn_obj.from_account_id = Account.objects.get(pk=rank['account_id']['id']) #(name = "Master")
+					txn_obj.to_account_id = Account.objects.get(pk=master_account_id)
 					txn_obj.transaction_amount = int(rank['tip'])
 					txn_obj.tournament_id = queryset1
 					txn_obj.admin_id = request.user
@@ -163,8 +163,8 @@ def build_tournaments(request, external_id):
 					txn_obj.confirm = 0
 					txn_obj.save()
 
-					from_account = Account.objects.get(pk=master_account_id) # 1 = master account
-					to_account = Account.objects.get(pk=rank['account_id']['id'])
+					from_account = Account.objects.get(pk=rank['account_id']['id']) # 1 = master account
+					to_account = Account.objects.get(pk=master_account_id)
 					# from_account_ser = AccountSerializer(from_account)
 					# to_account_ser = AccountSerializer(to_account)
 
@@ -446,8 +446,8 @@ def delete_tournament(request, external_id):
 				#initialize buy-in transaction
 				txn_obj = Transaction_Detail()
 				txn_obj.transaction_type = "BuyIn"
-				txn_obj.to_account_id = Account.objects.get(pk=rank['account_id']['id'])
 				txn_obj.from_account_id = Account.objects.get(pk=master_account_id) #(name = "Master")
+				txn_obj.to_account_id = Account.objects.get(pk=rank['account_id']['id'])
 				txn_obj.transaction_amount = int(tournament_data['tournament'][0]["buy_in"])
 				txn_obj.description = "Tournament Deleted"
 				txn_obj.tournament_id = queryset1
@@ -498,8 +498,8 @@ def delete_tournament(request, external_id):
 					#initialize buy-in transaction
 					txn_obj = Transaction_Detail()
 					txn_obj.transaction_type = "Tip"
-					txn_obj.to_account_id = Account.objects.get(pk=master_account_id) #(name = "Master")
-					txn_obj.from_account_id = Account.objects.get(pk=rank['account_id']['id'])
+					txn_obj.from_account_id = Account.objects.get(pk=master_account_id) #(name = "Master")
+					txn_obj.to_account_id = Account.objects.get(pk=rank['account_id']['id'])
 					txn_obj.transaction_amount = int(rank['tip'])
 					txn_obj.description = "Tournament Deleted"
 					txn_obj.tournament_id = queryset1
@@ -508,8 +508,8 @@ def delete_tournament(request, external_id):
 					txn_obj.confirm = 0
 					txn_obj.save()
 
-					from_account = Account.objects.get(pk=rank['account_id']['id']) # 1 = master account
-					to_account = Account.objects.get(pk=master_account_id)
+					from_account = Account.objects.get(pk=master_account_id)
+					to_account = Account.objects.get(pk=rank['account_id']['id']) # 1 = master account
 					# from_account_ser = AccountSerializer(from_account)
 					# to_account_ser = AccountSerializer(to_account)
 
