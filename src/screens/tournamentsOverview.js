@@ -112,6 +112,7 @@ const TournamentsOverview = (props) => {
                                 <Form inline>
                                     <FormControl type="text" placeholder="Search by ID" className="mr-sm-2" onChange={e => setSearchId(e.target.value)}/>
                                     <Button variant="outline-success" onClick={() => searchById()}>Search</Button>
+                                    <div style={{height: 100, width: 120, backgroundColor: "red"}}></div>
                                 </Form>
                             </div>
                         </div>
