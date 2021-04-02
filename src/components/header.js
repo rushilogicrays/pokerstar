@@ -21,7 +21,13 @@ const Header = (props) => {
                 console.log(response.data)
             });
             props.push('/login')
+            localStorage.setItem("accessToken", "")
     }
+    useEffect(() => {
+        if(localStorage.getItem("accessToken") ===  ""){
+            props.push('/login')
+        }
+    })
     return (
         <div className="header-main">
             <div className="container">

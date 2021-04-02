@@ -14,12 +14,14 @@ const Tournamentsdetails = (props) => {
     const [data, setData] = useState(undefined);
     const [tournamentDetail, setTournamentDetail] = useState(undefined);
     const [originalData, setOriginalData] = useState(undefined);
-    const [buyIn, setBuyIn, buyInRef] = useState(undefined);
-    const [rake, setRake] = useState(undefined);
+    const [buyIn, setBuyIn] = useState(undefined);
+    const [rake, setRake] = useState(0);
     const [name, setName] = useState(undefined);
     const [PrizePool, setPrizePool] = useState(undefined);
     const [totalPlayers, setTotalPlayers] = useState(undefined);
-    //let buyIn = 0;
+    const [rakeValidation, setRakeValidation] = useState(false);
+    const [buyInValidation, setBuyInValidation] = useState(false);
+    const [nameValidation, setNameValidation] = useState(false);
     let totalPrizepool = (data?.length * (buyIn - rake))
     let totalRake = Number(tournamentDetail ? tournamentDetail[0].total_players : 0) * Number(rake);
     var a = data
@@ -29,20 +31,7 @@ const Tournamentsdetails = (props) => {
             totalTip += a[i]?.tip;
         }
     }
-    //console.log("data --->", tournamentDetail ? tournamentDetail[0].state === "Imported" : null);
-    // const setBuyIn = (value) => {
-    //     buyIn = value
-    // }
-    // useEffect(() => {
-    //     setPrizePool(totalPrizepool);
-    // })
-    //console.log("tournamentDetail ----->", tournamentDetail[0].total_players);
-    // console.log('buyIn', buyIn);
-    // console.log("rake", rake);
-    // console.log("data?.length", data?.length);
-    // console.log('totalPrizepool', PrizePool);
-    //console.log("data ---->", data);
-    //console.log("acc ---->", localStorage.getItem("accessToken").trim());
+    console.log("rake ------>", rakeValidation, buyInValidation, nameValidation);
     useEffect(() => {
         axios({
             method: 'get',
@@ -62,7 +51,64 @@ const Tournamentsdetails = (props) => {
                 setTotalPlayers(response?.data?.tournament[0]?.total_players)
             });
     }, []);
-    console.log("data ----------------------------------------->", PrizePool );
+    console.log("validation ----->", rakeValidation);
+    const handleSave = () => {
+        if(rake === 0)
+        {
+            setRakeValidation(true)
+            console.log("rake")
+        }else {
+            setRakeValidation(false)
+        }
+        if(buyIn === 0)
+        {
+            setBuyInValidation(true)
+            console.log("buyInn")
+        }else {
+            setBuyInValidation(false)
+        }
+        if(!name)
+        {
+            setNameValidation(true)
+            console.log("nname")
+        }else{
+            setNameValidation(false)
+        }
+        if(!rakeValidation && !buyInValidation && !nameValidation){
+            axios({
+            method: 'put',
+            url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,
+            data: {
+                tournament: [
+                    {
+                        id: tournamentDetail[0].id,
+                        external_id: tournamentDetail[0].external_id,
+                        start_tournament: tournamentDetail[0].start_tournament,
+                        end_tournament: tournamentDetail[0].end_tournament,
+                        total_players: tournamentDetail[0].total_players,
+                        playdate_id: tournamentDetail[0].playdate_id,
+                        name: name,
+                        buy_in: buyIn,
+                        rake: rake,
+                        total_prizepool: totalPrizepool,
+                        total_rake: totalRake,
+                        total_tip: totalTip
+                    }
+                ],
+                rank: data
+            },
+            headers: {
+              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
+            }
+            })
+                .then(function (response) {
+                    console.log("res --->", response.data);
+                    props.history.goBack()
+                });
+        }
+            setShowSave(false)
+    }
+    //console.log("data ----------------------------------------->", PrizePool );
     const calculation = async(e) => {
         console.log(Number(e.target.value));
         setBuyIn(Number(e.target.value))
@@ -1915,43 +1961,10 @@ const Tournamentsdetails = (props) => {
         data?.filter(item => item.id === index ? console.log(item) : item)
     }
 
-    const handleSave = () => {
-        axios({
-            method: 'put',
-            url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,
-            data: {
-                tournament: [
-                    {
-                        id: tournamentDetail[0].id,
-                        external_id: tournamentDetail[0].external_id,
-                        start_tournament: tournamentDetail[0].start_tournament,
-                        end_tournament: tournamentDetail[0].end_tournament,
-                        total_players: tournamentDetail[0].total_players,
-                        playdate_id: tournamentDetail[0].playdate_id,
-                        name: name,
-                        buy_in: buyIn,
-                        rake: rake,
-                        total_prizepool: totalPrizepool,
-                        total_rake: totalRake,
-                        total_tip: totalTip
-                    }
-                ],
-                rank: data
-            },
-            headers: {
-              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
-            }
-        })
-            .then(function (response) {
-                console.log("res --->", response.data);
-                props.history.goBack()
-            });
-            setShowSave(false)
-    }
     const [show, setShow] = useState(false);
     const [showDelete, setShowDelete] = useState(false)
     const [showSave, setShowSave] = useState(false);
-    console.log("tournamentDetail ----->", tournamentDetail)
+    //console.log("tournamentDetail ----->", tournamentDetail)
     return (
         <div className="tournamnets-details-main">
             <div className="container">
@@ -1974,29 +1987,9 @@ const Tournamentsdetails = (props) => {
                                 <li> <Button id="orange-btn" onClick={() => props.history.goBack()}> Back </Button> </li>
                             </ul>
                             <ul className="btn-row">
-                                <li> <span className="lable" >Name</span> <input type="text" id="blue-input" placeholder="Input Name" value={name} onChange={(e) => setName(e.target.value)} /> </li>
-                                {/* <li> <Form.Control
-                                    as="select"
-                                    className="mr-sm-2 blue-select"
-                                    id="inlineFormCustomSelect"
-                                    custom
-                                    onChange={(e) => setBuyIn(e.target.value)}
-                                >
-                                    <option value="0">Select Buyin</option>
-                                    <option value="9/1">9/1</option>
-                                    <option value="23/2">23/2</option>
-                                    <option value="32/5">32/5</option>
-                                    <option value="47/3">47/3</option>
-                                    <option value="72/3">72/3</option>
-                                    <option value="96/4">96/4</option>
-                                    <option value="145/5">145/5</option>
-                                    <option value="195/5">195/5</option>
-                                    <option value="242/8">242/8</option>
-                                    <option value="430/14">430/14</option>
-                                </Form.Control>
-                                </li> */}
-                                <li> <span className="lable" >Buyin</span> <input type="text" id="blue-input" placeholder="BuyIn" value={buyIn} onChange={(e) => calculation(e)} /> </li>
-                                <li> <span className="lable" >Rake</span> <input type="text" id="blue-input" placeholder="Rake" value={rake} onChange={e => calculationRake(e.target.value)} /> </li>
+                                <li> <span className="lable" >Name</span> <input type="text" id="blue-input" placeholder="Input Name" value={name} onChange={(e) => setName(e.target.value)} />{nameValidation && <span className="lable" style={{color: "red"}} >Please enter the name</span> }</li>
+                                <li> <span className="lable" >Buyin</span> <input type="text" id="blue-input" placeholder="BuyIn" value={buyIn} onChange={(e) => calculation(e)} />{buyInValidation && <span className="lable" style={{color: "red"}} >Please enter the BuyIn</span> } </li>
+                                <li> <span className="lable" >Rake</span> <input type="text" id="blue-input" placeholder="Rake" value={rake} onChange={e => calculationRake(e.target.value)} /> {rakeValidation && <span className="lable" style={{color: "red"}} >Please enter the rake</span> }</li>
                             </ul>
                             <ul className="btn-row">
                                 <li> <span className="lable" >Total Players</span> <span className="yello-value">{`${tournamentDetail?.length > 0 ? tournamentDetail[0].total_players : "Total Playes"}`}</span> </li>
