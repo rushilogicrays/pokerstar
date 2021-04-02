@@ -156,7 +156,7 @@ const Tournamentsdetails = (props) => {
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: Math.floor(((totalPrizepool * 20) / 100)) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(totalPrizepool - (updatedData1[0].payout + updatedData1[1].payout)) } : item
                     )
                     await setData(updatedData2);
                     await setData(
@@ -176,7 +176,7 @@ const Tournamentsdetails = (props) => {
                     console.log("updatedData2 ---->", updatedData1);
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: Math.floor(((totalPrizepool * 20) / 100)) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(totalPrizepool - (updatedData1[0].payout + updatedData1[1].payout)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
@@ -201,16 +201,9 @@ const Tournamentsdetails = (props) => {
                     let updatedData2 = updatedData1?.map(item =>
                         item.position === 3 ? { ...item, payout: Math.floor(((totalPrizepool * 17) / 100)) } : item
                     )
-                    var a = updatedData2
-                    let totalTip = 0;
-                    if (a?.length > 0) {
-                        for (var i = 0; i < a?.length; i++) {
-                            totalTip += a[i]?.payout;
-                        }
-                    }
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: Math.floor(totalPrizepool - totalTip) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(totalPrizepool - (updatedData2[0].payout + updatedData2[1].payout + updatedData2[2].payout)) } : item
                     )
                     await setData(updatedData3);
                     await setData(
@@ -235,16 +228,9 @@ const Tournamentsdetails = (props) => {
                     let updatedData3 = updatedData2?.map(item =>
                         item.position === 4 ? { ...item, payout: Math.floor(((totalPrizepool * 12) / 100)) } : item
                     )
-                    var a = updatedData3
-                    let totalTip = 0;
-                    if (a?.length > 0) {
-                        for (var i = 0; i < a?.length; i++) {
-                            totalTip += a[i]?.payout;
-                        }
-                    }
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: Math.floor(totalPrizepool - totalTip) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(totalPrizepool - (updatedData3[0].payout + updatedData3[1].payout + updatedData3[2].payout + updatedData3[3].payout)) } : item
                     )
                     await setData(updatedData4);
                     await setData(
@@ -274,16 +260,9 @@ const Tournamentsdetails = (props) => {
                     let updatedData4 = updatedData3?.map(item =>
                         item.position === 5 ? { ...item, payout: Math.floor(((totalPrizepool * 8) / 100)) } : item
                     )
-                    var a = updatedData4
-                    let totalTip = 0;
-                    if (a?.length > 0) {
-                        for (var i = 0; i < a?.length; i++) {
-                            totalTip += a[i]?.payout;
-                        }
-                    }
                     await setData(updatedData4);
                     let updatedData5 = updatedData4?.map(item =>
-                        item.position === 6 ? { ...item, payout: Math.floor(totalPrizepool - totalTip) } : item
+                        item.position === 6 ? { ...item, payout: Math.floor(totalPrizepool - (updatedData4[0].payout + updatedData4[1].payout + updatedData4[2].payout + updatedData4[3].payout + updatedData4[4].payout)) } : item
                     )
                     await setData(updatedData5);
                     await setData(
@@ -316,16 +295,9 @@ const Tournamentsdetails = (props) => {
                     let updatedData5 = updatedData4?.map(item =>
                         item.position === 6 ? { ...item, payout: Math.floor(((totalPrizepool * 7) / 100)) } : item
                     )
-                    var a = updatedData5
-                    let totalTip = 0;
-                    if (a?.length > 0) {
-                        for (var i = 0; i < a?.length; i++) {
-                            totalTip += a[i]?.payout;
-                        }
-                    }
                     await setData(updatedData5);
                     let updatedData6 = updatedData5?.map(item =>
-                        item.position === 7 ? { ...item, payout: Math.floor(totalPrizepool - totalTip) } : item
+                        item.position === 7 ? { ...item, payout: Math.floor(totalPrizepool - (updatedData5[0].payout + updatedData5[1].payout + updatedData5[2].payout + updatedData5[3].payout + updatedData5[4].payout + updatedData5[5].payout)) } : item
                     )
                     await setData(updatedData6);
                     await setData(
@@ -362,16 +334,9 @@ const Tournamentsdetails = (props) => {
                     let updatedData6 = updatedData5?.map(item =>
                         item.position === 7 ? { ...item, payout: Math.floor(((totalPrizepool * 6) / 100)) } : item
                     )
-                    var a = updatedData6
-                    let totalTip = 0;
-                    if (a?.length > 0) {
-                        for (var i = 0; i < a?.length; i++) {
-                            totalTip += a[i]?.payout;
-                        }
-                    }
                     await setData(updatedData6);
                     let updatedData7 = updatedData6?.map(item =>
-                        item.position === 8 ? { ...item, payout: Math.floor(totalPrizepool - totalTip) } : item
+                        item.position === 8 ? { ...item, payout: Math.floor(totalPrizepool - (updatedData6[0].payout + updatedData6[1].payout + updatedData6[2].payout + updatedData6[3].payout + updatedData6[4].payout + updatedData6[5].payout + updatedData6[6].payout)) } : item
                     )
                     await setData(updatedData7);
                     await setData(
@@ -413,16 +378,9 @@ const Tournamentsdetails = (props) => {
                     let updatedData7 = updatedData6?.map(item =>
                         item.position === 8 ? { ...item, payout: Math.floor(((totalPrizepool * 5) / 100)) } : item
                     )
-                    var a = updatedData7
-                    let totalTip = 0;
-                    if (a?.length > 0) {
-                        for (var i = 0; i < a?.length; i++) {
-                            totalTip += a[i]?.payout;
-                        }
-                    }
                     await setData(updatedData7);
                     let updatedData8 = updatedData7?.map(item =>
-                        item.position === 9 ? { ...item, payout: Math.floor(totalPrizepool - totalTip) } : item
+                        item.position === 9 ? { ...item, payout: Math.floor(totalPrizepool - (updatedData7[0].payout + updatedData4[1].payout + updatedData7[2].payout + updatedData7[3].payout + updatedData7[4].payout + updatedData7[5].payout + updatedData7[6].payout + updatedData7[7].payout)) } : item
                     )
                     await setData(updatedData8);
                     await setData(
@@ -1044,7 +1002,7 @@ const Tournamentsdetails = (props) => {
                     )
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: Math.floor(((totalPrizepool * 20) / 100)) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(totalPrizepool - (updatedData1[0].payout + updatedData1[1].payout)) } : item
                     )
                     await setData(updatedData2);
                     await setData(
@@ -1064,7 +1022,7 @@ const Tournamentsdetails = (props) => {
                     console.log("updatedData2 ---->", updatedData1);
                     await setData(updatedData1);
                     let updatedData2 = updatedData1?.map(item =>
-                        item.position === 3 ? { ...item, payout: Math.floor(((totalPrizepool * 20) / 100)) } : item
+                        item.position === 3 ? { ...item, payout: Math.floor(totalPrizepool - (updatedData1[0].payout + updatedData1[1].payout)) } : item
                     )
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
@@ -1089,16 +1047,9 @@ const Tournamentsdetails = (props) => {
                     let updatedData2 = updatedData1?.map(item =>
                         item.position === 3 ? { ...item, payout: Math.floor(((totalPrizepool * 17) / 100)) } : item
                     )
-                    var a = updatedData2
-                    let totalTip = 0;
-                    if (a?.length > 0) {
-                        for (var i = 0; i < a?.length; i++) {
-                            totalTip += a[i]?.payout;
-                        }
-                    }
                     await setData(updatedData2);
                     let updatedData3 = updatedData2?.map(item =>
-                        item.position === 4 ? { ...item, payout: Math.floor(totalPrizepool - totalTip) } : item
+                        item.position === 4 ? { ...item, payout: Math.floor(totalPrizepool - (updatedData2[0].payout + updatedData2[1].payout + updatedData2[2].payout)) } : item
                     )
                     await setData(updatedData3);
                     await setData(
@@ -1123,16 +1074,9 @@ const Tournamentsdetails = (props) => {
                     let updatedData3 = updatedData2?.map(item =>
                         item.position === 4 ? { ...item, payout: Math.floor(((totalPrizepool * 12) / 100)) } : item
                     )
-                    var a = updatedData3
-                    let totalTip = 0;
-                    if (a?.length > 0) {
-                        for (var i = 0; i < a?.length; i++) {
-                            totalTip += a[i]?.payout;
-                        }
-                    }
                     await setData(updatedData3);
                     let updatedData4 = updatedData3?.map(item =>
-                        item.position === 5 ? { ...item, payout: Math.floor(totalPrizepool - totalTip) } : item
+                        item.position === 5 ? { ...item, payout: Math.floor(totalPrizepool - (updatedData3[0].payout + updatedData3[1].payout + updatedData3[2].payout + updatedData3[3].payout)) } : item
                     )
                     await setData(updatedData4);
                     await setData(
@@ -1162,16 +1106,9 @@ const Tournamentsdetails = (props) => {
                     let updatedData4 = updatedData3?.map(item =>
                         item.position === 5 ? { ...item, payout: Math.floor(((totalPrizepool * 8) / 100)) } : item
                     )
-                    var a = updatedData4
-                    let totalTip = 0;
-                    if (a?.length > 0) {
-                        for (var i = 0; i < a?.length; i++) {
-                            totalTip += a[i]?.payout;
-                        }
-                    }
                     await setData(updatedData4);
                     let updatedData5 = updatedData4?.map(item =>
-                        item.position === 6 ? { ...item, payout: Math.floor(totalPrizepool - totalTip) } : item
+                        item.position === 6 ? { ...item, payout: Math.floor(totalPrizepool - (updatedData4[0].payout + updatedData4[1].payout + updatedData4[2].payout + updatedData4[3].payout + updatedData4[4].payout)) } : item
                     )
                     await setData(updatedData5);
                     await setData(
@@ -1204,16 +1141,9 @@ const Tournamentsdetails = (props) => {
                     let updatedData5 = updatedData4?.map(item =>
                         item.position === 6 ? { ...item, payout: Math.floor(((totalPrizepool * 7) / 100)) } : item
                     )
-                    var a = updatedData5
-                    let totalTip = 0;
-                    if (a?.length > 0) {
-                        for (var i = 0; i < a?.length; i++) {
-                            totalTip += a[i]?.payout;
-                        }
-                    }
                     await setData(updatedData5);
                     let updatedData6 = updatedData5?.map(item =>
-                        item.position === 7 ? { ...item, payout: Math.floor(totalPrizepool - totalTip) } : item
+                        item.position === 7 ? { ...item, payout: Math.floor(totalPrizepool - (updatedData5[0].payout + updatedData5[1].payout + updatedData5[2].payout + updatedData5[3].payout + updatedData5[4].payout + updatedData5[5].payout)) } : item
                     )
                     await setData(updatedData6);
                     await setData(
@@ -1250,16 +1180,9 @@ const Tournamentsdetails = (props) => {
                     let updatedData6 = updatedData5?.map(item =>
                         item.position === 7 ? { ...item, payout: Math.floor(((totalPrizepool * 6) / 100)) } : item
                     )
-                    var a = updatedData6
-                    let totalTip = 0;
-                    if (a?.length > 0) {
-                        for (var i = 0; i < a?.length; i++) {
-                            totalTip += a[i]?.payout;
-                        }
-                    }
                     await setData(updatedData6);
                     let updatedData7 = updatedData6?.map(item =>
-                        item.position === 8 ? { ...item, payout: Math.floor(totalPrizepool - totalTip) } : item
+                        item.position === 8 ? { ...item, payout: Math.floor(totalPrizepool - (updatedData6[0].payout + updatedData6[1].payout + updatedData6[2].payout + updatedData6[3].payout + updatedData6[4].payout + updatedData6[5].payout + updatedData6[6].payout)) } : item
                     )
                     await setData(updatedData7);
                     await setData(
@@ -1301,16 +1224,9 @@ const Tournamentsdetails = (props) => {
                     let updatedData7 = updatedData6?.map(item =>
                         item.position === 8 ? { ...item, payout: Math.floor(((totalPrizepool * 5) / 100)) } : item
                     )
-                    var a = updatedData7
-                    let totalTip = 0;
-                    if (a?.length > 0) {
-                        for (var i = 0; i < a?.length; i++) {
-                            totalTip += a[i]?.payout;
-                        }
-                    }
                     await setData(updatedData7);
                     let updatedData8 = updatedData7?.map(item =>
-                        item.position === 9 ? { ...item, payout: Math.floor(totalPrizepool - totalTip) } : item
+                        item.position === 9 ? { ...item, payout: Math.floor(totalPrizepool - (updatedData7[0].payout + updatedData4[1].payout + updatedData7[2].payout + updatedData7[3].payout + updatedData7[4].payout + updatedData7[5].payout + updatedData7[6].payout + updatedData7[7].payout)) } : item
                     )
                     await setData(updatedData8);
                     await setData(
