@@ -53,7 +53,7 @@ const Tournamentsdetails = (props) => {
     }, []);
     console.log("validation ----->", rakeValidation);
     const handleSave = () => {
-        if(rake === 0)
+        if(rake === 0 || !rake)
         {
             setRakeValidation(true)
             console.log("rake")
@@ -74,7 +74,7 @@ const Tournamentsdetails = (props) => {
         }else{
             setNameValidation(false)
         }
-        if(!rakeValidation && !buyInValidation && !nameValidation){
+        if((rake > 0 || !rake) && buyIn > 0 && name){
             axios({
             method: 'put',
             url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,

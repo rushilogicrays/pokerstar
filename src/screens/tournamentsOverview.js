@@ -15,6 +15,8 @@ const TournamentsOverview = (props) => {
     const [originalData, setOriginalData] = useState(undefined);
     const [searchId, setSearchId] = useState(undefined);
     const [deductionData, setDeductionData] = useState(undefined);
+    const [suggestion, setSuggestion] = useState([]);
+    const [originalSuggestion, setOriginalSuggestion] = useState(undefined)
     let date = moment.utc(value).format("YYYY-MM-DD");
     console.log("tournamentDetails ---->", tournamentDetails);
     var rake = tournamentDetails
@@ -63,6 +65,17 @@ const TournamentsOverview = (props) => {
             .then(function (response) {
                 setDeductionData(response.data);
             });
+        axios({
+            method: 'get',
+            url: `http://143.110.254.46/poker/api/get-tournaments`,
+            headers: {
+                Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
+            }
+            })
+            .then(function (response) {
+                setSuggestion(response.data);
+                setOriginalSuggestion(response.data)
+            });
     },[])
     const fetchDataByDate = (date) => {
         // setValue(date);
@@ -93,6 +106,12 @@ const TournamentsOverview = (props) => {
         let data = originalData?.filter((item) => item.external_id.toString() === searchId && item);
         setTournamentDetails(data);
     }
+    const searchTournnamets = (e) => {
+        setSearchId(e)
+        let updatedSuggestion = originalSuggestion?.filter((item) => item?.external_id.toString().substring(0, e?.length) === e.toString() ? item : null) 
+        console.log("updatedSuggestion --->", updatedSuggestion);
+        setSuggestion(updatedSuggestion);
+    }
     return (
         <div className="tournaments-overview-main">
             <div className="container">
@@ -110,9 +129,13 @@ const TournamentsOverview = (props) => {
                             />
                             <div className="overview-search">
                                 <Form inline>
-                                    <FormControl type="text" placeholder="Search by ID" className="mr-sm-2" onChange={e => setSearchId(e.target.value)}/>
+                                    <FormControl type="text" placeholder="Search by ID" className="mr-sm-2" onChange={e => searchTournnamets(e.target.value)}/>
                                     <Button variant="outline-success" onClick={() => searchById()}>Search</Button>
-                                    <div style={{height: 100, width: 120, backgroundColor: "red"}}></div>
+                                    {searchId?.length > 0 && <div className="search-suggetion">
+                                        {suggestion?.map((item) => (
+                                            <p style={{cursor: "pointer"}}  onClick={() => props.history.push(`/tournaments_details/${item.external_id}`)}>{item.external_id}</p>
+                                        ))}
+                                    </div>}
                                 </Form>
                             </div>
                         </div>

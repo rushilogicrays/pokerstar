@@ -396,7 +396,7 @@ ul.btn-row li textarea {
   margin-top: 30px;
 }
 .overview-search form.form-inline input.form-control {
-  width: 68%;
+  width: 66%;
 }
 .tournament-details-table table thead tr th {
   font-size: 13px;
@@ -506,4 +506,18 @@ ul.btn-row li textarea {
   margin-bottom: 4px;
   text-align: center;
   list-style: none;
+}
+.search-suggetion {
+  border: solid 2px #ddd;
+  width: 66%;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #ddd;
+  max-height: 100px;
+  overflow: auto;
+}
+.search-suggetion p {
+font-size: 14px;
+color: #000;
+margin-bottom: 0;
 }
