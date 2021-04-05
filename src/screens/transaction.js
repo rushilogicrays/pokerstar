@@ -40,7 +40,7 @@ const Transaction = (props) => {
     useEffect(() => {
         axios({
             method: 'get',
-            url: `http://143.110.254.46/poker/api/get-account-details`,
+            url: `https://dev.logicrays.com/poker/api/get-account-details`,
             headers: {
               Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
@@ -50,7 +50,7 @@ const Transaction = (props) => {
             });
             axios({
                 method: 'get',
-                url: `http://143.110.254.46/poker/api/get-paymenttype`,
+                url: `https://dev.logicrays.com/poker/api/get-paymenttype`,
                 headers: {
                     Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
                 }
@@ -61,7 +61,7 @@ const Transaction = (props) => {
             });
             axios({
                 method: 'get',
-                url: `http://143.110.254.46/poker/api/get-transactions`,
+                url: `https://dev.logicrays.com/poker/api/get-transactions`,
                 headers: {
                   Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
                 }
@@ -74,7 +74,7 @@ const Transaction = (props) => {
         console.log("here in handel submit");
         axios({
             method: 'post',
-            url: `http://143.110.254.46/poker/api/create-transaction`,
+            url: `https://dev.logicrays.com/poker/api/create-transaction`,
             data: {
                 transaction_type: transactionType,
                 transaction_amount: amount,
@@ -101,7 +101,7 @@ const Transaction = (props) => {
     const cancelTransaction = () => {
         axios({
             method: 'post',
-            url: `http://143.110.254.46/poker/api/cancel-transaction/${filterTransection[0].id}`,
+            url: `https://dev.logicrays.com/poker/api/cancel-transaction/${filterTransection[0].id}`,
             data: {
                 transaction_type: transactionType,
                 transaction_amount: amount,

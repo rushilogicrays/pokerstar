@@ -98,6 +98,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  list-style: none;
 }
 #orange-btn {
   background-color: #ff8b41;
@@ -491,6 +492,8 @@ ul.btn-row li textarea {
   height: 40px;
   line-height: 1.5;
   text-align: center;
+  padding: 10px 15px;
+  text-decoration: none !important;
 } 
 .account-details-list ul {
   padding: 0;

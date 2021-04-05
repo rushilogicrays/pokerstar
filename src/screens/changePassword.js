@@ -12,7 +12,7 @@ const ChangePassword = (props) => {
     const handelSave = (event) => {
         axios({
             method: 'post',
-            url: `http://143.110.254.46:8084/poker/rest-auth/password/change/`,
+            url: `https://dev.logicrays.com/poker/rest-auth/password/change/`,
             data: {
                     old_password: oldPassword,
                     new_password1: newPassword1,

@@ -30,7 +30,7 @@ const TrannsactionWithdrawal = (props) => {
     useEffect(() => {
         axios({
             method: 'get',
-            url: `http://143.110.254.46/poker/api/get-account-details`,
+            url: `https://dev.logicrays.com/poker/api/get-account-details`,
             headers: {
               Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
@@ -40,7 +40,7 @@ const TrannsactionWithdrawal = (props) => {
             });
             axios({
                 method: 'get',
-                url: `http://143.110.254.46/poker/api/get-paymenttype`,
+                url: `https://dev.logicrays.com/poker/api/get-paymenttype`,
                 headers: {
                     Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
                 }
@@ -64,7 +64,7 @@ const TrannsactionWithdrawal = (props) => {
         console.log("here in handel submit");
         axios({
             method: 'post',
-            url: `http://143.110.254.46/poker/api/create-transaction`,
+            url: `https://dev.logicrays.com/poker/api/create-transaction`,
             data: {
                 transaction_type: transactionType,
                 transaction_amount: amount,

@@ -12,7 +12,7 @@ const Login = (props) => {
         //console.log("here");
         axios({
             method: 'post',
-            url: 'http://143.110.254.46:8084/poker/rest-auth/login/',
+            url: 'https://dev.logicrays.com/poker/rest-auth/login/',
             data: {
                 username : userName,
                 password : password
@@ -25,7 +25,7 @@ const Login = (props) => {
             .then(response => {
                 axios({
                     method: 'get',
-                    url: 'http://143.110.254.46:8084/poker/rest-auth/user/',
+                    url: 'https://dev.logicrays.com/poker/rest-auth/user/',
                     headers: {
                       Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
                     }
@@ -37,7 +37,7 @@ const Login = (props) => {
                 });
             })
             .catch(error => setError(true))
-        event.preventDefault();
+            event.preventDefault();
     }
     return (
         <div className="login-page-main">

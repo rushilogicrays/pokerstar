@@ -14,7 +14,7 @@ const PandingTournaments = (props) => {
   useEffect(() => {
     axios({
       method: 'get',
-      url: 'http://143.110.254.46:8084/poker/api/pending-tournaments',
+      url: 'https://dev.logicrays.com/poker/api/pending-tournaments',
       headers: {
         Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
       }

@@ -24,7 +24,7 @@ const AccountDetails = (props) => {
     useEffect(() => {
         axios({
             method: 'get',
-            url: `http://143.110.254.46/poker/api/account-details/${props?.match?.params?.slug}`,
+            url: `https://dev.logicrays.com/poker/api/account-details/${props?.match?.params?.slug}`,
             headers: {
               Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }

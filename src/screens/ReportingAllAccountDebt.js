@@ -9,7 +9,7 @@ const ReportingNonConfirmedDeposit = (props) => {
     useEffect(async() => {
         axios({
             method: 'get',
-            url: `http://143.110.254.46/poker/api/get-account-details`,
+            url: `https://dev.logicrays.com/poker/api/get-account-details`,
             headers: {
               Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }

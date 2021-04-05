@@ -35,7 +35,7 @@ const Tournamentsdetails = (props) => {
     useEffect(() => {
         axios({
             method: 'get',
-            url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,
+            url: `https://dev.logicrays.com/poker/api/tournament/${props?.match?.params?.slug}`,
             headers: {
               Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
@@ -77,7 +77,7 @@ const Tournamentsdetails = (props) => {
         if((rake > 0 || !rake) && buyIn > 0 && name){
             axios({
             method: 'put',
-            url: `http://143.110.254.46:8084/poker/api/tournament/${props?.match?.params?.slug}`,
+            url: `https://dev.logicrays.com/poker/api/tournament/${props?.match?.params?.slug}`,
             data: {
                 tournament: [
                     {

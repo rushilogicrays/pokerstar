@@ -10,10 +10,11 @@ const ReportingAllAccountDebt = (props) => {
     const [data, setData] = useState(undefined);
     const [showModal, setShowModal] = useState(false);
     const [id, setId] = useState(undefined);
+    console.log(id);
     useEffect(async() => {
         axios({
             method: 'get',
-            url: `http://143.110.254.46/poker/api/get-transactions?transaction_type=Deposit&confirm=0`,
+            url: `https://dev.logicrays.com/poker/api/get-transactions?transaction_type=Deposit&confirm=0`,
             headers: {
               Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
@@ -22,18 +23,20 @@ const ReportingAllAccountDebt = (props) => {
                 setData(response.data);
             });
     },[])
-    const handleConfirm = () => {
-        axios({
-            method: 'post',
-            url: `http://143.110.254.46:8084/poker/api/confirm-deposit/${id}`,
-            headers: {
-              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
-            }
-          })
-            .then(function (response) {
-                console.log(response.data);
-            });
-        setShowModal(false)
+    const handleConfirm = async() => {
+       let updatedData = await data?.filter((item) => item.id.toString() !== id.toString() ? item : null)
+       console.log("updatedData --->", updatedData);
+       setData(updatedData)
+       axios({
+        method: 'post',
+        url: `https://dev.logicrays.com/poker/api/confirm-deposit/${id}`,
+        headers: {
+          Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
+        }
+      })
+        .then(function (response) {
+            setShowModal(false)
+        });
     }
     const modalShow = (id) => {
         setId(id);

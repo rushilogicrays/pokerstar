@@ -37,7 +37,13 @@ const Header = (props) => {
                             <img src={Logo} />
                         </div>
                         <div className="header-navigation-btn">
-                        <Nav defaultActiveKey="/tournaments" as="ul">
+                                <ul>
+                                    <li> <Link className="orange-btn" to="/pendingtournaments">pendingtournaments</Link> </li>
+                                    <li> <Link className="orange-btn" to="/account">Account</Link> </li>
+                                    <li> <Link className="orange-btn" to="/reporting-all-account-debt">Reporting</Link> </li>
+                                    <li> <Link className="orange-btn" to="/change_password">My Admin</Link> </li>
+                                    <li> <Link className="orange-btn" onClick={() => handelLogOut()}>Logout</Link> </li>                                </ul>
+                        {/* <Nav defaultActiveKey="/tournaments" as="ul">
                         <Nav.Item as="li">
                             <Nav.Link className="orange-btn" href="/pendingtournaments">Tournaments</Nav.Link>
                         </Nav.Item>
@@ -53,7 +59,7 @@ const Header = (props) => {
                         <Nav.Item as="li">
                             <Nav.Link className="orange-btn" eventKey="link-4" onClick={() => handelLogOut()}>Logout</Nav.Link>
                         </Nav.Item>
-                        </Nav>
+                        </Nav> */}
                         </div>
                     </div>
                 </div>

@@ -18,7 +18,7 @@ const TournamentsOverview = (props) => {
     const [suggestion, setSuggestion] = useState([]);
     const [originalSuggestion, setOriginalSuggestion] = useState(undefined)
     let date = moment.utc(value).format("YYYY-MM-DD");
-    console.log("tournamentDetails ---->", tournamentDetails);
+    console.log("tournamentDetails ---->", suggestion);
     var rake = tournamentDetails
     let totalRake = 0;
     if (rake?.length > 0) {
@@ -45,7 +45,7 @@ const TournamentsOverview = (props) => {
     useEffect(async() => {
         axios({
             method: 'get',
-            url: `http://143.110.254.46/poker/api/tournament-overview?date=${date}`,
+            url: `https://dev.logicrays.com/poker/api/tournament-overview?date=${date}`,
             headers: {
               Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
@@ -57,7 +57,7 @@ const TournamentsOverview = (props) => {
         
         axios({
             method: 'get',
-            url: `http://143.110.254.46/poker/api/get-transactions?transaction_type=Deduction`,
+            url: `https://dev.logicrays.com/poker/api/get-transactions?transaction_type=Deduction`,
             headers: {
               Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
@@ -67,7 +67,7 @@ const TournamentsOverview = (props) => {
             });
         axios({
             method: 'get',
-            url: `http://143.110.254.46/poker/api/get-tournaments`,
+            url: `https://dev.logicrays.com/poker/api/get-tournaments`,
             headers: {
                 Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
@@ -81,7 +81,7 @@ const TournamentsOverview = (props) => {
         // setValue(date);
         axios({
             method: 'get',
-            url: `http://143.110.254.46/poker/api/tournament-overview?date=${moment(date).format("YYYY-MM-DD")}`,
+            url: `https://dev.logicrays.com/poker/api/tournament-overview?date=${moment(date).format("YYYY-MM-DD")}`,
             headers: {
               Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
@@ -92,7 +92,7 @@ const TournamentsOverview = (props) => {
         });
         axios({
             method: 'get',
-            url: `http://143.110.254.46/poker/api/get-transactions?transaction_type=Deduction&date=${moment(date).format("YYYY-MM-DD")}`,
+            url: `https://dev.logicrays.com/poker/api/get-transactions?transaction_type=Deduction&date=${moment(date).format("YYYY-MM-DD")}`,
             headers: {
               Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
             }
