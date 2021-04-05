@@ -24,7 +24,7 @@ const TransactionDeposit = (props) => {
     //console.log("transactionType", deductionData);
     // console.log("params ----->", localStorage.getItem("accessToken").trim());
     useEffect(() => {
-        setFrom(props?.match?.params?.slug)
+        setTo(props?.match?.params?.slug)
         setTransactionType("Deposit")
     },[])
     useEffect(() => {

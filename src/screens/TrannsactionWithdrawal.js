@@ -24,7 +24,7 @@ const TrannsactionWithdrawal = (props) => {
     //console.log("transactionType", deductionData);
     // console.log("params ----->", localStorage.getItem("accessToken").trim());
     useEffect(() => {
-        setTo(props?.match?.params?.slug)
+        setFrom(props?.match?.params?.slug)
         setTransactionType("Withdrawal")
     },[])
     useEffect(() => {

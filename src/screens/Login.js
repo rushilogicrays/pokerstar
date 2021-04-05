@@ -7,7 +7,7 @@ import axios from 'axios';
 const Login = (props) => {
     const [userName, setUserName] = useState(undefined);
     const [password, setPassword] = useState(undefined);
-    console.log("username --->", userName)
+    const [error, setError] = useState(false);
     const submitLogin = (event) => {
         //console.log("here");
         axios({
@@ -19,6 +19,7 @@ const Login = (props) => {
             } 
           })
             .then(function (response) {
+                console.log("res ---->",response);
                 localStorage.setItem("accessToken", response.data.key)
             })
             .then(response => {
@@ -35,6 +36,7 @@ const Login = (props) => {
                         props.history.push('/pendingtournaments')
                 });
             })
+            .catch(error => setError(true))
         event.preventDefault();
     }
     return (
@@ -62,9 +64,12 @@ const Login = (props) => {
                         </Form.Group>
 
                         <div className="action-btn">
-                            <Link to="/change_password">Forgot Password</Link>
+                            {/* <Link to="/change_password">Forgot Password</Link> */}
                             <Button id="orange-btn" variant="primary" type="submit" onClick={e => submitLogin(e)}>Submit</Button>
                         </div>
+                        {error && <div>
+                            <p style={{color: "red", marginTop: 10}}>please enter correct username and password</p>
+                        </div>}
                     </Form>
                 </div>
             </div>
