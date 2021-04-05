@@ -20,18 +20,21 @@ const Login = (props) => {
           })
             .then(function (response) {
                 localStorage.setItem("accessToken", response.data.key)
-                props.history.push('/pendingtournaments')
-            });
-        axios({
-            method: 'get',
-            url: 'http://143.110.254.46:8084/poker/rest-auth/user/',
-            headers: {
-              Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
-            }
-          })
-            .then(function (response) {
-                localStorage.setItem("pk", response.data.pk)
-            });
+            })
+            .then(response => {
+                axios({
+                    method: 'get',
+                    url: 'http://143.110.254.46:8084/poker/rest-auth/user/',
+                    headers: {
+                      Authorization: "Token "+localStorage.getItem("accessToken")?.trim()
+                    }
+                  })
+                    .then(function (response) {
+                        console.log("pk ---->", response.data)
+                        localStorage.setItem("pk", response.data.pk)
+                        props.history.push('/pendingtournaments')
+                });
+            })
         event.preventDefault();
     }
     return (
